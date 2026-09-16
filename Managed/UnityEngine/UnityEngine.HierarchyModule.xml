@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEngine.HierarchyModule</name>
+    </assembly>
+    <member name="A:UnityEngine.HierarchyModule">
+      <summary>
+        <para>Module containing a high performance Hierarchy container.</para>
+      </summary>
+    </member>
+  </members>
+</doc>

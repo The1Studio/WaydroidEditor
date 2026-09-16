@@ -1,0 +1,1110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.AdaptivePerformanceModule</name>
+    </assembly>
+    <member name="T:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceBuildHelper`1">
+      <summary>
+        <para>
+ Base abstract class that provides some common functionality for providers seeking to integrate with management assisted build.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceBuildHelper_1.callbackOrder">
+      <summary>
+        <para>Override of base IPreprocessBuildWithReport.</para>
+      </summary>
+      <returns>
+        <para>The callback order.</para>
+      </returns>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceBuildHelper_1.BuildSettingsKey">
+      <summary>
+        <para>Override of base IPreprocessBuildWithReport.</para>
+      </summary>
+      <returns>
+        <para>String that specifies the key to be used to set or get settings in EditorBuildSettings.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceBuildHelper_1.OnPostprocessBuild(UnityEditor.Build.Reporting.BuildReport)">
+      <summary>
+        <para>
+ Override of base IPostprocessBuildWithReport.
+ </para>
+      </summary>
+      <param name="report">BuildReport instance passed in from build pipeline.</param>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceBuildHelper_1.OnPreprocessBuild(UnityEditor.Build.Reporting.BuildReport)">
+      <summary>
+        <para>
+ Override of base IPreprocessBuildWithReport.
+ </para>
+      </summary>
+      <param name="report">BuildReport instance passed in from the build pipeline.</param>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceBuildHelper_1.SettingsForBuildTargetGroup(UnityEditor.BuildTargetGroup)">
+      <summary>
+        <para>Helper function to return current settings for a specific build target.</para>
+      </summary>
+      <param name="buildTargetGroup">An enum that specifies which platform group this build is for.</param>
+      <returns>
+        <para>A Unity object that represents the settings instance data for that build target, or null if not found.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceBuildUtils">
+      <summary>
+        <para>
+ Helper utilities for build-time modifications.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceBuildUtils.AddCustomScalerToProviderSetting(UnityEngine.AdaptivePerformance.IAdaptivePerformanceSettings)">
+      <summary>
+        <para>
+ Add the custom scaler in users' assets to the provider settings.
+ Only needed if you want to scan for custom scalers during build time.
+ </para>
+      </summary>
+      <param name="settings"></param>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceBuildUtils.GetWantedStartupBoostSetting(UnityEngine.AdaptivePerformance.IAdaptivePerformanceSettings)">
+      <summary>
+        <para>
+ Get value for boost mode on startup for given settings
+ </para>
+      </summary>
+      <param name="settings"></param>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceBuildUtils.UpdateBootConfigBoostSetting(System.String,System.String,System.String)">
+      <summary>
+        <para>
+ Add key to boot.config
+ </para>
+      </summary>
+      <param name="path">Player build path</param>
+      <param name="bootConfigKey">Key to add or update</param>
+      <param name="wantedSettingValue">Value for the key</param>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceGeneralSettingsPerBuildTarget">
+      <summary>
+        <para>
+ Container class that holds general settings for each build target group installed in Unity.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceGeneralSettingsPerBuildTarget.AdaptivePerformanceGeneralSettingsForBuildTarget(UnityEditor.BuildTargetGroup)">
+      <summary>
+        <para>Given a build target, get the general settings container assigned to it.</para>
+      </summary>
+      <param name="targetGroup">An enum that specifies which platform group this build is for.</param>
+      <returns>
+        <para>The instance of AdaptivePerformanceGeneralSettings assigned to the key, or null if no instance is assigned.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceGeneralSettingsPerBuildTarget.OnAfterDeserialize">
+      <summary>
+        <para>Serialization override.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceGeneralSettingsPerBuildTarget.OnBeforeSerialize">
+      <summary>
+        <para>Serialization override.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceGeneralSettingsPerBuildTarget.SetSettingsForBuildTarget(UnityEditor.BuildTargetGroup,UnityEngine.AdaptivePerformance.AdaptivePerformanceGeneralSettings)">
+      <summary>
+        <para>
+ Set specific settings for a given build target.
+ </para>
+      </summary>
+      <param name="targetGroup">An enum that specifies which platform group this build is for.</param>
+      <param name="settings">An instance of AdaptivePerformanceGeneralSettings to assign for the given key.</param>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceGeneralSettingsPerBuildTarget.SettingsForBuildTarget(UnityEditor.BuildTargetGroup)">
+      <summary>
+        <para>Get specific settings for a given build target.</para>
+      </summary>
+      <param name="targetGroup">An enum that specifies which platform group this build is for.</param>
+      <returns>
+        <para>The instance of AdaptivePerformanceGeneralSettings assigned to the key, or null if no instance is assigned.</para>
+      </returns>
+    </member>
+    <member name="?:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformancePackageInitializationBase">
+      <summary>
+        <para>An interface for automating the initial setup of a provider package.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformancePackageInitializationBase.LoaderFullTypeName">
+      <summary>
+        <para>The loader full type name for this package</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformancePackageInitializationBase.LoaderTypeName">
+      <summary>
+        <para>The loader type name for this package</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformancePackageInitializationBase.PackageInitKey">
+      <summary>
+        <para>Package initialization key</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformancePackageInitializationBase.PackageName">
+      <summary>
+        <para>Package name property</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformancePackageInitializationBase.PopulateSettingsOnInitialization(UnityEngine.ScriptableObject)">
+      <summary>
+        <para>Initialize package settings</para>
+      </summary>
+      <param name="obj">The scriptable object instance to initialize</param>
+      <returns>
+        <para>True if successful, false if not.</para>
+      </returns>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformancePackageInitializationBase.SettingsFullTypeName">
+      <summary>
+        <para>The settings full type name for this package</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformancePackageInitializationBase.SettingsTypeName">
+      <summary>
+        <para>The settings type name for this package</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceSupportedBuildTargetAttribute">
+      <summary>
+        <para>
+ Build attribute to identify which platforms a loader supports.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceSupportedBuildTargetAttribute.buildTargetGroup">
+      <summary>
+        <para>
+ String representation of https:docs.unity3d.comScriptReferenceBuildTargetGroup.html|UnityEditor.Build.BuildTargetGroup.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceSupportedBuildTargetAttribute.buildTargets">
+      <summary>
+        <para>
+ Array of BuildTargets, each of which is the representation of https:docs.unity3d.comScriptReferenceBuildTarget.html|UnityEditor.Build.BuildTarget
+ aligned with buildTargetGroup.
+
+ Currently only advisory.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceSupportedBuildTargetAttribute.#ctor(UnityEditor.BuildTargetGroup)">
+      <summary>
+        <para>Constructor for attribute. We assume that all build targets for this group will be supported.</para>
+      </summary>
+      <param name="buildTargetGroup">Build Target Group that will be supported.</param>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.AdaptivePerformanceSupportedBuildTargetAttribute.#ctor(UnityEditor.BuildTargetGroup,UnityEditor.BuildTarget[])">
+      <summary>
+        <para>Constructor for attribute</para>
+      </summary>
+      <param name="buildTargetGroup">Build Target Group that will be supported.</param>
+      <param name="buildTargets">The set of build targets of Build Target Group that will be supported.</param>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.Editor.Metadata.AdaptivePerformancePackageMetadataStore">
+      <summary>
+        <para>
+ Provide access to the metadata store. Currently only usable as a way to assign and remove loaders
+ to or from an AdaptivePerformanceManagerSettings instance.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.Metadata.AdaptivePerformancePackageMetadataStore.AssignLoader(UnityEngine.AdaptivePerformance.AdaptivePerformanceManagerSettings,System.String,UnityEditor.BuildTargetGroup)">
+      <summary>
+        <para>
+ Assigns a loader of type loaderTypeName to the settings instance. Will instantiate an
+ instance if one can't be found in the user's project folder before assigning it.
+ </para>
+      </summary>
+      <param name="settings">An instance of AdaptivePerformanceManagerSettings to add the loader to.</param>
+      <param name="loaderTypeName">The full type name for the loader instance to assign to settings.</param>
+      <param name="buildTargetGroup">The build target group being assigned to.</param>
+      <returns>
+        <para>True if assignment succeeds, false if not.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.Metadata.AdaptivePerformancePackageMetadataStore.RemoveLoader(UnityEngine.AdaptivePerformance.AdaptivePerformanceManagerSettings,System.String,UnityEditor.BuildTargetGroup)">
+      <summary>
+        <para>
+ Remove a previously assigned loader from settings. If the loader type is unknown or
+ an instance of the loader can't be found in the project folder, no action is taken.
+
+ Removal will not delete the instance from the project folder.
+ </para>
+      </summary>
+      <param name="settings">An instance of AdaptivePerformanceManagerSettings to add the loader to.</param>
+      <param name="loaderTypeName">The full type name for the loader instance to remove from settings.</param>
+      <param name="buildTargetGroup">The build target group being removed from.</param>
+      <returns>
+        <para>True if removal succeeds, false if not.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.Editor.Metadata.BuildProfileProviderContainer">
+      <summary>
+        <para>
+ A container class that contains all provider setting objects used in build profile.
+ This is to accommodate for addComponent API only takes a single object with a type,
+ but we have multiple objects with the same type, and are thus aggregated under this container.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.BuildProfileProviderContainer.adaptivePerformanceProviderSettings">
+      <summary>
+        <para>
+ all provider setting objects used in build profile.
+ </para>
+      </summary>
+    </member>
+    <member name="?:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformanceLoaderMetadata">
+      <summary>
+        <para>
+ Provides an interface for describing specific loader metadata. Package authors should implement
+ this interface for each loader they provide in their package.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformanceLoaderMetadata.loaderName">
+      <summary>
+        <para>
+ The user-facing name for this loader. Will be used to populate the
+ list in the Adaptive Performance Provider Management UI.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformanceLoaderMetadata.loaderType">
+      <summary>
+        <para>
+ The full type name for this loader. This is used to allow management to find and
+ create instances of supported loaders for your package.
+
+ When your package is first installed, the Adaptive Performance Provider Management system will
+ use this information to create instances of your loaders in AssetsAdaptive PerformanceLoaders.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformanceLoaderMetadata.priority">
+      <summary>
+        <para>
+ Defines the priority of the loader. The higher the number, the higher the priority.
+ Basic provider will take 0, google provider takes 1, and samsung provider will take 2.
+ If a user takes the already taken value, the order will not be guaranteed.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformanceLoaderMetadata.supportedBuildTargets">
+      <summary>
+        <para>
+ The full list of supported build targets for this loader. This allows the UI to only show the
+ loaders appropriate for a specific build target.
+
+ Returning an empty list or a list containing just https:docs.unity3d.comScriptReferenceBuildTargetGroup.Unknown.html|BuildTargetGroup.Unknown will make this
+ loader invisible in the UI.
+ </para>
+      </summary>
+    </member>
+    <member name="?:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformancePackage">
+      <summary>
+        <para>
+ Implement this interface to provide package-level information and actions.
+
+ Adaptive Performance Provider Management will reflect on all types in the project to find implementers
+ of this interface. These instances are used to get information required to integrate
+ your package with the Adaptive Performance Provider Management system.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformancePackage.metadata">
+      <summary>
+        <para>
+ Returns an instance of IAdaptivePerformancePackageMetadata. Information will be used
+ to allow the Adaptive Performance Provider Management to provide settings and loaders through the settings UI.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformancePackage.PopulateNewSettingsInstance(UnityEngine.ScriptableObject)">
+      <summary>
+        <para>
+ Allows the package to configure new settings passed in.
+ </para>
+      </summary>
+      <param name="obj">ScriptableObject instance that represents an instance of the settings
+ type provided by IAdaptivePerformancePackageMetadata.settingsType.</param>
+      <returns>
+        <para>True if the operation succeeded, false if not. If implementation is empty, just return true.</para>
+      </returns>
+    </member>
+    <member name="?:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformancePackageMetadata">
+      <summary>
+        <para>
+ Top-level package metadata interface. Create an instance of this interface to
+ provide metadata information for your package.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformancePackageMetadata.isDefaultPlatformProvider">
+      <summary>
+        <para>
+ Information about the status of being a default platform provider.
+
+ The flag is set by the package info to define the status of a provider on a specific build platform.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformancePackageMetadata.isDeprecated">
+      <summary>
+        <para>
+ Information about the deprecation state of the package.
+
+ The flag is set to identify deprecated packages.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformancePackageMetadata.licenseURL">
+      <summary>
+        <para>
+ The full URL for the license for your package.
+
+ The full URL is used to inform the user that a separate package license exists. Must point to the same
+ license as the one in the package.json file which displays in the provider list. The user accepts the license
+ by installing the provider.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformancePackageMetadata.loaderMetadata">
+      <summary>
+        <para>
+ List of IAdaptivePerformanceLoaderMetadata instances describing the data about the loaders
+ your package supports.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformancePackageMetadata.packageId">
+      <summary>
+        <para>
+ The package id used to track and install the package. Must be the same value
+ as the name keyword in the package.json file, otherwise installation will
+ not be possible.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformancePackageMetadata.packageName">
+      <summary>
+        <para>
+ User-facing package name. Should be the same as the value for the
+ displayName keyword in the package.json file.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.Metadata.IAdaptivePerformancePackageMetadata.settingsType">
+      <summary>
+        <para>
+ The full type name for the settings type for your package.
+
+ When your package is first installed, the Adaptive Performance Provider Management system will
+ use this information to create an instance of your settings in AssetsAdaptive PerformanceSettings.
+ </para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor">
+      <summary>
+        <para>
+ This is a custom Editor base for Provider Settings. It displays provider general settings and you can use it to extend provider settings editors to display custom provider settings.
+ </para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.m_ShowDevelopmentSettings">
+      <summary>
+        <para>
+ Whether the development settings are collapsed or not.
+ </para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.m_ShowIndexerSettings">
+      <summary>
+        <para>
+ Whether the indexer settings are collapsed or not.
+ </para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.m_ShowRuntimeSettings">
+      <summary>
+        <para>
+ Whether the runtime settings are collapsed or not.
+ </para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.m_ShowScalerSettings">
+      <summary>
+        <para>
+ Whether the scaler settings are collapsed or not.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.CurrentTargetGroup">
+      <summary>
+        <para>
+ Specify which platform the provider should be supported on.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.DisplayBaseDeveloperSettings">
+      <summary>
+        <para>
+ Displays the base developer settings. Requires DisplayBaseSettingsBegin() to be called before and DisplayBaseSettingsEnd() after as serialization is not taken care of.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.DisplayBaseIndexerSettings">
+      <summary>
+        <para>
+ Displays the base indexer settings. Requires the serializedObject to be updated before and applied after as serialization is not taken care of.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.DisplayBaseRuntimeSettings">
+      <summary>
+        <para>
+ Displays the base runtime settings. Requires DisplayBaseSettingsBegin() to be called before and DisplayBaseSettingsEnd() after as serialization is not taken care of.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.DisplayBaseSettingsBegin(System.Boolean)">
+      <summary>
+        <para>
+ Starts the display block of the base settings. Needs to be called if DisplayBaseRuntimeSettings() or DisplayBaseDeveloperSettings() gets called. Needs to be concluded by a call to DisplayBaseSettingsEnd().
+ Pass isLegacyAPI = false to hide the legacy warning banner and comply with new APIs.
+ Default is true (for compatibility).
+ </para>
+      </summary>
+      <param name="isLegacyAPI"></param>
+      <returns>
+        <para>
+ False if the settings cannot be loaded. Otherwise true.
+ </para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.DisplayBaseSettingsEnd(System.Boolean)">
+      <summary>
+        <para>
+ Ends the display block of the base settings. Needs to be called if DisplayBaseSettingsBegin() is called.
+ Pass isLegacyAPI = false to comply with new APIs in this class.
+ Default is true (for compatibility).
+ </para>
+      </summary>
+      <param name="isLegacyAPI"></param>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.DisplayProviderSettings">
+      <summary>
+        <para>
+ Default UI for showing provider settings on both project settings and build profile.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.DisplayScalerSettings">
+      <summary>
+        <para>
+ Displays the base scaler settings. Requires the serializedObject to be updated before and applied after as serialization is not taken care of.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.DisplayTargetProviderSettings">
+      <summary>
+        <para>
+ Display default common base settings for provider on specific target, which user could choose
+ to override if they are using DisplayProviderSettings.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.IsAutoGameModeAvailable">
+      <summary>
+        <para>
+ Controls whether or not the 'AutomaticGameModeEnabled' option is available. Default value is false.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.IsAutoPerformanceModeAvailable">
+      <summary>
+        <para>
+ Controls whether or not the 'AutomaticPerformanceModeEnabled' option is available. Default value is true.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.IsBoostAvailable">
+      <summary>
+        <para>
+ Controls whether or not the 'EnableBoostOnStartup' option is available. Default value is true.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.IsThermalActionDelayAvailable">
+      <summary>
+        <para>
+ Controls whether or not the 'Indexer/Thermal Action Delay' option is available. Default value is false.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.OnEnable">
+      <summary>
+        <para>
+ Enables Settings Editor and generates the reorderable list to store all profiles in.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.ShowTargetGroupSelection">
+      <summary>
+        <para>
+ Whether to show targetGroupSelection tab when using the default base setting.
+ User should use this property to conditionally define their UI if they choose to custom the
+ provider setting UI for each platform and uses the targetGroupSelection tab.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Editor.ProviderSettingsEditor.UnsupportedInfo">
+      <summary>
+        <para>
+ String to show when the provider is not available on this platform.
+ </para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem">
+      <summary>
+        <para>
+ The subsystem is used for simulating Adaptive Performance in the Editor with the https:docs.unity3d.comManualDeviceSimulator.html|Device Simulator.
+ It is also used for Adaptive Performance tests and to simulate Adaptive Performance when it is not available on the hardware you work with.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.AcceptsPerformanceLevel">
+      <summary>
+        <para>
+ Required to simulate performance changes. To change AutomaticPerformanceControl, you have to set AcceptsPerformanceLevel to true. See PerformanceDataRecord.PerformanceLevelControlAvailable.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.ChangeFlags">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.ChangeFlags.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.CpuPerformanceBoost">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.CpuPerformanceBoost.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.CpuPerformanceLevel">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.CpuPerformanceLevel.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.GpuPerformanceBoost">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.GpuPerformanceBoost.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.GpuPerformanceLevel">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.GpuPerformanceLevel.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.NextCpuFrameTime">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.CpuFrameTime.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.NextGpuFrameTime">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.GpuFrameTime.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.NextOverallFrameTime">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.OverallFrameTime.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.PerformanceMode">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.PerformanceMode.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SetClusterInfo(UnityEngine.AdaptivePerformance.ClusterInfo)">
+      <summary>
+        <para>
+ Helper for the device simulator to change cluster info settings. Those settings are usually changed by a device directly.
+ </para>
+      </summary>
+      <param name="clusterInfo">New Cluster Info values.</param>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider">
+      <summary>
+        <para>
+ The Simulator Provider controls Subsystems needed to access Adaptive Performance features and the systems lifecycle.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.AcceptsPerformanceLevel">
+      <summary>
+        <para>
+ Required to simulate performance changes. To change AutomaticPerformanceControl, you have to set AcceptsPerformanceLevel to true. See PerformanceDataRecord.PerformanceLevelControlAvailable.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.ApplicationLifecycle">
+      <summary>
+        <para>
+ Returns the application lifecycle.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.ApplicationPause">
+      <summary>
+        <para>
+ Callback that is called when the application goes into a pause state.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.ApplicationResume">
+      <summary>
+        <para>
+ Callback that is called when the application resumes after being paused.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.Capabilities">
+      <summary>
+        <para>
+ Returns the capabilities of the provider.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.ChangeFlags">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.ChangeFlags.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.CpuPerformanceBoost">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.CpuPerformanceBoost.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.CpuPerformanceLevel">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.CpuPerformanceLevel.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.#ctor">
+      <summary>
+        <para>
+ Main constructor, used to initialize the provider capabilities.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.Destroy">
+      <summary>
+        <para>
+ Cleanup when the subsystem object is destroyed.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.EnableCpuBoost">
+      <summary>
+        <para>
+ Enable the boost mode for the CPU.
+ </para>
+      </summary>
+      <returns>
+        <para>Returns if CPU boost mode was successfully enabled.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.EnableGpuBoost">
+      <summary>
+        <para>
+ Enable the boost mode for the GPU.
+ </para>
+      </summary>
+      <returns>
+        <para>Returns if GPU boost mode was successfully enabled.</para>
+      </returns>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.GpuPerformanceBoost">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.GpuPerformanceBoost.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.GpuPerformanceLevel">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.GpuPerformanceLevel.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.Initialized">
+      <summary>
+        <para>
+ Returns the initialization status of the system.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.MaxCpuPerformanceLevel">
+      <summary>
+        <para>
+ See IDevicePerformanceLevelControl.MaxCpuPerformanceLevel.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.MaxGpuPerformanceLevel">
+      <summary>
+        <para>
+ See IDevicePerformanceLevelControl.MaxGpuPerformanceLevel.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.NextCpuFrameTime">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.CpuFrameTime.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.NextGpuFrameTime">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.GpuFrameTime.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.NextOverallFrameTime">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.OverallFrameTime.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.PerformanceLevelControl">
+      <summary>
+        <para>
+ Returns the performance level control.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.PerformanceMode">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.PerformanceMode.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.SetClusterInfo(UnityEngine.AdaptivePerformance.ClusterInfo)">
+      <summary>
+        <para>
+ Helper for the device simulator to change cluster info settings. Those settings are usually changed by a device directly.
+ </para>
+      </summary>
+      <param name="clusterInfo">New Cluster Info values.</param>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.SetPerformanceLevel(System.Int32&amp;,System.Int32&amp;)">
+      <summary>
+        <para>
+ Set the performance level for both the CPU and GPU.
+ </para>
+      </summary>
+      <param name="cpuLevel">The CPU performance level to request.</param>
+      <param name="gpuLevel">The GPU performance level to request.</param>
+      <returns>
+        <para>Returns if the levels were successfully set.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.Start">
+      <summary>
+        <para>
+ Perform initialization of the subsystem.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.Stats">
+      <summary>
+        <para>
+ Returns the stats of the provider.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.Stop">
+      <summary>
+        <para>
+ Stop running the subsystem.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.TemperatureLevel">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.TemperatureLevel.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.TemperatureTrend">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.TemperatureTrend.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.TryInitialize">
+      <summary>
+        <para>
+ Simulator subsystem try to initialize initializes successfully.
+ </para>
+      </summary>
+      <returns>
+        <para>true if initialized</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.Update">
+      <summary>
+        <para>
+ Update current results and flags.
+ </para>
+      </summary>
+      <returns>
+        <para>The latest PerformanceDataRecord object.</para>
+      </returns>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.Version">
+      <summary>
+        <para>
+ The current version of the Device Simulator Adaptive Performance Subsystem. Matches the version of the Adaptive Performance Subsystem. See AdaptivePerformanceSubsystem.Version.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.SimulatorProvider.WarningLevel">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.WarningLevel.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.TemperatureLevel">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.TemperatureLevel.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.TemperatureTrend">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.TemperatureTrend.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorAdaptivePerformanceSubsystem.WarningLevel">
+      <summary>
+        <para>
+ This property is a wrapper around an internal PerformanceDataRecord object. For more details, see PerformanceDataRecord.WarningLevel.
+ </para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderConstants">
+      <summary>
+        <para>
+ Static constants for the Simulator Provider.
+ </para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderConstants.k_SettingsKey">
+      <summary>
+        <para>
+ Key that Unity uses to store and retrieve custom configuration settings from EditorBuildSettings.
+ </para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderLoader">
+      <summary>
+        <para>
+ SimulatorProviderLoader implements the loader for the Adaptive Performance Device Simulator plugin.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderLoader.simulatorSubsystem">
+      <summary>
+        <para>Returns the currently active Simulator Subsystem instance, if any.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderLoader.Deinitialize">
+      <summary>
+        <para>Implementation of AdaptivePerformanceLoader.Deinitialize.</para>
+      </summary>
+      <returns>
+        <para>True if successfully deinitialized the Simulator subsystem, false otherwise.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderLoader.GetDefaultSubsystem">
+      <summary>
+        <para>
+ Implementation of AdaptivePerformanceLoader.GetDefaultSubsystem</para>
+      </summary>
+      <returns>
+        <para>The Simulator as currently loaded default subststem. Adaptive Performance always initializes the first subsystem and uses it as a default, because only one subsystem can be present at a given time. You can change subsystem order in the Adaptive Performance Provider Settings.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderLoader.GetSettings">
+      <summary>
+        <para>
+ Implementation of AdaptivePerformanceLoader.GetSettings.
+ </para>
+      </summary>
+      <returns>
+        <para>Returns the Simulator settings.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderLoader.Initialize">
+      <summary>
+        <para>Implementation of AdaptivePerformanceLoader.Initialize.</para>
+      </summary>
+      <returns>
+        <para>True if successfully initialized the Simulator subsystem, false otherwise.</para>
+      </returns>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderLoader.Initialized">
+      <summary>
+        <para>
+ Returns if the provider loader was initialized successfully.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderLoader.Running">
+      <summary>
+        <para>
+ Returns if the provider loader is currently running.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderLoader.Start">
+      <summary>
+        <para>Implementation of AdaptivePerformanceLoader.Start.</para>
+      </summary>
+      <returns>
+        <para>True if successfully started the Simulator subsystem, false otherwise.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderLoader.Stop">
+      <summary>
+        <para>Implementation of AdaptivePerformanceLoader.Stop.</para>
+      </summary>
+      <returns>
+        <para>True if successfully stopped the Simulator subsystem, false otherwise</para>
+      </returns>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderSettings">
+      <summary>
+        <para>
+ Provider Settings for Simulator Provider which controls the editor runtime asset instance which stores the Settings.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderSettings.GetSettings">
+      <summary>
+        <para>
+ Returns Samsung Provider Settings which are used by Adaptive Performance to apply Provider Settings.
+ </para>
+      </summary>
+      <returns>
+        <para>Samsung Provider Settings</para>
+      </returns>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderSettingsEditor">
+      <summary>
+        <para>
+ This is custom Editor for Simulator Provider Settings.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderSettingsEditor.CurrentTargetGroup">
+      <summary>
+        <para>
+ Override of Editor callback to display custom settings.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.Simulator.Editor.SimulatorProviderSettingsEditor.OnInspectorGUI">
+      <summary>
+        <para>
+ Shows the setting for simulator provider.
+ </para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.AdaptivePerformance.UI.Editor.UsageDial">
+      <summary>
+        <para>
+ Usage Dial is a VisualElement to display a values with a color dial.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.UI.Editor.UsageDial.#ctor">
+      <summary>
+        <para>
+ Constructor, setups the usage dial with its correct percentages.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.AdaptivePerformance.UI.Editor.UsageDial.SetThresholds(System.Int32,System.Int32,System.Boolean)">
+      <summary>
+        <para>
+ Change the percentage levels of the dial.
+ </para>
+      </summary>
+      <param name="force">Force and intemediate update.</param>
+      <param name="yellowPercentage"></param>
+      <param name="redPercentage"></param>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.UI.Editor.UsageDial.ShowLabel">
+      <summary>
+        <para>
+ If the usage dial should show the percentage label.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.AdaptivePerformance.UI.Editor.UsageDial.Value">
+      <summary>
+        <para>
+ A value the usage dial should represent.
+ </para>
+      </summary>
+    </member>
+  </members>
+</doc>

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Stands in for a Unity-built game, so it must compile against the same MemoryPack.Core asset
+         the games do: netstandard2.1. Core pins the identical reference — keep the two in step. -->
+    <PackageReference Include="MemoryPack.Core" Version="1.21.4" GeneratePathProperty="true" ExcludeAssets="all" />
+    <PackageReference Include="MemoryPack.Generator" Version="1.21.4" PrivateAssets="all" />
+    <!-- The netstandard2.1 Core graph pulls these; excluding Core's own assets prunes them too. -->
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <Reference Include="MemoryPack.Core">
+      <HintPath>$(PkgMemoryPack_Core)/lib/netstandard2.1/MemoryPack.Core.dll</HintPath>
+    </Reference>
+    <!-- Private=false + PrivateAssets=all: the fixture is deliberately NOT copied next to
+         FakeGameData (nor into anything that consumes it), so attribute reads on its members fail
+         the way they do for a game's unimported attribute assemblies. -->
+    <ProjectReference Include="../FakeAttributes/FakeAttributes.csproj" Private="false" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

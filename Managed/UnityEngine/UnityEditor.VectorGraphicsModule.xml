@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.VectorGraphicsModule</name>
+    </assembly>
+    <member name="T:Unity.VectorGraphics.Editor.SVGImporter">
+      <summary>
+        <para>The SVG importer class.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.AdvancedMode">
+      <summary>
+        <para>Use advanced settings.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.Alignment">
+      <summary>
+        <para>The SVG sprite alignement.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.CustomPivot">
+      <summary>
+        <para>The custom pivot, when alignement is "Custom".</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.FilterMode">
+      <summary>
+        <para>The filter mode of the texture (only used when importing to a texture).</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.GeneratePhysicsShape">
+      <summary>
+        <para>Automaticallly generates a physics shape.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.GradientResolution">
+      <summary>
+        <para>Maximum resolution for gradient texture.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.KeepTextureAspectRatio">
+      <summary>
+        <para>The size of the texture (only used when importing to a texture).</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.MaxCordDeviation">
+      <summary>
+        <para>Distance on the cord to a straight line between two points after which more tessellation will be generated.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.MaxCordDeviationEnabled">
+      <summary>
+        <para>Enables the "max coord deviation" constraint.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.MaxTangentAngle">
+      <summary>
+        <para>Max tangent angle (in degrees) after which more tessellation will be generated.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.MaxTangentAngleEnabled">
+      <summary>
+        <para>Enables the "max tangent angle" constraint.</para>
+      </summary>
+    </member>
+    <member name="M:Unity.VectorGraphics.Editor.SVGImporter.OnImportAsset(UnityEditor.AssetImporters.AssetImportContext)">
+      <summary>
+        <para>Imports an SVG asset</para>
+      </summary>
+      <param name="ctx">The asset import context of the scripted importer</param>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.PredefinedResolutionIndex">
+      <summary>
+        <para>The predefined resolution used, when not in advanced mode.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.PreserveSVGImageAspect">
+      <summary>
+        <para>When importing to an SVGImage, preserves the aspect ratio of the generated sprite.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.PreserveViewport">
+      <summary>
+        <para>Preserves the viewport defined in the SVG document.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.ResolutionMultiplier">
+      <summary>
+        <para>An additional scale factor on the target resolution.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.SampleCount">
+      <summary>
+        <para>The number of samples per pixel (only used when importing to a texture).</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.SamplingStepDistance">
+      <summary>
+        <para>Number of samples evaluated on paths.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.StepDistance">
+      <summary>
+        <para>The uniform step distance used for tessellation.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.SvgPixelsPerUnit">
+      <summary>
+        <para>The number of pixels per Unity units.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.SvgType">
+      <summary>
+        <para>How the SVG file will be imported</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.TargetResolution">
+      <summary>
+        <para>The target resolution on which this SVG is displayed.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.TessellationMode">
+      <summary>
+        <para>
+ The serialization mode used when importing the SVG document.
+ </para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.TexturedSpriteMeshType">
+      <summary>
+        <para>For textured sprite, the mesh type</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.TextureHeight">
+      <summary>
+        <para>The height of the texture (only used when importing to a texture).</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.TextureSize">
+      <summary>
+        <para>The size of the texture (only used when importing to a texture with "keep aspect ratio").</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.TextureWidth">
+      <summary>
+        <para>The width of the texture (only used when importing to a texture).</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.UseSVGPixelsPerUnit">
+      <summary>
+        <para>When importing as a textured sprite asset, uses the SVG size to compute the pixels per unit.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.ViewportOptions">
+      <summary>
+        <para>Viewport options to use when importing the SVG document.</para>
+      </summary>
+    </member>
+    <member name="P:Unity.VectorGraphics.Editor.SVGImporter.WrapMode">
+      <summary>
+        <para>The wrap mode of the texture (only used when importing to a texture).</para>
+      </summary>
+    </member>
+    <member name="T:Unity.VectorGraphics.Editor.SVGType">
+      <summary>
+        <para>An enum describing how SVG files are imported.</para>
+      </summary>
+    </member>
+    <member name="F:Unity.VectorGraphics.Editor.SVGType.Texture2D">
+      <summary>
+        <para>The SVG file will be imported as a Texture2D</para>
+      </summary>
+    </member>
+    <member name="F:Unity.VectorGraphics.Editor.SVGType.TexturedSprite">
+      <summary>
+        <para>The SVG file will be imported as a textured sprite</para>
+      </summary>
+    </member>
+    <member name="F:Unity.VectorGraphics.Editor.SVGType.UISVGImage">
+      <summary>
+        <para>The SVG file will be imported as a tessellated sprite, compatible with the UI canvas masking system</para>
+      </summary>
+    </member>
+    <member name="F:Unity.VectorGraphics.Editor.SVGType.VectorImage">
+      <summary>
+        <para>The SVG file will be imported as a UI Toolkit Vector Image asset</para>
+      </summary>
+    </member>
+    <member name="F:Unity.VectorGraphics.Editor.SVGType.VectorSprite">
+      <summary>
+        <para>The SVG file will be imported as a tessellated sprite</para>
+      </summary>
+    </member>
+    <member name="T:Unity.VectorGraphics.Editor.TessellationMode">
+      <summary>
+        <para>
+ An enum describing how the SVG file will be tessellated.
+ </para>
+      </summary>
+    </member>
+    <member name="F:Unity.VectorGraphics.Editor.TessellationMode.AntialiasedArcEncodings">
+      <summary>
+        <para>
+ The tessellation will be done antialiased the arc encodings.
+ </para>
+      </summary>
+    </member>
+    <member name="F:Unity.VectorGraphics.Editor.TessellationMode.Triangulation">
+      <summary>
+        <para>
+ The tessellation will be done using simple triangulation. Antialiasing has
+ to be achieved using other methods, such as MSAA.
+ </para>
+      </summary>
+    </member>
+  </members>
+</doc>

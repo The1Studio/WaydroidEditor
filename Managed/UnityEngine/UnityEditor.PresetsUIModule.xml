@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.PresetsUIModule</name>
+    </assembly>
+    <member name="T:UnityEditor.Presets.DefaultPresetSelectorReceiver">
+      <summary>
+        <para>Basic implementation of the PresetSelectorReceiver.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Presets.DefaultPresetSelectorReceiver.OnSelectionChanged(UnityEditor.Presets.Preset)">
+      <summary>
+        <para>Applies the Preset to each target. If Preset is null, this method reverts the value of each target.</para>
+      </summary>
+      <param name="selection"></param>
+    </member>
+    <member name="M:UnityEditor.Presets.DefaultPresetSelectorReceiver.OnSelectionClosed(UnityEditor.Presets.Preset)">
+      <summary>
+        <para>Applies the current selection and then destroys itself.</para>
+      </summary>
+      <param name="selection"></param>
+    </member>
+    <member name="T:UnityEditor.Presets.PresetSelector">
+      <summary>
+        <para>This class implements a modal window that selects a Preset asset from the Project.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Presets.PresetSelector.DrawPresetButton(UnityEngine.Rect,UnityEngine.Object[])">
+      <summary>
+        <para>Draw a Preset button that opens the default PresetSelector using the targets array.</para>
+      </summary>
+      <param name="rectangle">The Rect where the PresetSelector icon is drawn.</param>
+      <param name="targets">List of objects to which the selected Preset is applied.</param>
+    </member>
+    <member name="M:UnityEditor.Presets.PresetSelector.ShowSelector(UnityEngine.Object[],UnityEditor.Presets.Preset,System.Boolean)">
+      <summary>
+        <para>Opens a modal window to select a Preset.</para>
+      </summary>
+      <param name="targets">The list of objects to which the selected Preset is applied.</param>
+      <param name="currentSelection">The selected Preset when the window is opened. Set to 'null' for no selection.</param>
+      <param name="createNewAllowed">Whether to show the 'Create New Preset...' button. Set to true to show the button. Set to false to hide this button.</param>
+      <param name="onSelectionChanged">Callback invoked when the selected Preset is changed. Provides the selected preset as argument.</param>
+      <param name="onSelectionClosed">Callback invoked when the PresetSelector window is closed. Provides as arguments the selected preset and whether or not the selction was cancelled.</param>
+    </member>
+    <member name="M:UnityEditor.Presets.PresetSelector.ShowSelector(UnityEngine.Object[],UnityEditor.Presets.Preset,System.Boolean,System.Action`1&lt;UnityEditor.Presets.Preset&gt;,System.Action`2&lt;UnityEditor.Presets.Preset,System.Boolean&gt;)">
+      <summary>
+        <para>Opens a modal window to select a Preset.</para>
+      </summary>
+      <param name="targets">The list of objects to which the selected Preset is applied.</param>
+      <param name="currentSelection">The selected Preset when the window is opened. Set to 'null' for no selection.</param>
+      <param name="createNewAllowed">Whether to show the 'Create New Preset...' button. Set to true to show the button. Set to false to hide this button.</param>
+      <param name="onSelectionChanged">Callback invoked when the selected Preset is changed. Provides the selected preset as argument.</param>
+      <param name="onSelectionClosed">Callback invoked when the PresetSelector window is closed. Provides as arguments the selected preset and whether or not the selction was cancelled.</param>
+    </member>
+    <member name="M:UnityEditor.Presets.PresetSelector.ShowSelector(UnityEditor.Presets.PresetType,UnityEditor.Presets.Preset,UnityEditor.SerializedProperty,System.Boolean)">
+      <summary>
+        <para>Opens a modal window to select a Preset from an object field backed by a SerializedProperty.</para>
+      </summary>
+      <param name="presetType">Filters the list of Presets based on a specific PresetType.</param>
+      <param name="currentSelection">The selected Preset when the window is opened. Set to 'null' for no selection.</param>
+      <param name="presetProperty">The SerializedProperty behind an ObjectField used to select preset assets.</param>
+      <param name="createNewAllowed">Whether to show the 'Create New Preset...' button. Set to true to show the button. Set to false to hide this button.</param>
+      <returns>
+        <para>Returns the search view.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.Presets.PresetSelector.ShowSelector(UnityEngine.Object,UnityEditor.Presets.Preset,System.Boolean,UnityEditor.Presets.PresetSelectorReceiver)">
+      <summary>
+        <para>OBSOLETE. Opens a modal window to select a Preset.</para>
+      </summary>
+      <param name="target">Object that identifies the type of Preset asset being selected. The modal window filters the selector view based on this object.</param>
+      <param name="currentSelection">The selected Preset when the window is opened. Set to 'null' for no selection.</param>
+      <param name="createNewAllowed">Whether to show the 'Create New Preset...' button. Set to true to show the button. Set to false to hide this button.</param>
+      <param name="eventReceiver">The PresetSelectorReceiver instance that the PresetSelector uses to send events.</param>
+      <param name="presetType">Filters the list of Presets based on a specific PresetType. Use this param to set the PresetType when no target is specified.</param>
+    </member>
+    <member name="M:UnityEditor.Presets.PresetSelector.ShowSelector(UnityEditor.Presets.PresetType,UnityEditor.Presets.Preset,System.Boolean,UnityEditor.Presets.PresetSelectorReceiver)">
+      <summary>
+        <para>OBSOLETE. Opens a modal window to select a Preset.</para>
+      </summary>
+      <param name="target">Object that identifies the type of Preset asset being selected. The modal window filters the selector view based on this object.</param>
+      <param name="currentSelection">The selected Preset when the window is opened. Set to 'null' for no selection.</param>
+      <param name="createNewAllowed">Whether to show the 'Create New Preset...' button. Set to true to show the button. Set to false to hide this button.</param>
+      <param name="eventReceiver">The PresetSelectorReceiver instance that the PresetSelector uses to send events.</param>
+      <param name="presetType">Filters the list of Presets based on a specific PresetType. Use this param to set the PresetType when no target is specified.</param>
+    </member>
+    <member name="T:UnityEditor.Presets.PresetSelectorReceiver">
+      <summary>
+        <para>Implement this class to control the selection change when selecting a Preset in the PresetSelector.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Presets.PresetSelectorReceiver.OnSelectionChanged(UnityEditor.Presets.Preset)">
+      <summary>
+        <para>When a new Preset is selected in the modal window, this method is called by PresetSelector.</para>
+      </summary>
+      <param name="selection">This parameter is set to null when 'None' is the new selection in the PresetSelector.</param>
+    </member>
+    <member name="M:UnityEditor.Presets.PresetSelectorReceiver.OnSelectionClosed(UnityEditor.Presets.Preset)">
+      <summary>
+        <para>This method is called by the PresetSelector when the modal window is closed.</para>
+      </summary>
+      <param name="selection"></param>
+    </member>
+  </members>
+</doc>

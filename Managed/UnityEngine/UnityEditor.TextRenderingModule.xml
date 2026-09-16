@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.TextRenderingModule</name>
+    </assembly>
+    <member name="T:UnityEditor.AscentCalculationMode">
+      <summary>
+        <para>Method used for calculating a font's ascent.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.AscentCalculationMode.FaceAscender">
+      <summary>
+        <para>Ascender method.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.AscentCalculationMode.FaceBoundingBox">
+      <summary>
+        <para>Bounding box method.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.AscentCalculationMode.Legacy2x">
+      <summary>
+        <para>Legacy bounding box method.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.FontRenderingMode">
+      <summary>
+        <para>Font rendering mode constants for TrueTypeFontImporter.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.FontRenderingMode.HintedRaster">
+      <summary>
+        <para>Use hinted font rendering without anti-aliasing. This is the crispest font rendering option, and may be most readable for small font sizes.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.FontRenderingMode.HintedSmooth">
+      <summary>
+        <para>Use Anti-Aliased Font rendering with hinting. This forces character lines to run along pixel boundaries.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.FontRenderingMode.OSDefault">
+      <summary>
+        <para>Use the OS default font rendering mode. This mode is only available for dynamic fonts, as static fonts are generated at build time.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.FontRenderingMode.Smooth">
+      <summary>
+        <para>Use Anti-Aliased Font rendering. When using dynamic fonts, this is the mode which is fastest in rendering font textures.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.FontTextureCase">
+      <summary>
+        <para>Texture case constants for TrueTypeFontImporter.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.FontTextureCase.ASCII">
+      <summary>
+        <para>Import basic ASCII character set.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.FontTextureCase.ASCIILowerCase">
+      <summary>
+        <para>Only import lower case ASCII character set.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.FontTextureCase.ASCIIUpperCase">
+      <summary>
+        <para>Only import upper case ASCII character set.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.FontTextureCase.CustomSet">
+      <summary>
+        <para>Custom set of characters.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.FontTextureCase.Dynamic">
+      <summary>
+        <para>Render characters into font texture at runtime as needed.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.FontTextureCase.Unicode">
+      <summary>
+        <para>Import a set of Unicode characters common for latin scripts.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TrueTypeFontImporter">
+      <summary>
+        <para>AssetImporter for importing Fonts.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TrueTypeFontImporter.ascentCalculationMode">
+      <summary>
+        <para>Calculation mode for determining font's ascent.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TrueTypeFontImporter.characterPadding">
+      <summary>
+        <para>Border pixels added to character images for padding. This is useful if you want to render text using a shader which needs to render outside of the character area (like an outline shader).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TrueTypeFontImporter.characterSpacing">
+      <summary>
+        <para>Spacing between character images in the generated texture in pixels. This is useful if you want to render text using a shader which samples pixels outside of the character area (like an outline shader).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TrueTypeFontImporter.customCharacters">
+      <summary>
+        <para>A custom set of characters to be included in the Font Texture.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TrueTypeFontImporter.fontNames">
+      <summary>
+        <para>An array of font names, to be used when includeFontData is set to false.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TrueTypeFontImporter.fontReferences">
+      <summary>
+        <para>References to other fonts to be used looking for fallbacks.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TrueTypeFontImporter.fontRenderingMode">
+      <summary>
+        <para>Font rendering mode to use for this font.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TrueTypeFontImporter.fontSize">
+      <summary>
+        <para>Font size to use for importing the characters.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TrueTypeFontImporter.fontTextureCase">
+      <summary>
+        <para>Use this to adjust which characters should be imported.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TrueTypeFontImporter.fontTTFName">
+      <summary>
+        <para>The internal font name of the TTF file.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TrueTypeFontImporter.includeFontData">
+      <summary>
+        <para>If this is enabled, the actual font will be embedded into the asset for Dynamic fonts.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TrueTypeFontImporter.shouldRoundAdvanceValue">
+      <summary>
+        <para>Set this property to true if you want to round the internal advance width of the font to the nearest integer.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TrueTypeFontImporter.GenerateEditableFont(System.String)">
+      <summary>
+        <para>Create an editable copy of the font asset at path.</para>
+      </summary>
+      <param name="path"></param>
+    </member>
+  </members>
+</doc>

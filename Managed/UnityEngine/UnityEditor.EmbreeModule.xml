@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.EmbreeModule</name>
+    </assembly>
+    <member name="T:UnityEditor.Embree.GpuBvhBuildOptions">
+      <summary>
+        <para>Options for bounding volume hierarchy (BVH) build.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Embree.GpuBvhBuildOptions.allowPrimitiveSplits">
+      <summary>
+        <para>With this option enabled, Unity performs spatial splits. This increases the memory footprint, but the resulting BVH makes the ray tracing stage faster.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Embree.GpuBvhBuildOptions.isTopLevel">
+      <summary>
+        <para>With this option enabled, Unity builds a top level BVH (for instances). When disabled, it builds a bottom level BVH (for a Mesh).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Embree.GpuBvhBuildOptions.maxLeafSize">
+      <summary>
+        <para>The maximum number of primitives allowed in a leaf node.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Embree.GpuBvhBuildOptions.minLeafSize">
+      <summary>
+        <para>The minimum number of primitives allowed in a leaf node.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Embree.GpuBvhBuildOptions.quality">
+      <summary>
+        <para>BVH build quality.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.Embree.GpuBvhBuildQuality">
+      <summary>
+        <para>BVH build quality.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Embree.GpuBvhBuildQuality.High">
+      <summary>
+        <para>Highest possible ray tracing performance, slowest build time. This quality level uses spatial splits when enabled.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Embree.GpuBvhBuildQuality.Low">
+      <summary>
+        <para>Faster build time, slower ray tracing performance. Can be beneficial for dynamic scenes.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Embree.GpuBvhBuildQuality.Medium">
+      <summary>
+        <para>This level balances the build time and ray tracing performance.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.Embree.GpuBvhPrimitiveDescriptor">
+      <summary>
+        <para>Characteristics of a primitive used in the BVH build.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Embree.GpuBvhPrimitiveDescriptor.lowerBound">
+      <summary>
+        <para>Lower bound of the primitive's bounding box.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Embree.GpuBvhPrimitiveDescriptor.primID">
+      <summary>
+        <para>Specify the primitive ID. The ID is written in leaf nodes.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Embree.GpuBvhPrimitiveDescriptor.upperBound">
+      <summary>
+        <para>Upper bound of the primitive's bounding box.</para>
+      </summary>
+    </member>
+  </members>
+</doc>

@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Test
+        run: dotnet test WaydroidPrefsEditor.sln -c Release
+
+      - name: Publish single-file linux-x64 binary
+        run: dotnet publish src/WaydroidPrefsEditor.App -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o publish
+
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="v1.0.${GITHUB_RUN_NUMBER}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" publish/WaydroidPrefsEditor.App --clobber
+          else
+            gh release create "$tag" --title "$tag" --generate-notes publish/WaydroidPrefsEditor.App
+          fi

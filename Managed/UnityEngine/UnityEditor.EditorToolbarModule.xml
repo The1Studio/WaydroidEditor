@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.EditorToolbarModule</name>
+    </assembly>
+    <member name="T:UnityEditor.Toolbars.EditorToolbarButton">
+      <summary>
+        <para>A clickable button used with EditorToolbarElementAttribute.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Toolbars.EditorToolbarButton.icon">
+      <summary>
+        <para>The icon associated with the element.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Toolbars.EditorToolbarButton.text">
+      <summary>
+        <para>The text associated with the element.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarButton.#ctor">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="clickEvent">Action triggered when the button is clicked.</param>
+      <param name="text">The text associated with the element.</param>
+      <param name="icon">The icon associated with the element.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarButton.#ctor(System.Action)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="clickEvent">Action triggered when the button is clicked.</param>
+      <param name="text">The text associated with the element.</param>
+      <param name="icon">The icon associated with the element.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarButton.#ctor(System.String,System.Action)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="clickEvent">Action triggered when the button is clicked.</param>
+      <param name="text">The text associated with the element.</param>
+      <param name="icon">The icon associated with the element.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarButton.#ctor(UnityEngine.Texture2D,System.Action)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="clickEvent">Action triggered when the button is clicked.</param>
+      <param name="text">The text associated with the element.</param>
+      <param name="icon">The icon associated with the element.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarButton.#ctor(System.String,UnityEngine.Texture2D,System.Action)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="clickEvent">Action triggered when the button is clicked.</param>
+      <param name="text">The text associated with the element.</param>
+      <param name="icon">The icon associated with the element.</param>
+    </member>
+    <member name="T:UnityEditor.Toolbars.EditorToolbarDropdown">
+      <summary>
+        <para>A clickable dropdown used with EditorToolbarElementAttribute.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarDropdown.#ctor">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="clickEvent">Action triggered when the button is clicked. Usually opens a window or a dropdown menu through the use of GenericMenu.</param>
+      <param name="icon">The icon associated with the element.</param>
+      <param name="text">The text associated with the element.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarDropdown.#ctor(System.Action)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="clickEvent">Action triggered when the button is clicked. Usually opens a window or a dropdown menu through the use of GenericMenu.</param>
+      <param name="icon">The icon associated with the element.</param>
+      <param name="text">The text associated with the element.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarDropdown.#ctor(System.String,System.Action)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="clickEvent">Action triggered when the button is clicked. Usually opens a window or a dropdown menu through the use of GenericMenu.</param>
+      <param name="icon">The icon associated with the element.</param>
+      <param name="text">The text associated with the element.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarDropdown.#ctor(UnityEngine.Texture2D,System.Action)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="clickEvent">Action triggered when the button is clicked. Usually opens a window or a dropdown menu through the use of GenericMenu.</param>
+      <param name="icon">The icon associated with the element.</param>
+      <param name="text">The text associated with the element.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarDropdown.#ctor(System.String,UnityEngine.Texture2D,System.Action)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="clickEvent">Action triggered when the button is clicked. Usually opens a window or a dropdown menu through the use of GenericMenu.</param>
+      <param name="icon">The icon associated with the element.</param>
+      <param name="text">The text associated with the element.</param>
+    </member>
+    <member name="T:UnityEditor.Toolbars.EditorToolbarDropdownToggle">
+      <summary>
+        <para>A control that is both a toggle and a dropdown used with EditorToolbarElementAttribute.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Toolbars.EditorToolbarDropdownToggle.dropdownClickable">
+      <summary>
+        <para>Clickable object for this dropdown.</para>
+      </summary>
+    </member>
+    <member name="?:UnityEditor.Toolbars.EditorToolbarDropdownToggle.dropdownClicked(System.Action)">
+      <summary>
+        <para>Action triggered when the dropdown is clicked.</para>
+      </summary>
+      <param name="value"></param>
+    </member>
+    <member name="P:UnityEditor.Toolbars.EditorToolbarDropdownToggle.icon">
+      <summary>
+        <para>The icon associated with the element.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Toolbars.EditorToolbarDropdownToggle.text">
+      <summary>
+        <para>The text associated with the element.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarDropdownToggle.#ctor">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="text">The text associated with the element.</param>
+      <param name="icon">The icon associated with the element.</param>
+      <param name="dropdownClickEvent">Action triggered when the dropdown is clicked. Usually opens a window or a dropdown menu through the use of GenericMenu.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarDropdownToggle.#ctor(System.Action)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="text">The text associated with the element.</param>
+      <param name="icon">The icon associated with the element.</param>
+      <param name="dropdownClickEvent">Action triggered when the dropdown is clicked. Usually opens a window or a dropdown menu through the use of GenericMenu.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarDropdownToggle.#ctor(System.String,System.Action)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="text">The text associated with the element.</param>
+      <param name="icon">The icon associated with the element.</param>
+      <param name="dropdownClickEvent">Action triggered when the dropdown is clicked. Usually opens a window or a dropdown menu through the use of GenericMenu.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarDropdownToggle.#ctor(UnityEngine.Texture2D,System.Action)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="text">The text associated with the element.</param>
+      <param name="icon">The icon associated with the element.</param>
+      <param name="dropdownClickEvent">Action triggered when the dropdown is clicked. Usually opens a window or a dropdown menu through the use of GenericMenu.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarDropdownToggle.#ctor(System.String,UnityEngine.Texture2D,System.Action)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="text">The text associated with the element.</param>
+      <param name="icon">The icon associated with the element.</param>
+      <param name="dropdownClickEvent">Action triggered when the dropdown is clicked. Usually opens a window or a dropdown menu through the use of GenericMenu.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarDropdownToggle.SetValueWithoutNotify(System.Boolean)">
+      <summary>
+        <para>Allow to set a value without being notified of the change, if any.</para>
+      </summary>
+      <param name="newValue"></param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarDropdownToggle.ShowDropDown(System.Boolean)">
+      <summary>
+        <para>Allow to set the visibility of the drop down button.</para>
+      </summary>
+      <param name="show">True if the dropdown is visible, false otherwise.</param>
+    </member>
+    <member name="T:UnityEditor.Toolbars.EditorToolbarFloatField">
+      <summary>
+        <para>A float field used with EditorToolbarElementAttribute.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarFloatField.#ctor">
+      <summary>
+        <para>Creates a float field visual element that is styled to match a toolbar in an UnityEditor.Overlays.Overlay.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.Toolbars.EditorToolbarSlider">
+      <summary>
+        <para>A clickable slider used with EditorToolbarElementAttribute.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Toolbars.EditorToolbarSlider.icon">
+      <summary>
+        <para>The icon associated with the slider.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Toolbars.EditorToolbarSlider.text">
+      <summary>
+        <para>The text associated with the slider.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Toolbars.EditorToolbarSlider.ussClassName">
+      <summary>
+        <para>USS Class Name used to style the EditorToolbarSlider.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarSlider.#ctor">
+      <summary>
+        <para>Constructor for the EditorToolbarSlider.</para>
+      </summary>
+      <param name="text">The text associated with the slider.</param>
+      <param name="start">The start value of the slider, it has to be lower than the end value.</param>
+      <param name="end">The end value of the slider, it has to be higher than the start value.</param>
+      <param name="icon">The icon associated with the slider.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarSlider.#ctor(System.String,System.Single,System.Single)">
+      <summary>
+        <para>Constructor for the EditorToolbarSlider.</para>
+      </summary>
+      <param name="text">The text associated with the slider.</param>
+      <param name="start">The start value of the slider, it has to be lower than the end value.</param>
+      <param name="end">The end value of the slider, it has to be higher than the start value.</param>
+      <param name="icon">The icon associated with the slider.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarSlider.#ctor(UnityEngine.Texture2D,System.Single,System.Single)">
+      <summary>
+        <para>Constructor for the EditorToolbarSlider.</para>
+      </summary>
+      <param name="text">The text associated with the slider.</param>
+      <param name="start">The start value of the slider, it has to be lower than the end value.</param>
+      <param name="end">The end value of the slider, it has to be higher than the start value.</param>
+      <param name="icon">The icon associated with the slider.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarSlider.#ctor(System.String,UnityEngine.Texture2D,System.Single,System.Single)">
+      <summary>
+        <para>Constructor for the EditorToolbarSlider.</para>
+      </summary>
+      <param name="text">The text associated with the slider.</param>
+      <param name="start">The start value of the slider, it has to be lower than the end value.</param>
+      <param name="end">The end value of the slider, it has to be higher than the start value.</param>
+      <param name="icon">The icon associated with the slider.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarSlider.SetValueWithoutNotify(System.Single)">
+      <summary>
+        <para>Allow to set a value without being notified of the change, if any.</para>
+      </summary>
+      <param name="newValue">The new value for the slider.</param>
+    </member>
+    <member name="T:UnityEditor.Toolbars.EditorToolbarToggle">
+      <summary>
+        <para>A toggle displayed as a button. Mainly used inside an Overlay or with EditorToolbarElementAttribute.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Toolbars.EditorToolbarToggle.icon">
+      <summary>
+        <para>The icon associated with the toggle.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Toolbars.EditorToolbarToggle.offIcon">
+      <summary>
+        <para>The icon associated with the toggle when the value is false.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Toolbars.EditorToolbarToggle.onIcon">
+      <summary>
+        <para>The icon associated with the toggle when the value is true.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Toolbars.EditorToolbarToggle.text">
+      <summary>
+        <para>The text associated with the toggle.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Toolbars.EditorToolbarToggle.textIcon">
+      <summary>
+        <para>The text icon associated with the toggle.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Toolbars.EditorToolbarToggle.ussClassName">
+      <summary>
+        <para>USS Class Name used to style the EditorToolbarToggle.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarToggle.#ctor">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="text">The text associated with the toggle.</param>
+      <param name="icon">The icon associated with the toggle.</param>
+      <param name="onIcon">The icon associated with the toggle when the value is true.</param>
+      <param name="offIcon">The icon associated with the toggle when the value is false.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarToggle.#ctor(System.String)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="text">The text associated with the toggle.</param>
+      <param name="icon">The icon associated with the toggle.</param>
+      <param name="onIcon">The icon associated with the toggle when the value is true.</param>
+      <param name="offIcon">The icon associated with the toggle when the value is false.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarToggle.#ctor(UnityEngine.Texture2D)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="text">The text associated with the toggle.</param>
+      <param name="icon">The icon associated with the toggle.</param>
+      <param name="onIcon">The icon associated with the toggle when the value is true.</param>
+      <param name="offIcon">The icon associated with the toggle when the value is false.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarToggle.#ctor(UnityEngine.Texture2D,UnityEngine.Texture2D)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="text">The text associated with the toggle.</param>
+      <param name="icon">The icon associated with the toggle.</param>
+      <param name="onIcon">The icon associated with the toggle when the value is true.</param>
+      <param name="offIcon">The icon associated with the toggle when the value is false.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarToggle.#ctor(System.String,UnityEngine.Texture2D,UnityEngine.Texture2D)">
+      <summary>
+        <para>Constructor.</para>
+      </summary>
+      <param name="text">The text associated with the toggle.</param>
+      <param name="icon">The icon associated with the toggle.</param>
+      <param name="onIcon">The icon associated with the toggle when the value is true.</param>
+      <param name="offIcon">The icon associated with the toggle when the value is false.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.EditorToolbarToggle.SetValueWithoutNotify(System.Boolean)">
+      <summary>
+        <para>Allow to set a value without being notified of the change, if any.</para>
+      </summary>
+      <param name="newValue"></param>
+    </member>
+    <member name="T:UnityEditor.Toolbars.MainToolbarButton">
+      <summary>
+        <para>Describes the content and behaviour of a button element for the main toolbar.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Toolbars.MainToolbarButton.#ctor(UnityEditor.Toolbars.MainToolbarContent,System.Action)">
+      <summary>
+        <para>Specify the content and function of a main toolbar button.</para>
+      </summary>
+      <param name="content">The visual content for this button.</param>
+      <param name="action">The action to perform when the user selects the button.</param>
+    </member>
+    <member name="T:UnityEditor.Toolbars.MainToolbarDropdown">
+      <summary>
+        <para>Describes the content and behaviour of a dropdown element for the main toolbar.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Toolbars.MainToolbarDropdown.#ctor(UnityEditor.Toolbars.MainToolbarContent,System.Action`1&lt;UnityEngine.Rect&gt;)">
+      <summary>
+        <para>Specify the content and function of a main toolbar dropdown.</para>
+      </summary>
+      <param name="content">The visual content for this button.</param>
+      <param name="openDropdown">The callback that Unity invokes when the user selects the dropdown. Unity provides the `rect` where the dropdown appears as a parameter.</param>
+    </member>
+    <member name="T:UnityEditor.Toolbars.MainToolbarLabel">
+      <summary>
+        <para>A label element for the main toolbar.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Toolbars.MainToolbarLabel.#ctor(UnityEditor.Toolbars.MainToolbarContent)">
+      <summary>
+        <para>Specifies the content of a main toolbar label.</para>
+      </summary>
+      <param name="content">The visual content for this label.</param>
+    </member>
+    <member name="T:UnityEditor.Toolbars.MainToolbarSlider">
+      <summary>
+        <para>A slider element for the main toolbar.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Toolbars.MainToolbarSlider.#ctor(UnityEditor.Toolbars.MainToolbarContent,System.Single,System.Single,System.Single,System.Action`1&lt;System.Single&gt;)">
+      <summary>
+        <para>Specify the content and function of a main toolbar slider.</para>
+      </summary>
+      <param name="content">The visual content of the slider.</param>
+      <param name="value">The default value of the slider.</param>
+      <param name="minValue">The start value of the slider, it must be lower than the end value.</param>
+      <param name="maxValue">The end value of the slider, it must to be higher than the end value.</param>
+      <param name="rounded">Set to true if the slider should only have values rounded to the closest int value.</param>
+      <param name="valueChanged">The callback that receives the new value of the slider when the user changes it.</param>
+    </member>
+    <member name="M:UnityEditor.Toolbars.MainToolbarSlider.#ctor(UnityEditor.Toolbars.MainToolbarContent,System.Single,System.Single,System.Single,System.Action`1&lt;System.Single&gt;,System.Boolean)">
+      <summary>
+        <para>Specify the content and function of a main toolbar slider.</para>
+      </summary>
+      <param name="content">The visual content of the slider.</param>
+      <param name="value">The default value of the slider.</param>
+      <param name="minValue">The start value of the slider, it must be lower than the end value.</param>
+      <param name="maxValue">The end value of the slider, it must to be higher than the end value.</param>
+      <param name="rounded">Set to true if the slider should only have values rounded to the closest int value.</param>
+      <param name="valueChanged">The callback that receives the new value of the slider when the user changes it.</param>
+    </member>
+    <member name="T:UnityEditor.Toolbars.MainToolbarToggle">
+      <summary>
+        <para>Describes the content and behaviour of a toggle element for the main toolbar.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Toolbars.MainToolbarToggle.#ctor(UnityEditor.Toolbars.MainToolbarContent,System.Boolean,System.Action`1&lt;System.Boolean&gt;)">
+      <summary>
+        <para>Specify the content and function of a main toolbar toggle.</para>
+      </summary>
+      <param name="content">The visual content of the toggle.</param>
+      <param name="value">The state of the toggle:`On` or `Off`.</param>
+      <param name="valueChanged">The callback that receives the new state of the toggle when the user selects it.</param>
+    </member>
+  </members>
+</doc>

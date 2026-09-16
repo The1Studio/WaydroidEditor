@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.BuildProfileModule</name>
+    </assembly>
+    <member name="T:UnityEditor.Build.Profile.BuildAutomationSettings">
+      <summary>
+        <para>Provides a set of configuration options you can use to customize the settings used when starting a Cloud Build.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Build.Profile.BuildAutomationSettings.androidSdkVersion">
+      <summary>
+        <para>The specific version of the Android SDK to build your project with.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Build.Profile.BuildAutomationSettings.buildTarget">
+      <summary>
+        <para>The BuildTarget of the Build Profile to be built in the cloud.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Build.Profile.BuildAutomationSettings.credentialsId">
+      <summary>
+        <para>The Id of the Build Automation credentials to use to sign your cloud build.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Build.Profile.BuildAutomationSettings.machineTypeId">
+      <summary>
+        <para>The specs of the machine used to build your project in the Cloud.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Build.Profile.BuildAutomationSettings.operatingSystemFamily">
+      <summary>
+        <para>The family of Operating System Build Automation will use to build your project on.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Build.Profile.BuildAutomationSettings.operatingSystemValue">
+      <summary>
+        <para>The specific version of the Operating System to use when building your project in the cloud.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Build.Profile.BuildAutomationSettings.unityArchitecture">
+      <summary>
+        <para>Whether to use Silicon or Intel version of the Unity Editor.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Build.Profile.BuildAutomationSettings.xcodeVersion">
+      <summary>
+        <para>The version of Xcode to use when building your project in the cloud.</para>
+      </summary>
+    </member>
+  </members>
+</doc>

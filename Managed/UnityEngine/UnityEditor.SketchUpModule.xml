@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.SketchUpModule</name>
+    </assembly>
+    <member name="T:UnityEditor.SketchUpImportCamera">
+      <summary>
+        <para>Structure to hold camera data extracted from a SketchUp file.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.SketchUpImportCamera.aspectRatio">
+      <summary>
+        <para>Aspect ratio of the camera.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.SketchUpImportCamera.farPlane">
+      <summary>
+        <para>The near clipping plane distance.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.SketchUpImportCamera.fieldOfView">
+      <summary>
+        <para>Field of view of the camera.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.SketchUpImportCamera.isPerspective">
+      <summary>
+        <para>Indicate if the camera is using a perspective or orthogonal projection.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.SketchUpImportCamera.lookAt">
+      <summary>
+        <para>The position the camera is looking at.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.SketchUpImportCamera.nearPlane">
+      <summary>
+        <para>The far clipping plane distance.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.SketchUpImportCamera.orthoSize">
+      <summary>
+        <para>The orthogonal projection size of the camera. This value only make sense if SketchUpImportCamera.isPerspective is false.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.SketchUpImportCamera.position">
+      <summary>
+        <para>The position of the camera.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.SketchUpImportCamera.up">
+      <summary>
+        <para>Up vector of the camera.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.SketchUpImporter">
+      <summary>
+        <para>Derives from AssetImporter to handle importing of SketchUp files.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.SketchUpImporter.latitude">
+      <summary>
+        <para>Retrieves the latitude Geo Coordinate imported from the SketchUp file.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.SketchUpImporter.longitude">
+      <summary>
+        <para>Retrieves the longitude Geo Coordinate imported from the SketchUp file.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.SketchUpImporter.northCorrection">
+      <summary>
+        <para>Retrieves the north correction value imported from the SketchUp file.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.SketchUpImporter.GetDefaultCamera">
+      <summary>
+        <para>The default camera or the camera of the active Scene which the SketchUp file was saved with.</para>
+      </summary>
+      <returns>
+        <para>The default camera.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.SketchUpImporter.GetScenes">
+      <summary>
+        <para>The method returns an array of SketchUpImportScene which represents SketchUp scenes.</para>
+      </summary>
+      <returns>
+        <para>Array of scenes extracted from a SketchUp file.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEditor.SketchUpImportScene">
+      <summary>
+        <para>Structure to hold scene data extracted from a SketchUp file.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.SketchUpImportScene.camera">
+      <summary>
+        <para>The camera data of the SketchUp scene.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.SketchUpImportScene.name">
+      <summary>
+        <para>The name of the SketchUp scene.</para>
+      </summary>
+    </member>
+  </members>
+</doc>

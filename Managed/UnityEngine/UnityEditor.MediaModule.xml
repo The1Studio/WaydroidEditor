@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.MediaModule</name>
+    </assembly>
+    <member name="T:UnityEditor.Media.AudioTrackAttributes">
+      <summary>
+        <para>Descriptor for audio track format.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.AudioTrackAttributes.channelCount">
+      <summary>
+        <para>Number of channels.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.AudioTrackAttributes.language">
+      <summary>
+        <para>Dialogue language, if applicable.  Can be empty.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.AudioTrackAttributes.sampleRate">
+      <summary>
+        <para>Audio sampling rate.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.Media.H264EncoderAttributes">
+      <summary>
+        <para>Descriptor for H.264 encoder attributes.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.H264EncoderAttributes.gopSize">
+      <summary>
+        <para>The maximum size of a group of pictures, in frames.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.H264EncoderAttributes.numConsecutiveBFrames">
+      <summary>
+        <para>The maximum number of consecutive B frames between I and P frames.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.H264EncoderAttributes.profile">
+      <summary>
+        <para>The VideoEncodingProfile for the encoded video.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.Media.MediaEncoder">
+      <summary>
+        <para>Encodes images and audio samples into an audio or movie file.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.AddFrame(UnityEngine.Texture2D)">
+      <summary>
+        <para>Appends a frame to the file's video track.</para>
+      </summary>
+      <param name="texture">Texture containing the pixels to be written into the track for the current frame.</param>
+      <param name="time">Timestamp for the new frame.</param>
+      <returns>
+        <para>True if the operation succeeded. False otherwise.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.AddFrame(UnityEngine.Texture2D,UnityEditor.Media.MediaTime)">
+      <summary>
+        <para>Appends a frame to the file's video track.</para>
+      </summary>
+      <param name="texture">Texture containing the pixels to be written into the track for the current frame.</param>
+      <param name="time">Timestamp for the new frame.</param>
+      <returns>
+        <para>True if the operation succeeded. False otherwise.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.AddFrame(System.Int32,System.Int32,System.Int32,UnityEngine.TextureFormat,Unity.Collections.NativeArray`1&lt;System.Byte&gt;)">
+      <summary>
+        <para>Appends a frame from a raw buffer to the file's video track.</para>
+      </summary>
+      <param name="width">Image width.</param>
+      <param name="height">Image height.</param>
+      <param name="rowBytes">Bytes in one row of pixels. Useful in case lines include padding. Can be set to 0 if there is no padding.</param>
+      <param name="format">Pixel format. Only TextureFormat.RGBA32 is supported at this time.</param>
+      <param name="data">Bytes containing the image.</param>
+      <param name="time">Timestamp for new frame.</param>
+      <returns>
+        <para>True if the operation succeeded. False otherwise.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.AddFrame(System.Int32,System.Int32,System.Int32,UnityEngine.TextureFormat,Unity.Collections.NativeArray`1&lt;System.Byte&gt;,UnityEditor.Media.MediaTime)">
+      <summary>
+        <para>Appends a frame from a raw buffer to the file's video track.</para>
+      </summary>
+      <param name="width">Image width.</param>
+      <param name="height">Image height.</param>
+      <param name="rowBytes">Bytes in one row of pixels. Useful in case lines include padding. Can be set to 0 if there is no padding.</param>
+      <param name="format">Pixel format. Only TextureFormat.RGBA32 is supported at this time.</param>
+      <param name="data">Bytes containing the image.</param>
+      <param name="time">Timestamp for new frame.</param>
+      <returns>
+        <para>True if the operation succeeded. False otherwise.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.AddSamples(System.UInt16,Unity.Collections.NativeArray`1&lt;System.Single&gt;)">
+      <summary>
+        <para>Appends sample frames to the specified audio track.</para>
+      </summary>
+      <param name="trackIndex">Index of the track to which sample frames will be added.</param>
+      <param name="interleavedSamples">Sample frames to add.  Samples are expected to be interleaved.</param>
+      <returns>
+        <para>True if the operation succeeded. False otherwise.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.AddSamples(Unity.Collections.NativeArray`1&lt;System.Single&gt;)">
+      <summary>
+        <para>Appends sample frames to the specified audio track.</para>
+      </summary>
+      <param name="trackIndex">Index of the track to which sample frames will be added.</param>
+      <param name="interleavedSamples">Sample frames to add.  Samples are expected to be interleaved.</param>
+      <returns>
+        <para>True if the operation succeeded. False otherwise.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.#ctor(System.String,UnityEditor.Media.VideoTrackAttributes,UnityEditor.Media.AudioTrackAttributes[])">
+      <summary>
+        <para>Create a new encoder with various track arrangements.</para>
+      </summary>
+      <param name="filePath">Path fo the media file to be written.</param>
+      <param name="videoAttrs">Attributes for the file's video track, if any.</param>
+      <param name="audioAttrs">Attributes for the file's audio tracks, if any.</param>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.#ctor(System.String,UnityEditor.Media.VideoTrackEncoderAttributes,UnityEditor.Media.AudioTrackAttributes[])">
+      <summary>
+        <para>Create a new encoder with various track arrangements.</para>
+      </summary>
+      <param name="filePath">Path fo the media file to be written.</param>
+      <param name="videoAttrs">Attributes for the file's video track, if any.</param>
+      <param name="audioAttrs">Attributes for the file's audio tracks, if any.</param>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.#ctor(System.String,UnityEditor.Media.VideoTrackAttributes,UnityEditor.Media.AudioTrackAttributes)">
+      <summary>
+        <para>Create a new encoder with various track arrangements.</para>
+      </summary>
+      <param name="filePath">Path fo the media file to be written.</param>
+      <param name="videoAttrs">Attributes for the file's video track, if any.</param>
+      <param name="audioAttrs">Attributes for the file's audio tracks, if any.</param>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.#ctor(System.String,UnityEditor.Media.VideoTrackEncoderAttributes,UnityEditor.Media.AudioTrackAttributes)">
+      <summary>
+        <para>Create a new encoder with various track arrangements.</para>
+      </summary>
+      <param name="filePath">Path fo the media file to be written.</param>
+      <param name="videoAttrs">Attributes for the file's video track, if any.</param>
+      <param name="audioAttrs">Attributes for the file's audio tracks, if any.</param>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.#ctor(System.String,UnityEditor.Media.VideoTrackAttributes)">
+      <summary>
+        <para>Create a new encoder with various track arrangements.</para>
+      </summary>
+      <param name="filePath">Path fo the media file to be written.</param>
+      <param name="videoAttrs">Attributes for the file's video track, if any.</param>
+      <param name="audioAttrs">Attributes for the file's audio tracks, if any.</param>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.#ctor(System.String,UnityEditor.Media.VideoTrackEncoderAttributes)">
+      <summary>
+        <para>Create a new encoder with various track arrangements.</para>
+      </summary>
+      <param name="filePath">Path fo the media file to be written.</param>
+      <param name="videoAttrs">Attributes for the file's video track, if any.</param>
+      <param name="audioAttrs">Attributes for the file's audio tracks, if any.</param>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.#ctor(System.String,UnityEditor.Media.AudioTrackAttributes[])">
+      <summary>
+        <para>Create a new encoder with various track arrangements.</para>
+      </summary>
+      <param name="filePath">Path fo the media file to be written.</param>
+      <param name="videoAttrs">Attributes for the file's video track, if any.</param>
+      <param name="audioAttrs">Attributes for the file's audio tracks, if any.</param>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.#ctor(System.String,UnityEditor.Media.AudioTrackAttributes)">
+      <summary>
+        <para>Create a new encoder with various track arrangements.</para>
+      </summary>
+      <param name="filePath">Path fo the media file to be written.</param>
+      <param name="videoAttrs">Attributes for the file's video track, if any.</param>
+      <param name="audioAttrs">Attributes for the file's audio tracks, if any.</param>
+    </member>
+    <member name="M:UnityEditor.Media.MediaEncoder.Dispose">
+      <summary>
+        <para>Finishes writing all tracks and closes the file being written.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.Media.MediaRational">
+      <summary>
+        <para>Rational number useful for expressing fractions precisely.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.MediaRational.denominator">
+      <summary>
+        <para>Fraction denominator.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Media.MediaRational.inverse">
+      <summary>
+        <para>The inverse of the rational number.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Media.MediaRational.isNegative">
+      <summary>
+        <para>Whether the rational number is negative.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Media.MediaRational.isValid">
+      <summary>
+        <para>Whether the rational number is valid.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Media.MediaRational.isZero">
+      <summary>
+        <para>Whether the rational number is zero.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.MediaRational.numerator">
+      <summary>
+        <para>Fraction numerator.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Media.MediaRational.#ctor(System.Int32)">
+      <summary>
+        <para>Constructs a rational number. The version that omits the denominator sets it to 1.</para>
+      </summary>
+      <param name="numerator">Numerator of the rational number.</param>
+      <param name="denominator">Denominator of the rational number.</param>
+    </member>
+    <member name="M:UnityEditor.Media.MediaRational.#ctor(System.Int32,System.Int32)">
+      <summary>
+        <para>Constructs a rational number. The version that omits the denominator sets it to 1.</para>
+      </summary>
+      <param name="numerator">Numerator of the rational number.</param>
+      <param name="denominator">Denominator of the rational number.</param>
+    </member>
+    <member name="?:UnityEditor.Media.MediaRational.explop_double(MediaRational)(UnityEditor.Media.MediaRational)">
+      <summary>
+        <para>Returns the rational value expressed as a floating point value.</para>
+      </summary>
+      <param name="r">Rational number to convert.</param>
+    </member>
+    <member name="F:UnityEditor.Media.MediaRational.Invalid">
+      <summary>
+        <para>Invalid rational value.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Media.MediaRational.Set(System.Int32,System.Int32)">
+      <summary>
+        <para>Sets the numerator and denominator, performing normalization.</para>
+      </summary>
+      <param name="numerator">New value for the rational numerator.</param>
+      <param name="denominator">New value for the rational denominator.</param>
+    </member>
+    <member name="T:UnityEditor.Media.MediaTime">
+      <summary>
+        <para>Time representation for use with media containers.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Media.MediaTime.count">
+      <summary>
+        <para>The sample count for the time value.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.Media.MediaTime.rate">
+      <summary>
+        <para>The rate used for converting the count into seconds.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Media.MediaTime.#ctor(System.Int64)">
+      <summary>
+        <para>Creates a time value with an integer number of seconds, using 1Hz for the rate.</para>
+      </summary>
+      <param name="seconds">The number of seconds in the time value.</param>
+    </member>
+    <member name="M:UnityEditor.Media.MediaTime.#ctor(System.Int64,System.UInt32,System.UInt32)">
+      <summary>
+        <para>Creates a time value for a specified sample count and rate.</para>
+      </summary>
+      <param name="count">The sample count for the time value.</param>
+      <param name="rateNumerator">Numerator for the rate used by the time value.</param>
+      <param name="rateDenominator">Denominator for the rate used by the time value.</param>
+    </member>
+    <member name="?:UnityEditor.Media.MediaTime.explop_double(MediaTime)(UnityEditor.Media.MediaTime)">
+      <summary>
+        <para>Returns the time value expressed as a floating point number of seconds.</para>
+      </summary>
+      <param name="t">Time to convert.</param>
+    </member>
+    <member name="F:UnityEditor.Media.MediaTime.Invalid">
+      <summary>
+        <para>Invalid time value.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.Media.VideoTrackAttributes">
+      <summary>
+        <para>Descriptor for audio track format.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.VideoTrackAttributes.bitRateMode">
+      <summary>
+        <para>VideoBitrateMode for the encoded video.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.VideoTrackAttributes.frameRate">
+      <summary>
+        <para>Frames per second.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.VideoTrackAttributes.height">
+      <summary>
+        <para>Image height in pixels.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.VideoTrackAttributes.includeAlpha">
+      <summary>
+        <para>True if the track is to include the alpha channel found in the texture passed to AddFrame. False otherwise.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.VideoTrackAttributes.width">
+      <summary>
+        <para>Image width in pixels.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.Media.VideoTrackEncoderAttributes">
+      <summary>
+        <para>Descriptor for video track format.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.VideoTrackEncoderAttributes.bitRateMode">
+      <summary>
+        <para>The VideoBitrateMode for the encoded video.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.VideoTrackEncoderAttributes.frameRate">
+      <summary>
+        <para>The frame rate for the encoded video, in frames per second, expressed as a fraction.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.VideoTrackEncoderAttributes.height">
+      <summary>
+        <para>The image height in pixels.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.VideoTrackEncoderAttributes.includeAlpha">
+      <summary>
+        <para>True if the track is to include the alpha channel found in the texture passed to AddFrame. False otherwise.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.VideoTrackEncoderAttributes.targetBitRate">
+      <summary>
+        <para>The target bit rate for the encoder.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.VideoTrackEncoderAttributes.width">
+      <summary>
+        <para>The image width in pixels.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.Media.VideoTrackEncoderAttributes.#ctor(UnityEditor.Media.H264EncoderAttributes)">
+      <summary>
+        <para>Create a new VideoTrackEncoderAttributes with specific H.264 encoding options.</para>
+      </summary>
+      <param name="h264Attrs">H.264 encoding attributes (for macOS and Windows only).</param>
+    </member>
+    <member name="M:UnityEditor.Media.VideoTrackEncoderAttributes.#ctor(UnityEditor.Media.VP8EncoderAttributes)">
+      <summary>
+        <para>Create a new VideoTrackEncoderAttributes with specific VP8 encoding options.</para>
+      </summary>
+      <param name="vp8Attrs">VP8 encoding attributes.</param>
+    </member>
+    <member name="T:UnityEditor.Media.VP8EncoderAttributes">
+      <summary>
+        <para>Descriptor for VP8 encoder attributes.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.Media.VP8EncoderAttributes.keyframeDistance">
+      <summary>
+        <para>The maximum distance between I-frames.</para>
+      </summary>
+    </member>
+  </members>
+</doc>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.UIElementsModule</name>
+    </assembly>
+    <member name="T:UnityEditor.UIElements.AssetMonitoringUtilities">
+      <summary>
+        <para>Utility that manages asset monitoring features of UI Toolkit panels.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.UIElements.AssetMonitoringUtilities.GetResetPanelRenderingOnAssetChange(UnityEditor.EditorWindow)">
+      <summary>
+        <para>Gets the state that controls if the panel of the EditorWindow should reset its rendering data when an asset changes.</para>
+      </summary>
+      <param name="window"></param>
+    </member>
+    <member name="M:UnityEditor.UIElements.AssetMonitoringUtilities.SetResetPanelRenderingOnAssetChange(UnityEditor.EditorWindow,System.Boolean)">
+      <summary>
+        <para>Sets the state that controls if the panel of the EditorWindow should reset its rendering data when an asset changes.</para>
+      </summary>
+      <param name="window"></param>
+      <param name="reset"></param>
+    </member>
+    <member name="?:UnityEditor.UIElements.IUxmlUpgrader">
+      <summary>
+        <para>
+ Interface for UXML upgrade operations that can be applied to VisualTreeAsset.
+ Inherit from this interface to create a new UXML upgrader.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.UIElements.IUxmlUpgrader.description">
+      <summary>
+        <para>
+ Description of what this upgrader does.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.UIElements.IUxmlUpgrader.name">
+      <summary>
+        <para>
+ The name of this upgrader, displayed to users.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.UIElements.IUxmlUpgrader.Upgrade(UnityEngine.UIElements.VisualTreeAsset)">
+      <summary>
+        <para>
+ Apply the upgrade to the asset.
+ </para>
+      </summary>
+      <param name="asset">The VisualTreeAsset to upgrade.</param>
+      <returns>
+        <para>True if changes were made to the asset.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEditor.UIElements.UxmlAttributeConverter`1">
+      <summary>
+        <para>
+ Converts a UxmlAttribute type to and from a string.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.UIElements.UxmlAttributeConverter_1.FromString(System.String)">
+      <summary>
+        <para>
+ Provides a type converted from a string representation.
+ </para>
+      </summary>
+      <param name="value">A string representation of the type.</param>
+      <returns>
+        <para>Instance of type from the string value.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.UIElements.UxmlAttributeConverter_1.ToString(T)">
+      <summary>
+        <para>
+ Provides a string representation of a type.
+ </para>
+      </summary>
+      <param name="value">The value to be converted into a string.</param>
+      <returns>
+        <para>A string representation of the type.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEditor.UIElements.UxmlNamespacePrefixAttribute">
+      <summary>
+        <para>
+ Attribute that can be used on an assembly to define an XML namespace prefix for a namespace.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.UIElements.UxmlNamespacePrefixAttribute.ns">
+      <summary>
+        <para>
+ The namespace name.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.UIElements.UxmlNamespacePrefixAttribute.prefix">
+      <summary>
+        <para>
+ The namespace prefix.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.UIElements.UxmlNamespacePrefixAttribute.#ctor(System.String,System.String)">
+      <summary>
+        <para>
+ Constructor.
+ </para>
+      </summary>
+      <param name="ns">The XML/C# namespace to which a prefix will be associated.</param>
+      <param name="prefix">The prefix to associate to the namespace.</param>
+    </member>
+    <member name="T:UnityEditor.UIElements.UxmlSerializedDataCreator">
+      <summary>
+        <para>
+ Editor utility methods for dealing with UxmlSerializedData.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.UIElements.UxmlSerializedDataCreator.CreateUxmlSerializedData(System.Type)">
+      <summary>
+        <para>
+ Creates a UxmlSerializedData instance for the given type with default values applied.
+ </para>
+      </summary>
+      <param name="type">The type that contains the UxmlSerializedData.
+ The type must belong to a class that's actively decorated with either the UxmlElementAttribute 
+ or UxmlObjectAttribute attribute.
+ </param>
+    </member>
+    <member name="T:UnityEditor.UIElements.UxmlUpgradeService">
+      <summary>
+        <para>
+ Service for applying UXML upgrades to VisualTreeAsset.
+ </para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.UIElements.UxmlUpgradeService.upgraders">
+      <summary>
+        <para>
+ Get the list of all registered upgraders.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.UIElements.UxmlUpgradeService.ApplyUpgrades(System.Collections.Generic.List`1&lt;UnityEngine.UIElements.VisualTreeAsset&gt;)">
+      <summary>
+        <para>
+ Apply all enabled upgrades to the specified assets.
+ </para>
+      </summary>
+      <param name="assets">The assets to upgrade.</param>
+    </member>
+    <member name="M:UnityEditor.UIElements.UxmlUpgradeService.ApplyUpgrades(System.Collections.Generic.List`1&lt;UnityEngine.UIElements.VisualTreeAsset&gt;,System.Collections.Generic.List`1&lt;UnityEditor.UIElements.IUxmlUpgrader&gt;)">
+      <summary>
+        <para>
+ Apply specific upgrades to the specified assets.
+ </para>
+      </summary>
+      <param name="assets">The assets to upgrade.</param>
+      <param name="upgradersToRun">List of specific upgraders to run.</param>
+    </member>
+    <member name="M:UnityEditor.UIElements.UxmlUpgradeService.#ctor">
+      <summary>
+        <para>
+ Creates a new instance of the UxmlUpgradeService and initializes the list of upgraders by finding all types that implement the IUxmlUpgrader interface.
+ The upgraders are sorted by name for consistent execution order.
+ </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.UIElements.UxmlUpgradeService.GetUpgraderByName(System.String)">
+      <summary>
+        <para>
+ Get an upgrader by its name.
+ </para>
+      </summary>
+      <param name="name">The name of the upgrader to find.</param>
+      <returns>
+        <para>The upgrader with the specified name, or null if not found.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.UIElements.UxmlUpgradeService.IsUpgraderEnabled(UnityEditor.UIElements.IUxmlUpgrader)">
+      <summary>
+        <para>
+ Check if an upgrader is enabled.
+ </para>
+      </summary>
+      <param name="upgrader"></param>
+    </member>
+    <member name="M:UnityEditor.UIElements.UxmlUpgradeService.SetUpgraderEnabled(UnityEditor.UIElements.IUxmlUpgrader,System.Boolean)">
+      <summary>
+        <para>
+ Enable or disable a specific upgrader.
+ </para>
+      </summary>
+      <param name="upgrader"></param>
+      <param name="enabled"></param>
+    </member>
+  </members>
+</doc>

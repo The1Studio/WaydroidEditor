@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <!-- Unity (and therefore every game assembly) compiles against MemoryPack.Core's netstandard2.1
+         asset, whose IMemoryPackable<T>/MemoryPackFormatter<T> shape differs from the net8.0 asset
+         (no static abstract members, `class` constraint on TBufferWriter). A game save type loaded
+         against the net8.0 asset throws TypeLoadException, so ship the asset the games were built on.
+         ExcludeAssets keeps NuGet's own net8.0 asset out of the compile. -->
+    <PackageReference Include="MemoryPack.Core" Version="1.21.4" GeneratePathProperty="true" ExcludeAssets="all" />
+    <PackageReference Include="MemoryPack.Generator" Version="1.21.4" PrivateAssets="all" />
+    <Reference Include="MemoryPack.Core">
+      <HintPath>$(PkgMemoryPack_Core)/lib/netstandard2.1/MemoryPack.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The Unity engine the games were compiled against, bundled so Unity-native members resolve
+         with no Unity install and no UnityEngine modules in the game folder. The runtime module set
+         only — the UnityEditor.* assemblies and the build/Cecil tooling beside them are not shipped. -->
+    <EmbeddedResource Include="../../Managed/UnityEngine/UnityEngine*.dll">
+      <LogicalName>WaydroidPrefsEditor.Unity.%(Filename).dll</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

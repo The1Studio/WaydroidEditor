@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.PhysicsModule</name>
+    </assembly>
+    <member name="T:UnityEditor.IMGUI.Controls.JointAngularLimitHandle">
+      <summary>
+        <para>A class for a compound handle to edit multiaxial angular motion limits in the Scene view.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.angleHandleDrawFunction">
+      <summary>
+        <para>The Handles.CapFunction to use when displaying the angle control handle.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.angleHandleSizeFunction">
+      <summary>
+        <para>The Handles.SizeFunction to specify how large the angle control handle should be.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.fillAlpha">
+      <summary>
+        <para>Returns or specifies the opacity to use when rendering fill shapes for the range of motion for each axis. Defaults to 0.1.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.radius">
+      <summary>
+        <para>Returns or specifies the radius of the arc for the handle. Defaults to 1.0.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.wireframeAlpha">
+      <summary>
+        <para>Returns or specifies the opacity to use for the curved lines along the outside of the arcs of motion. Defaults to 1.0.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.xHandleColor">
+      <summary>
+        <para>Returns or specifies the color to use for the handle limiting motion around the x-axis. Defaults to Handles.xAxisColor.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.xMax">
+      <summary>
+        <para>Returns or specifies the maximum angular motion about the x-axis.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.xMin">
+      <summary>
+        <para>Returns or specifies the minimum angular motion about the x-axis.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.xMotion">
+      <summary>
+        <para>Returns or specifies how angular motion is limited about the x-axis. Defaults to ConfigurableJointMotion.Limited.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.xRange">
+      <summary>
+        <para>Returns or specifies the range of valid values for angular motion about the x-axis. Defaults to [-180.0, 180.0].</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.yHandleColor">
+      <summary>
+        <para>Returns or specifies the color to use for the handle limiting motion around the y-axis. Defaults to Handles.yAxisColor.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.yMax">
+      <summary>
+        <para>Returns or specifies the maximum angular motion about the y-axis.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.yMin">
+      <summary>
+        <para>Returns or specifies the minimum angular motion about the y-axis.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.yMotion">
+      <summary>
+        <para>Returns or specifies how angular motion is limited about the y-axis. Defaults to ConfigurableJointMotion.Limited.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.yRange">
+      <summary>
+        <para>Returns or specifies the range of valid values for angular motion about the y-axis. Defaults to [-180.0, 180.0].</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.zHandleColor">
+      <summary>
+        <para>Returns or specifies the color to use for the handle limiting motion around the z-axis. Defaults to Handles.zAxisColor.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.zMax">
+      <summary>
+        <para>Returns or specifies the maximum angular motion about the z-axis.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.zMin">
+      <summary>
+        <para>Returns or specifies the minimum angular motion about the z-axis.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.zMotion">
+      <summary>
+        <para>Returns or specifies how angular motion is limited about the z-axis. Defaults to ConfigurableJointMotion.Limited.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.zRange">
+      <summary>
+        <para>Returns or specifies the range of valid values for angular motion about the z-axis. Defaults to [-180.0, 180.0].</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.#ctor">
+      <summary>
+        <para>Creates a new instance of the JointAngularLimitHandle class.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.IMGUI.Controls.JointAngularLimitHandle.DrawHandle">
+      <summary>
+        <para>A function to display this instance in the current handle camera using its current configuration.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.PhysicsDebugWindow">
+      <summary>
+        <para>Displays the Physics Debug Visualization options.
+
+The Physics Debug Visualization is only displayed if this window is visible.
+
+Additional resources: PhysicsVisualizationSettings.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.PhysicsVisualizationSettings">
+      <summary>
+        <para>This class contains the settings controlling the Physics Debug Visualization.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.articulationBodyColor">
+      <summary>
+        <para>Color for Articulation Bodies.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.baseAlpha">
+      <summary>
+        <para>Alpha amount used for transparency blending.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.centerOfMassUseScreenSize">
+      <summary>
+        <para>Whether or not the center of mass visualization should be constant screen space size.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.colorVariance">
+      <summary>
+        <para>Used to disinguish neighboring Colliders.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.contactColor">
+      <summary>
+        <para>Contact arrow color.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.contactImpulseColor">
+      <summary>
+        <para>ContactPoint.impulse arrow color.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.contactSeparationColor">
+      <summary>
+        <para>Contact point separation color.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.devOptions">
+      <summary>
+        <para>Shows extra options used to develop and debug the physics visualization.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.dirtyCount">
+      <summary>
+        <para>Dirty marker used for refreshing the GUI.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.enableMouseSelect">
+      <summary>
+        <para>Enables the mouse-over highlighting and mouse selection modes.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.forceOverdraw">
+      <summary>
+        <para>Forcing the drawing of Colliders on top of any other geometry, regardless of depth.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.inertiaTensorScale">
+      <summary>
+        <para>The scale by which the inertia tensor lines are multiplied.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.kinematicColor">
+      <summary>
+        <para>Color for kinematic Rigidbodies.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.maxNumberOfQueries">
+      <summary>
+        <para>The maximum number of queries that the PhysicsDebugWindow will visualize at one given time.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.queryColor">
+      <summary>
+        <para>Color that the Physics Debugger uses for query visualization.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.rigidbodyColor">
+      <summary>
+        <para>Color for Rigidbodies, primarily active ones.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.showAllContacts">
+      <summary>
+        <para>Whether the PhysicsDebugWindow visualizes all contacts.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.showCollisionGeometry">
+      <summary>
+        <para>Should the PhysicsDebugWindow display the collision geometry.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.showContactImpulse">
+      <summary>
+        <para>Whether the PhysicsDebugWindow shows ContactPoint.impulse.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.showContacts">
+      <summary>
+        <para>Whether the PhysicsDebugWindow shows contacts.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.showContactSeparation">
+      <summary>
+        <para>Whether the PhysicsDebugWindow shows contact separation.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.sleepingBodyColor">
+      <summary>
+        <para>Color for Rigidbodies that are controlled by the physics simulator, but are not currently being simulated.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.staticColor">
+      <summary>
+        <para>Color for Colliders that do not have a Rigidbody component.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.terrainTilesMax">
+      <summary>
+        <para>Maximum number of mesh tiles available to draw all Terrain Colliders.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.triggerColor">
+      <summary>
+        <para>Color for Colliders that are Triggers.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.useContactFiltering">
+      <summary>
+        <para>Whether PhysicsDebugWindow takes the PhysicsVisualizationSettings filtering settings into account when visualizing contacts.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.useSceneCam">
+      <summary>
+        <para>Controls whether the SceneView or the GameView camera is used.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.useVariedContactColors">
+      <summary>
+        <para>Whether varied colors are used for PhysicsDebugWindow contact visualization.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.PhysicsVisualizationSettings.viewDistance">
+      <summary>
+        <para>Colliders within this distance will be displayed.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.ClearMouseHighlight">
+      <summary>
+        <para>Clears the highlighted Collider.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.DeinitDebugDraw">
+      <summary>
+        <para>Deinitializes the physics debug visualization system and tracking of changes Colliders.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.PhysicsVisualizationSettings.FilterWorkflow">
+      <summary>
+        <para>Decides whether the Workflow in the Physics Debug window should be inclusive
+ (&lt;a href="PhysicsVisualizationSettings.FilterWorkflow.ShowSelectedItems.html"&gt;ShowSelectedItems&lt;a&gt;) or exclusive (&lt;a href="PhysicsVisualizationSettings.FilterWorkflow.HideSelectedItems.html"&gt;HideSelectedItems&lt;a&gt;).</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.FilterWorkflow.HideSelectedItems">
+      <summary>
+        <para>With HideSelectedItems you can hide selected filter items in order to easily discard uninteresting Collider properties thereby making overview and navigation easier.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.FilterWorkflow.ShowSelectedItems">
+      <summary>
+        <para>With ShowSelectedItems and the Select None button is it easy to monitor very specific Colliders.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetQueryFilterState(UnityEditor.PhysicsVisualizationSettings/QueryFilter)">
+      <summary>
+        <para>Gets the query filtering state of PhysicsVisualizationSettings</para>
+      </summary>
+      <param name="filter">The QueryFilter flags that should be checked.</param>
+      <returns>
+        <para>Wheter all the flags specified by the filter are set to true.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowArticulationBodies">
+      <summary>
+        <para>Should Articulation Bodies be shown by the Physics Visualizer.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowBoxColliders">
+      <summary>
+        <para>Should BoxColliders be shown.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowCapsuleColliders">
+      <summary>
+        <para>Should CapsuleColliders be shown.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowCollisionLayer(System.Int32)">
+      <summary>
+        <para>Should the given layer be considered by the display filter.</para>
+      </summary>
+      <param name="layer"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowCollisionLayerMask">
+      <summary>
+        <para>Should the mask representing the layers be considered by the display filter.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowKinematicBodies">
+      <summary>
+        <para>Should the kinematic Rigidbodies be considered by the display filter.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowMeshColliders(UnityEditor.PhysicsVisualizationSettings/MeshColliderType)">
+      <summary>
+        <para>Should MeshColliders be shown.</para>
+      </summary>
+      <param name="colliderType"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowPhysicsSceneMask">
+      <summary>
+        <para>Return a mask representing scenes that are enabled by display filter</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowRigidbodies">
+      <summary>
+        <para>Should any Rigidbodies be considered by the display filter.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowSleepingBodies">
+      <summary>
+        <para>Should the sleeping Rigidbodies be considered by the display filter.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowSphereColliders">
+      <summary>
+        <para>Should SphereColliders be shown.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowStaticColliders">
+      <summary>
+        <para>Should the Colliders without a Rigidbody component be considered by the display filter.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowTerrainColliders">
+      <summary>
+        <para>Should TerrainColliders be shown.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowTriggers">
+      <summary>
+        <para>Should the triggers be considered by the display filter.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.GetShowUnitySceneMask">
+      <summary>
+        <para>Returns a mask that represents Unity scenes that are enabled by the display filter.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.HasMouseHighlight">
+      <summary>
+        <para>Returns true if there currently is any kind of physics object highlighted.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.InitDebugDraw">
+      <summary>
+        <para>Initializes the physics debug visualization system. The system must be initialized for any physics objects to be visualized. It is normally initialized by the PhysicsDebugWindow.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.PhysicsVisualizationSettings.MeshColliderType">
+      <summary>
+        <para>Is a MeshCollider convex.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.MeshColliderType.Convex">
+      <summary>
+        <para>Corresponds to MeshCollider.convex is true.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.MeshColliderType.NonConvex">
+      <summary>
+        <para>Corresponds to MeshCollider.convex is false.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.PhysicsVisualizationSettings.QueryFilter">
+      <summary>
+        <para>Enumerator used for controlling query visualization filtering.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.QueryFilter.All">
+      <summary>
+        <para>Includes all query shapes and types into the filter.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.QueryFilter.Box">
+      <summary>
+        <para>Whether the filter includes box shaped queries.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.QueryFilter.Capsule">
+      <summary>
+        <para>Whether the filter includes capsule shaped queries.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.QueryFilter.Cast">
+      <summary>
+        <para>Whether the filter includes cast type queries.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.QueryFilter.Check">
+      <summary>
+        <para>Whether the filter includes check type queries.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.QueryFilter.None">
+      <summary>
+        <para>Empty flag</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.QueryFilter.Overlap">
+      <summary>
+        <para>Whether the filter includes overlap type queries.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.QueryFilter.Ray">
+      <summary>
+        <para>Whether the filter includes ray queries.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.QueryFilter.ShowQueries">
+      <summary>
+        <para>Whether the Physics Debugger visualizes queries.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.PhysicsVisualizationSettings.QueryFilter.Sphere">
+      <summary>
+        <para>Whether the filter includes sphere shaped queries.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.Reset">
+      <summary>
+        <para>Resets the visualization options to their default state.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetQueryFilterState(UnityEditor.PhysicsVisualizationSettings/QueryFilter,System.Boolean)">
+      <summary>
+        <para>Sets the query filtering state of PhysicsVisualizationSettings</para>
+      </summary>
+      <param name="filter">The QueryFilter flags which should be set</param>
+      <param name="value">The value that the specified flags should be set to</param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowArticulationBodies(System.Boolean)">
+      <summary>
+        <para>Should Articulation Bodies be shown by the Physics Visualizer.</para>
+      </summary>
+      <param name="show">Value to set.</param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowBoxColliders(System.Boolean)">
+      <summary>
+        <para>Should BoxColliders be shown.</para>
+      </summary>
+      <param name="show"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowCapsuleColliders(System.Boolean)">
+      <summary>
+        <para>Should CapsuleColliders be shown.</para>
+      </summary>
+      <param name="show"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowCollisionLayer(System.Int32,System.Boolean)">
+      <summary>
+        <para>Should the given layer be considered by the display filter.</para>
+      </summary>
+      <param name="layer"></param>
+      <param name="show"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowCollisionLayerMask(System.Int32)">
+      <summary>
+        <para>Should the mask representing the layers be considered by the display filter.</para>
+      </summary>
+      <param name="mask"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowForAllFilters(System.Boolean)">
+      <summary>
+        <para>Enables or disables all filtering items.</para>
+      </summary>
+      <param name="selected"></param>
+      <param name="filterWorkflow"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowForAllFilters(UnityEditor.PhysicsVisualizationSettings/FilterWorkflow,System.Boolean)">
+      <summary>
+        <para>Enables or disables all filtering items.</para>
+      </summary>
+      <param name="selected"></param>
+      <param name="filterWorkflow"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowKinematicBodies(System.Boolean)">
+      <summary>
+        <para>Should the kinematic Rigidbodies be considered by the display filter.</para>
+      </summary>
+      <param name="show"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowMeshColliders(UnityEditor.PhysicsVisualizationSettings/MeshColliderType,System.Boolean)">
+      <summary>
+        <para>Should MeshColliders be shown.</para>
+      </summary>
+      <param name="colliderType"></param>
+      <param name="show"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowPhysicsSceneMask(System.Int32)">
+      <summary>
+        <para>Should the scene mask be considered by the display filter.</para>
+      </summary>
+      <param name="mask"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowRigidbodies(System.Boolean)">
+      <summary>
+        <para>Should any Rigidbodies be considered by the display filter.</para>
+      </summary>
+      <param name="show"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowSleepingBodies(System.Boolean)">
+      <summary>
+        <para>Should sleeping Rigidbodies and Articulation Bodies be considered by the display filter.</para>
+      </summary>
+      <param name="show"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowSphereColliders(System.Boolean)">
+      <summary>
+        <para>Should SphereColliders be shown.</para>
+      </summary>
+      <param name="show"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowStaticColliders(System.Boolean)">
+      <summary>
+        <para>Should the Colliders without a Rigidbody component be considered by the display filter.</para>
+      </summary>
+      <param name="show"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowTerrainColliders(System.Boolean)">
+      <summary>
+        <para>Should TerrainColliders be shown.</para>
+      </summary>
+      <param name="show"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowTriggers(System.Boolean)">
+      <summary>
+        <para>Should the triggers be considered by the display filter.</para>
+      </summary>
+      <param name="show"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.SetShowUnitySceneMask(System.Int32)">
+      <summary>
+        <para>Sets the Unity scene mask that should be considered by the filter.</para>
+      </summary>
+      <param name="mask"></param>
+    </member>
+    <member name="M:UnityEditor.PhysicsVisualizationSettings.UpdateMouseHighlight(UnityEngine.Vector2)">
+      <summary>
+        <para>Updates the mouse-over highlight at the given mouse position in screen space.</para>
+      </summary>
+      <param name="screenPos"></param>
+    </member>
+  </members>
+</doc>

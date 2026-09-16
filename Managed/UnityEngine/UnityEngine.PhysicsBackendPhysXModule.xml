@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEngine.PhysicsBackendPhysXModule</name>
+    </assembly>
+    <member name="A:UnityEngine.PhysicsBackendPhysXModule">
+      <summary>
+        <para>PhysX Integration module's scripting assembly.</para>
+      </summary>
+    </member>
+  </members>
+</doc>

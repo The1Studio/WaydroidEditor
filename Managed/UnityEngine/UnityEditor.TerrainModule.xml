@@ -1,0 +1,989 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.TerrainModule</name>
+    </assembly>
+    <member name="?:UnityEditor.ITerrainLayerCustomUI">
+      <summary>
+        <para>Provides an interface to display a custom TerrainLayer UI in the Terrain Layers inspector.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.ITerrainLayerCustomUI.OnTerrainLayerGUI(UnityEngine.TerrainLayer,UnityEngine.Terrain)">
+      <summary>
+        <para>Draws the custom GUI for the terrain layer.</para>
+      </summary>
+      <param name="terrainLayer">The TerrainLayer object.</param>
+      <param name="terrain">The Terrain object on which the TerrainLayer object, specified by the terrainLayer parameter, is selected.</param>
+      <returns>
+        <para>Return false to have Unity draw the default TerrainLayer inspector. Otherwise draw the custom GUI and return true.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEditor.TerrainDetailMeshRenderMode">
+      <summary>
+        <para>Options for determining the render mode of the mesh detail.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainDetailMeshRenderMode.Grass">
+      <summary>
+        <para>Uses the grass shader for rendering details</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainDetailMeshRenderMode.VertexLit">
+      <summary>
+        <para>Uses the vertex lit shader for rendering details</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TerrainDetailMeshWizard">
+      <summary>
+        <para>Provides methods for displaying the detail mesh wizard.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainDetailMeshWizard.OnEnable">
+      <summary>
+        <para>Unity calls this method automatically when the detail mesh wizard is enabled.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainDetailMeshWizard.ResetDefaults(UnityEngine.Terrain,System.Int32)">
+      <summary>
+        <para>Initializes the mesh detail wizard's defaults.</para>
+      </summary>
+      <param name="terrain">The Terrain object.</param>
+      <param name="index">The detail's index.</param>
+    </member>
+    <member name="T:UnityEditor.TerrainDetailTextureWizard">
+      <summary>
+        <para>Provides methods for displaying the detail texture wizard.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainDetailTextureWizard.OnEnable">
+      <summary>
+        <para>Unity calls this method automatically when the detail mesh wizard is enabled.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainDetailTextureWizard.ResetDefaults(UnityEngine.Terrain,System.Int32)">
+      <summary>
+        <para>Initializes the texture detail wizard's defaults.</para>
+      </summary>
+      <param name="terrain">The Terrain object.</param>
+      <param name="index">The detail's index.</param>
+    </member>
+    <member name="T:UnityEditor.TerrainLayerInspector">
+      <summary>
+        <para>The default Inspector class for Terrain Layer.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerInspector.ApplyCustomUI(UnityEditor.ITerrainLayerCustomUI,UnityEngine.Terrain)">
+      <summary>
+        <para>Applies the custom UI for the Terrain Layer object.</para>
+      </summary>
+      <param name="customUI">The custom UI object.</param>
+      <param name="terrain">The Terrain object.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerInspector.HasPreviewGUI">
+      <summary>
+        <para>Returns true if the Terrain Layer has a preview GUI.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerInspector.OnInspectorGUI">
+      <summary>
+        <para>Draws the default Terrain Layer Inspector GUI.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerInspector.OnPreviewGUI(UnityEngine.Rect,UnityEngine.GUIStyle)">
+      <summary>
+        <para>Draws the default Terrain Layer preview GUI.</para>
+      </summary>
+      <param name="r"></param>
+      <param name="background"></param>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerInspector.RenderStaticPreview(System.String,UnityEngine.Object[],System.Int32,System.Int32)">
+      <summary>
+        <para>Draws the default Terrain Layer static preview.</para>
+      </summary>
+      <param name="assetPath"></param>
+      <param name="subAssets"></param>
+      <param name="width"></param>
+      <param name="height"></param>
+    </member>
+    <member name="T:UnityEditor.TerrainLayerUtility">
+      <summary>
+        <para>A set of helper functions for using terrain layers.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerUtility.CheckNormalMapTextureType(UnityEngine.Texture2D)">
+      <summary>
+        <para>Checks whether the texture is correctly imported as a normal map texture.</para>
+      </summary>
+      <param name="texture">The texture to check.</param>
+      <returns>
+        <para>True if texture is correctly imported, otherwise false.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerUtility.ShowTerrainLayerGUI(UnityEngine.Terrain,UnityEngine.TerrainLayer,UnityEditor.Editor&amp;,UnityEditor.ITerrainLayerCustomUI)">
+      <summary>
+        <para>This helper function shows the Terrain Layer Inspector GUI nested inside the current Inspector GUI.</para>
+      </summary>
+      <param name="terrain">The Terrain from which the Terrain Layer originates.</param>
+      <param name="terrainLayer">The Terrain Layer object to show the Inspector for.</param>
+      <param name="terrainLayerEditor">Reference to a variable of type Editor in which Unity caches the Terrain Layer Inspector object.</param>
+      <param name="customGUI">The custom Terrain Layer GUI object.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerUtility.ShowTerrainLayersSelectionHelper(UnityEngine.Terrain,System.Int32)">
+      <summary>
+        <para>Helper function to show the layer selection window for selecting terrain layers in inspector.</para>
+      </summary>
+      <param name="terrain">Terrain tile.</param>
+      <param name="activeTerrainLayer">Currently selected terrain layer index.</param>
+      <returns>
+        <para>Newly selected terrain layer index.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerUtility.TilingSettingsUI(UnityEngine.TerrainLayer)">
+      <summary>
+        <para>Displays the tiling settings UI.</para>
+      </summary>
+      <param name="terrainLayer">The terrain layer that contains the tiling settings to display.</param>
+      <param name="tileSize">The tile size property to display.</param>
+      <param name="tileOffset">The tile offset property to display.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerUtility.TilingSettingsUI(UnityEditor.SerializedProperty,UnityEditor.SerializedProperty)">
+      <summary>
+        <para>Displays the tiling settings UI.</para>
+      </summary>
+      <param name="terrainLayer">The terrain layer that contains the tiling settings to display.</param>
+      <param name="tileSize">The tile size property to display.</param>
+      <param name="tileOffset">The tile offset property to display.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerUtility.ValidateDiffuseTextureUI(UnityEngine.Texture2D)">
+      <summary>
+        <para>Checks whether the texture is a valid TerrainLayer diffuse texture. If it detects that the texture is not valid, it displays a warning message that identifies the issue.</para>
+      </summary>
+      <param name="texture">The texture to validate.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerUtility.ValidateMaskMapTextureUI(UnityEngine.Texture2D)">
+      <summary>
+        <para>Checks whether the texture is a valid TerrainLayer mask map texture. If it detects that the texture is not valid, it displays a warning message that identifies the issue.</para>
+      </summary>
+      <param name="texture">The texture to validate.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainLayerUtility.ValidateNormalMapTextureUI(UnityEngine.Texture2D,System.Boolean)">
+      <summary>
+        <para>Checks whether the texture is a valid TerrainLayer normal map texture. If it detects that the texture is not valid, it displays a warning message that identifies the issue.</para>
+      </summary>
+      <param name="texture">The texture to validate.</param>
+      <param name="normalMapTextureType">The return value from the CheckNormalMapTextureType method indicating whether the texture is imported as a normal map.</param>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.BrushesOverlay">
+      <summary>
+        <para>Contains functions that help display Terrain Tools overlays.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.BrushesOverlay.ActiveTerrainTool">
+      <summary>
+        <para>The current active terrain tool, if the terrain tool inherits from TerrainEditorPaintToolBase.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.BrushesOverlay.IsSelectedObjectTerrain">
+      <summary>
+        <para>Checks whether the current selected object is a Terrain object.</para>
+      </summary>
+      <returns>
+        <para>Returns true if the current selected object is of type Terrain.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.BrushGUIEditFlags">
+      <summary>
+        <para>Flags that specify which brush controls the [IOnInspectorGUI.ShowBrushesGUI] method displays.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.BrushGUIEditFlags.All">
+      <summary>
+        <para>Display all brush controls.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.BrushGUIEditFlags.Inspect">
+      <summary>
+        <para>Display the brush inspector for the currently selected brush.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.BrushGUIEditFlags.None">
+      <summary>
+        <para>Don't display any brush controls.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.BrushGUIEditFlags.Opacity">
+      <summary>
+        <para>Display the brush opacity control.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.BrushGUIEditFlags.Select">
+      <summary>
+        <para>Display the brush selection control.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.BrushGUIEditFlags.SelectAndInspect">
+      <summary>
+        <para>Display the brush selection control, and the brush inspector for the currently selected brush.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.BrushGUIEditFlags.Size">
+      <summary>
+        <para>Display the brush size control.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.DetailBrushBounds">
+      <summary>
+        <para>Represents a container for brush bound data.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.DetailBrushBounds.bounds">
+      <summary>
+        <para>The bounds of the brush.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.DetailBrushBounds.max">
+      <summary>
+        <para>The maximum bounds of the brush.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.DetailBrushBounds.min">
+      <summary>
+        <para>The minimum bound of the brush.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.DetailBrushBounds.GetBrushOffset(System.Int32,System.Int32)">
+      <summary>
+        <para>Gets the brush offset within the brush bounds.</para>
+      </summary>
+      <param name="xPos">The x position within brush bounds.</param>
+      <param name="yPos">The y position within brush bounds.</param>
+      <returns>
+        <para>
+                    Returns the brush offset.
+                </para>
+      </returns>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.DetailBrushRepresentation">
+      <summary>
+        <para>
+                Represents data associated with the brush used for scattering details.
+            </para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.DetailBrushRepresentation.GetStrength(System.Int32,System.Int32)">
+      <summary>
+        <para>Gets the strength at the passed in position.</para>
+      </summary>
+      <param name="ix">The x position of the brush offset.</param>
+      <param name="iy">The y position of the brush offset.</param>
+      <returns>
+        <para>
+                    Returns the strength at the passed in position.
+                </para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.DetailBrushRepresentation.GetStrength(UnityEngine.Vector2Int)">
+      <summary>
+        <para>Gets the strength at the passed in position.</para>
+      </summary>
+      <param name="position">The position of the brush offset.</param>
+      <returns>
+        <para>
+                    Returns the strength at the passed in position.
+                </para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.DetailBrushRepresentation.Update(UnityEngine.Texture2D,System.Int32,System.Boolean)">
+      <summary>
+        <para>Updates the DetailBrushRepresentation's data.</para>
+      </summary>
+      <param name="brushTex">The brush mask.</param>
+      <param name="size">The size of the brush.</param>
+      <param name="forceUpdate">When the value is true, Unity forces the DetailBrushRepresentation to always update.
+                Otherwise, Unity updates the DetailBrushRepresentation only when the brush mask's texture or size changes.</param>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.FoliageIndex">
+      <summary>
+        <para>The index at which you should place the foliage tools in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.FoliageIndex.PaintDetails">
+      <summary>
+        <para>The index at which you should place the Paint Details foliage tool in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.FoliageIndex.PaintTrees">
+      <summary>
+        <para>The index at which you should place the Paint Trees foliage tool in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="?:UnityEditor.TerrainTools.IOnInspectorGUI">
+      <summary>
+        <para>Interface that provides parameters and utility functions for the OnInspectorGUI event in the terrain paint tools.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.IOnInspectorGUI.Repaint(UnityEditor.TerrainTools.RepaintFlags)">
+      <summary>
+        <para>Instructs the Editor to repaint the tool UI and/or the scene view.</para>
+      </summary>
+      <param name="flags">What to repaint.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.IOnInspectorGUI.ShowBrushesGUI(System.Int32,UnityEditor.TerrainTools.BrushGUIEditFlags,System.Int32)">
+      <summary>
+        <para>Displays the default controls for the brush in the tool inspector.</para>
+      </summary>
+      <param name="spacing">Pixel spacing for the brush GUI controls.</param>
+      <param name="flags">Specifies which brush controls to display in the Terrain tool UI.</param>
+      <param name="textureResolutionPerTile">The resolution per Terrain tile of the Texture, which the tool is editing.  Unity uses this value to calculate Brush size limits.</param>
+    </member>
+    <member name="?:UnityEditor.TerrainTools.IOnPaint">
+      <summary>
+        <para>Interface that provides parameters and utility functions for the OnPaint event of the terrain paint tools.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnPaint.brushSize">
+      <summary>
+        <para>Read only. Current brush size in Terrain units (equivalent size to world units).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnPaint.brushStrength">
+      <summary>
+        <para>Read only. Current brush strength.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnPaint.brushTexture">
+      <summary>
+        <para>Read only. Current selected brush texture.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnPaint.hitValidTerrain">
+      <summary>
+        <para>Read only. True if the mouse is over a valid Terrain object; otherwise false.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnPaint.raycastHit">
+      <summary>
+        <para>Read only. The raycast result for the current mouse position.  This is valid when hitValidTerrain is true.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnPaint.uv">
+      <summary>
+        <para>Read only. The normalized position (between 0 and 1) on the active Terrain.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.IOnPaint.Repaint(UnityEditor.TerrainTools.RepaintFlags)">
+      <summary>
+        <para>Instructs the Editor to repaint the tool UI, the Scene view, or both.</para>
+      </summary>
+      <param name="flags">Specifies what to repaint.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.IOnPaint.RepaintAllInspectors">
+      <summary>
+        <para>Instructs the Editor to repaint the inspector UI.</para>
+      </summary>
+    </member>
+    <member name="?:UnityEditor.TerrainTools.IOnSceneGUI">
+      <summary>
+        <para>Interface that provides parameters and utility functions for the OnSceneGUI event of the terrain paint tools.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnSceneGUI.brushSize">
+      <summary>
+        <para>Read only. Current brush size in terrain units (equivalent size to world units).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnSceneGUI.brushStrength">
+      <summary>
+        <para>Read only. Current brush strength.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnSceneGUI.brushTexture">
+      <summary>
+        <para>Read only. Current selected brush texture.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnSceneGUI.controlId">
+      <summary>
+        <para>The control ID for the current Terrain Inspector. (Read Only)</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnSceneGUI.hitValidTerrain">
+      <summary>
+        <para>Read only. True if the mouse is over a valid Terrain object; otherwise false.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnSceneGUI.raycastHit">
+      <summary>
+        <para>Read only. The raycast result for the current mouse position.  This is valid when hitValidTerrain is true.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.IOnSceneGUI.sceneView">
+      <summary>
+        <para>Read only. SceneView object.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.IOnSceneGUI.Repaint(UnityEditor.TerrainTools.RepaintFlags)">
+      <summary>
+        <para>Instructs the Editor to repaint the tool UI, the Scene view, or both.</para>
+      </summary>
+      <param name="flags">Specifies what to repaint.</param>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.MaterialIndex">
+      <summary>
+        <para>The index at which you should place the material tools in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.MaterialIndex.PaintTexture">
+      <summary>
+        <para>The index at which you should place the Paint Texture material tool in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.NeighborTerrainsIndex">
+      <summary>
+        <para>The index at which you should place the neighbor terrain tools in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.NeighborTerrainsIndex.CreateTerrain">
+      <summary>
+        <para>The index at which you should place the Create Terrain neighbor terrain tool in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.OnInspectorGUIContext">
+      <summary>
+        <para>The context for drawing IMGUI elements pertaining to terrain tools brushes.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.OnInspectorGUIContext.#ctor">
+      <summary>
+        <para>The constructor for creating OnInspectorGUIContext to make IMGUI calls for drawing brush GUI.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.OnInspectorGUIContext.Repaint(UnityEditor.TerrainTools.RepaintFlags)">
+      <summary>
+        <para>Repaint the IMGUI elements in the inspector.</para>
+      </summary>
+      <param name="flags"></param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.OnInspectorGUIContext.ShowBrushesGUI(System.Int32,UnityEditor.TerrainTools.BrushGUIEditFlags,System.Int32)">
+      <summary>
+        <para>Calls on IMGUI code to create the inspector for showing terrain brushes. This takes in flags that allow the user to select which brush attributes to display, such as opacity, size, or all.</para>
+      </summary>
+      <param name="spacing">Indicate how much spacing to use in the GUILayout.</param>
+      <param name="flags">Indicates which brush attributes to display.</param>
+      <param name="textureResolutionPerTile">The height map resolution of the terrain.</param>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.PaintDetailsToolUtility">
+      <summary>
+        <para>Provides utility methods for painting details.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.PaintDetailsToolUtility.ClampedDetailPatchesGUI(UnityEngine.Terrain,UnityEngine.Vector2&amp;,System.Collections.Generic.List`1&lt;UnityEngine.Vector4&gt;&amp;)">
+      <summary>
+        <para>Gets data on the clamped detail patches for displaying their GUI within a terrain.</para>
+      </summary>
+      <param name="terrain">The target terrain.</param>
+      <param name="detailMinMaxHeight">The minimum and maximum height of the details within the terrain.</param>
+      <param name="clampedDetailPatchIconScreenPositions">The list of screen detail pactch icons within the screen positions.</param>
+      <returns>
+        <para>
+                    Returns the index of the terrain patch within the screen position, returns an invalid index of -1.
+                </para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.PaintDetailsToolUtility.CopyDetailPrototype(UnityEngine.Terrain,UnityEngine.Terrain,System.Int32)">
+      <summary>
+        <para>Copies a detail prototype between two terrains.</para>
+      </summary>
+      <param name="terrain">The target terrain.</param>
+      <param name="sourceTerrain">The source terrain.</param>
+      <param name="sourceDetail">The index of the source detail.</param>
+      <returns>
+        <para>
+                    Returns the index of the copied detail prototype.
+                </para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.PaintDetailsToolUtility.DrawClampedDetailPatchGUI(System.Int32,System.Collections.Generic.List`1&lt;UnityEngine.Vector4&gt;,UnityEngine.Vector2,UnityEngine.Terrain,UnityEditor.TerrainTools.IOnSceneGUI)">
+      <summary>
+        <para>Displays the clamped detail patches.</para>
+      </summary>
+      <param name="mouseOnPatchIndex">The index of the patch that the mouse is hovering over.</param>
+      <param name="clampedDetailPatchIconScreenPositions">The list of screen detail patch icons within the screen positions.</param>
+      <param name="detailMinMaxHeight">The minimum and maximum height of the details within the terrain.</param>
+      <param name="terrain">The target terrain.</param>
+      <param name="editContext">The edit context object.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.PaintDetailsToolUtility.FindDetailPrototype(UnityEngine.Terrain,UnityEngine.Terrain,System.Int32)">
+      <summary>
+        <para>Gets the index position of similar details between two terrains.</para>
+      </summary>
+      <param name="terrain">The target terrain.</param>
+      <param name="sourceTerrain">The source terrain.</param>
+      <param name="sourceDetail">The index of the source detail.</param>
+      <returns>
+        <para>
+                    Returns the index position of the similar detail. Otherwise, returns an invalid index of -1.
+                </para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.PaintDetailsToolUtility.GetMaxDetailInstancesPerPatch(UnityEngine.TerrainData)">
+      <summary>
+        <para>Gets the max amount of detail instances per patch allowed on a terrain.</para>
+      </summary>
+      <param name="terrainData">The terrain data object.</param>
+      <returns>
+        <para>
+                    Returns the max number of detail instances.
+                </para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.PaintDetailsToolUtility.LoadDetailIcons(UnityEngine.DetailPrototype[])">
+      <summary>
+        <para>Gets the icons of the detail prototypes.</para>
+      </summary>
+      <param name="prototypes">The terrain data object.</param>
+      <returns>
+        <para>
+                    Returns the detail icons.
+                </para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.PaintDetailsToolUtility.ResetDetailsUtilityData">
+      <summary>
+        <para>Resets the paint detail tools utility parameters.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.PaintTreesDetailsContext">
+      <summary>
+        <para>Represents a context object for information used when scattering trees and detail objects across terrains.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.PaintTreesDetailsContext.neighborTerrains">
+      <summary>
+        <para>Neighboring terrain objects.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.PaintTreesDetailsContext.neighborUvs">
+      <summary>
+        <para>Neighboring terrain UVs.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.PaintTreesDetailsContext.Create(UnityEngine.Terrain,UnityEngine.Vector2)">
+      <summary>
+        <para>Initializes and returns a scattering context object.</para>
+      </summary>
+      <param name="terrain">The Terrain object.</param>
+      <param name="uv">The current UV position on the terrain.</param>
+      <returns>
+        <para>
+                    Returns an object representing the scattering context information.
+                </para>
+      </returns>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.RepaintFlags">
+      <summary>
+        <para>Flags that indicate what to repaint on the Terrain tools.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.RepaintFlags.Scene">
+      <summary>
+        <para>Repaint the Scene view.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.RepaintFlags.UI">
+      <summary>
+        <para>Repaint the tool UI.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.SculptIndex">
+      <summary>
+        <para>The index at which you should place the sculpt tools in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.SculptIndex.Holes">
+      <summary>
+        <para>The index at which you should place the Holes sculpt tool in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.SculptIndex.PaintHeight">
+      <summary>
+        <para>The index at which you should place the Paint Height sculpt tool in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.SculptIndex.SetHeight">
+      <summary>
+        <para>The index at which you should place the Set Height sculpt tool in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.SculptIndex.Smooth">
+      <summary>
+        <para>The index at which you should place the Smooth sculpt tool in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.SculptIndex.Stamp">
+      <summary>
+        <para>The index at which you should place the Stamp sculpt tool in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.TerrainBrushPreviewMode">
+      <summary>
+        <para>Enum to specify whether DrawBrushPreview previews the source render texture or the destination render texture of a PaintContext.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.TerrainBrushPreviewMode.DestinationRenderTexture">
+      <summary>
+        <para>Specifies that TerrainTools.TerrainPaintUtilityEditor.DrawBrushPreview uses the destination render texture of the PaintContext.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.TerrainBrushPreviewMode.SourceRenderTexture">
+      <summary>
+        <para>Specifies that TerrainTools.TerrainPaintUtilityEditor.DrawBrushPreview uses the source render texture of the PaintContext.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.TerrainCategory">
+      <summary>
+        <para>A category with which to define tools that inherit from the ITerrainPaintToolWithOverlays interface.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.TerrainCategory.CustomBrushes">
+      <summary>
+        <para>The CustomBrushes Terrain Tools category.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.TerrainCategory.Foliage">
+      <summary>
+        <para>The Foliage Terrain Tools category.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.TerrainCategory.Materials">
+      <summary>
+        <para>The Materials Terrain Tools category.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.TerrainCategory.NeighborTerrains">
+      <summary>
+        <para>The NeighborTerrains Terrain Tools category.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.TerrainTools.TerrainCategory.Sculpt">
+      <summary>
+        <para>The Sculpt Terrain Tools category.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.TerrainInspectorUtility">
+      <summary>
+        <para>Utility class for Terrain Inspector GUI.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainInspectorUtility.TerrainShaderValidationGUI(UnityEngine.Material)">
+      <summary>
+        <para>Checks whether a Material is compatible with Terrain.</para>
+      </summary>
+      <param name="material">The Material to validate.</param>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.TerrainPaintTool`1">
+      <summary>
+        <para>Base class for terrain painting tools.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintTool_1.GetDescription">
+      <summary>
+        <para>Retrieves the description of the custom terrain tool.</para>
+      </summary>
+      <returns>
+        <para>Tool description.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintTool_1.GetName">
+      <summary>
+        <para>Retrieves the name of the custom terrain tool.</para>
+      </summary>
+      <returns>
+        <para>Tool name.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintTool_1.OnDisable">
+      <summary>
+        <para>Called when the tool is destroyed.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintTool_1.OnEnable">
+      <summary>
+        <para>Called when the tool is created.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintTool_1.OnEnterToolMode">
+      <summary>
+        <para>Called when the tool is activated.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintTool_1.OnExitToolMode">
+      <summary>
+        <para>Called when the tool becomes inactive.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintTool_1.OnInspectorGUI(UnityEngine.Terrain,UnityEditor.TerrainTools.IOnInspectorGUI)">
+      <summary>
+        <para>Custom terrain tool OnInspectorGUI callback.</para>
+      </summary>
+      <param name="terrain">Active Terrain object.</param>
+      <param name="editContext">Interface used to communicate between Editor and Paint tools.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintTool_1.OnPaint(UnityEngine.Terrain,UnityEditor.TerrainTools.IOnPaint)">
+      <summary>
+        <para>Custom terrain tool paint callback.</para>
+      </summary>
+      <param name="terrain">Active Terrain object.</param>
+      <param name="editContext">Interface used to communicate between Editor and Paint tools.</param>
+      <returns>
+        <para>Return true to temporarily hide tree, grass, and detail layers on the terrain.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintTool_1.OnRenderBrushPreview(UnityEngine.Terrain,UnityEditor.TerrainTools.IOnSceneGUI)">
+      <summary>
+        <para>Use this method to implement custom tool preview and UI behavior that will only render while the mouse is within the SceneView bounds or while you're actively using this tool.</para>
+      </summary>
+      <param name="terrain">Active Terrain object.</param>
+      <param name="editContext">Interface for communication between Editor and Paint tools.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintTool_1.OnSceneGUI(UnityEngine.Terrain,UnityEditor.TerrainTools.IOnSceneGUI)">
+      <summary>
+        <para>Custom terrain tool OnSceneGUI callback.</para>
+      </summary>
+      <param name="terrain">Active Terrain object.</param>
+      <param name="editContext">Interface for communication between Editor and Paint tools.</param>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.TerrainPaintToolWithOverlays`1">
+      <summary>
+        <para>Base class for Terrain painting tools, which inherit from Editor Tools.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase">
+      <summary>
+        <para>The abstract class that TerrainPaintToolWithOverlays inherits from.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.Category">
+      <summary>
+        <para>The TerrainCategory that the Terrain Tool belongs to.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.GetDescription">
+      <summary>
+        <para>Description of the Terrain Tool.</para>
+      </summary>
+      <returns>
+        <para>Terrain Tool description.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.GetName">
+      <summary>
+        <para>Name of the Terrain Tool.</para>
+      </summary>
+      <returns>
+        <para>Terrain Tool name.</para>
+      </returns>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.HasBrushAttributes">
+      <summary>
+        <para>True if the Terrain Tool has brush attributes, false otherwise.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.HasBrushMask">
+      <summary>
+        <para>True if Terrain Tool has brush masks, false otherwise.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.HasToolSettings">
+      <summary>
+        <para>True if Terrain Tool has custom settings, false otherwise.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.IconIndex">
+      <summary>
+        <para>The index at which you should place the Terrain Tool in the Terrain Tools overlay.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OffIcon">
+      <summary>
+        <para>The icon displayed in the Terrain Tools overlay when the Terrain Tool isn't selected.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnActivated">
+      <summary>
+        <para>This function is called when the tool is activated.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnDisable">
+      <summary>
+        <para>Called when the tool is destroyed.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnEnable">
+      <summary>
+        <para>Called when the tool is created.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnEnterToolMode">
+      <summary>
+        <para>This function is called when the Terrain Tool is activated.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnExitToolMode">
+      <summary>
+        <para>This function is called when the Terrain Tool becomes inactive.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnIcon">
+      <summary>
+        <para>The icon displayed in the Terrain Tools overlay when the terrain tool is selected.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnInspectorGUI(UnityEngine.Terrain,UnityEditor.TerrainTools.IOnInspectorGUI)">
+      <summary>
+        <para>Custom Terrain Tool OnInspectorGUI callback.</para>
+      </summary>
+      <param name="terrain">Active Terrain object.</param>
+      <param name="editContext">Interface used to communicate between Editor and Paint tools.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnInspectorGUI(UnityEngine.Terrain,UnityEditor.TerrainTools.IOnInspectorGUI,System.Boolean)">
+      <summary>
+        <para>TODO.</para>
+      </summary>
+      <param name="terrain"></param>
+      <param name="editContext"></param>
+      <param name="overlays"></param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnPaint(UnityEngine.Terrain,UnityEditor.TerrainTools.IOnPaint)">
+      <summary>
+        <para>Custom Terrain Tool paint callback.</para>
+      </summary>
+      <param name="terrain">Active Terrain object.</param>
+      <param name="editContext">Interface used to communicate between Editor and Paint tools.</param>
+      <returns>
+        <para>Return true to temporarily hide tree, grass, and detail layers on the terrain.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnRenderBrushPreview(UnityEngine.Terrain,UnityEditor.TerrainTools.IOnSceneGUI)">
+      <summary>
+        <para>Use this method to implement custom tool preview and UI behavior that only renders while the mouse is within the SceneView bounds or while you're actively using this tool.</para>
+      </summary>
+      <param name="terrain">Active Terrain object.</param>
+      <param name="editContext">Interface used to communicate between Editor and Paint tools.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnSceneGUI(UnityEngine.Terrain,UnityEditor.TerrainTools.IOnSceneGUI)">
+      <summary>
+        <para>Custom Terrain Tool OnSceneGUI callback.</para>
+      </summary>
+      <param name="terrain">Active Terrain object.Active Terrain object.</param>
+      <param name="editContext">Interface used to communicate between Editor and Paint tools.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnToolGUI(UnityEditor.EditorWindow)">
+      <summary>
+        <para>This method is used to implement the custom terrain editor paint tool.</para>
+      </summary>
+      <param name="window">The window that is displaying the custom editor tool.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnToolSettingsGUI(UnityEngine.Terrain,UnityEditor.TerrainTools.IOnInspectorGUI)">
+      <summary>
+        <para>Contains the IMGUI code for custom settings beyond the common settings.</para>
+      </summary>
+      <param name="terrain">Active Terrain object.</param>
+      <param name="editContext">Interface used to communicate between Editor and Paint tools.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnToolSettingsGUI(UnityEngine.Terrain,UnityEditor.TerrainTools.IOnInspectorGUI,System.Boolean)">
+      <summary>
+        <para>TODO.</para>
+      </summary>
+      <param name="terrain"></param>
+      <param name="editContext"></param>
+      <param name="overlays"></param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.OnWillBeDeactivated">
+      <summary>
+        <para>Invoked before the terrain paint tool with overlays stops being the active tool.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.TerrainTools.TerrainPaintToolWithOverlaysBase.Terrain">
+      <summary>
+        <para>The last hit terrain or the last active instance of a terrain object.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.TerrainPaintUtilityEditor">
+      <summary>
+        <para>Terrain paint utility editor helper functions.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintUtilityEditor.DrawBrushPreview">
+      <summary>
+        <para>Draws a Terrain brush preview mesh from a heightmap PaintContext using the provided procedural material.</para>
+      </summary>
+      <param name="heightmapPC">PaintContext describing the heightmap from which to build the preview mesh.</param>
+      <param name="previewTexture">Specifies Whether to build the mesh using the source or destination render texture in heightmapPC.</param>
+      <param name="brushTexture">The brush texture to preview.</param>
+      <param name="brushXform">Describes the position and orientation of the brush.</param>
+      <param name="proceduralMaterial">Material used to render the preview.</param>
+      <param name="materialPassIndex">Material pass to render.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintUtilityEditor.GetDefaultBrushPreviewMaterial">
+      <summary>
+        <para>Returns the default brush preview material.  This material supports procedural mesh generation for use with DrawBrushPreview.</para>
+      </summary>
+      <returns>
+        <para>Default brush preview material.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintUtilityEditor.ShowDefaultPreviewBrush(UnityEngine.Terrain,UnityEngine.Texture,System.Single)">
+      <summary>
+        <para>Helper function to display a default preview brush with no rotation or custom materials.</para>
+      </summary>
+      <param name="terrain">Terrain object.</param>
+      <param name="brushTexture">Brush texture.</param>
+      <param name="brushSize">Brush size.</param>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainPaintUtilityEditor.UpdateTerrainDataUndo(UnityEngine.TerrainData,System.String)">
+      <summary>
+        <para>Updates the undo stack with a terrain operation.</para>
+      </summary>
+      <param name="terrainData">Terrain data object.</param>
+      <param name="undoName">The name of the undo operation.</param>
+    </member>
+    <member name="T:UnityEditor.TerrainTools.TerrainToolShortcutContext">
+      <summary>
+        <para>The shortcut context that is active while editing Terrain.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainToolShortcutContext.SelectPaintTool">
+      <summary>
+        <para>Changes the selected Terrain paint tool.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainTools.TerrainToolShortcutContext.SelectPaintToolWithOverlays">
+      <summary>
+        <para>Changes the selected Terrain paint tool if that paint tool is a TerrainPaintToolWithOverlays.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TerrainWizard">
+      <summary>
+        <para>Provides methods for displaying the terrain wizard.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TerrainWizard.DisplayTerrainWizard(System.String,System.String)">
+      <summary>
+        <para>Displays the terrain wizard.</para>
+      </summary>
+      <param name="title">The wizard's content title.</param>
+      <param name="button">The name of the wizard's create button.</param>
+      <returns>
+        <para>Returns a Scriptable Wizard of the passed in type.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEditor.TerrainWizard.ResetDefaults(UnityEngine.Terrain)">
+      <summary>
+        <para>Initializes the terrain wizard defaults.</para>
+      </summary>
+      <param name="terrain">The Terrain object.</param>
+    </member>
+  </members>
+</doc>

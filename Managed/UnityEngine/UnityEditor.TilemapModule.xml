@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEditor.TilemapModule</name>
+    </assembly>
+    <member name="T:UnityEditor.GridPalette">
+      <summary>
+        <para>GridPalette stores settings for Palette assets when shown in the Palette window.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.GridPalette.cellSizing">
+      <summary>
+        <para>Determines the sizing of cells for a Palette.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.GridPalette.transparencySortAxis">
+      <summary>
+        <para>Determines the sorting axis if the Transparency Sort Mode is set to Custom Axis.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEditor.GridPalette.transparencySortMode">
+      <summary>
+        <para>Determines the Transparency Sorting Mode of Renderers in the Palette.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.GridPalette.CellSizing">
+      <summary>
+        <para>Controls the sizing of cells for a Palette.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.GridPalette.CellSizing.Automatic">
+      <summary>
+        <para>Automatically resizes the Palette cells by the size of Sprites in the Palette.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEditor.GridPalette.CellSizing.Manual">
+      <summary>
+        <para>Size of Palette cells will be changed manually by the user.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEditor.TileBaseEditor">
+      <summary>
+        <para>Default editor for TileBase assets.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TileBaseEditor.#ctor">
+      <summary>
+        <para>Default editor for TileBase assets.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TileBaseEditor.RenderStaticPreview(System.String,UnityEngine.Object[],System.Int32,System.Int32)">
+      <summary>
+        <para>Creates a texture preview for rendering the TileBase asset preview.</para>
+      </summary>
+      <param name="assetPath">The asset to operate on.</param>
+      <param name="subAssets">An array of all Assets at assetPath.</param>
+      <param name="width">Width of the created texture.</param>
+      <param name="height">Height of the created texture.</param>
+      <returns>
+        <para>Generated texture or null.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEditor.TileEditor">
+      <summary>
+        <para>Default editor for Tile assets.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TileEditor.OnInspectorGUI">
+      <summary>
+        <para>Draws the default Tile Inspector GUI.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEditor.TileEditor.RenderStaticPreview(System.String,UnityEngine.Object[],System.Int32,System.Int32)">
+      <summary>
+        <para>Creates a texture preview for rendering the Tile asset preview.</para>
+      </summary>
+      <param name="assetPath">The asset to operate on.</param>
+      <param name="subAssets">An array of all Assets at assetPath.</param>
+      <param name="width">Width of the created texture.</param>
+      <param name="height">Height of the created texture.</param>
+      <returns>
+        <para>Generated texture or null.</para>
+      </returns>
+    </member>
+  </members>
+</doc>

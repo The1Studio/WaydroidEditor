@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEngine.ShaderVariantAnalyticsModule</name>
+    </assembly>
+    <member name="A:UnityEngine.ShaderVariantAnalyticsModule">
+      <summary>
+        <para>ShaderVariantAnalytics is a module used internally to measure shader usage.</para>
+      </summary>
+    </member>
+  </members>
+</doc>
