@@ -59,22 +59,21 @@ sudo install -Dm644 desktop/waydroid-editor.desktop \
 
 ## Install from a release
 
-Every push to `master` publishes a `v1.0.<run>` release whose single asset is the self-contained
-`linux-x64` binary — no .NET runtime, nothing to unpack. GitHub does not store a Unix mode on
-release assets, so the downloaded file arrives non-executable; set the bit, or let `install` set it:
+Every push to `master` publishes a `v1.0.<run>` release whose single asset is a `.tgz` holding the
+self-contained `linux-x64` binary — no .NET runtime needed. The archive carries the executable bit
+(release assets cannot), so it runs as extracted:
 
 ```bash
-curl -fLo WaydroidEditor \
-    https://github.com/The1Studio/WaydroidEditor/releases/latest/download/WaydroidEditor
-chmod +x WaydroidEditor && ./WaydroidEditor
+curl -fLO https://github.com/The1Studio/WaydroidEditor/releases/latest/download/WaydroidEditor.tgz
+tar xzf WaydroidEditor.tgz
+./WaydroidEditor
 ```
 
 To install it with the launcher (the `.desktop` file's `Exec` expects this exact path):
 
 ```bash
-curl -fLo /tmp/WaydroidEditor \
-    https://github.com/The1Studio/WaydroidEditor/releases/latest/download/WaydroidEditor
-sudo install -Dm755 /tmp/WaydroidEditor /opt/waydroid-editor/WaydroidEditor
+tar xzf WaydroidEditor.tgz
+sudo install -Dm755 WaydroidEditor /opt/waydroid-editor/WaydroidEditor
 sudo curl -fLo /usr/share/applications/waydroid-editor.desktop \
     https://raw.githubusercontent.com/The1Studio/WaydroidEditor/master/desktop/waydroid-editor.desktop
 ```

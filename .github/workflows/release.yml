@@ -28,25 +28,30 @@ jobs:
       - name: Publish single-file linux-x64 binary
         run: dotnet publish src/WaydroidEditor -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o publish
 
+      - name: Pack release archive
+        # tar carries the mode, which release assets do not: extracting yields a runnable binary.
+        run: |
+          chmod 755 publish/WaydroidEditor
+          tar -C publish --owner=0 --group=0 -czf WaydroidEditor.tgz WaydroidEditor
+          tar tzvf WaydroidEditor.tgz
+
       - name: Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           tag="v1.0.${GITHUB_RUN_NUMBER}"
-          # GitHub does not store a Unix mode on release assets, so the notes carry the step
-          # that makes the download runnable.
           notes=$(cat <<'EOF'
           Self-contained linux-x64 binary; no .NET runtime needed.
 
           ```bash
-          curl -fLo WaydroidEditor \
-              https://github.com/The1Studio/WaydroidEditor/releases/latest/download/WaydroidEditor
-          chmod +x WaydroidEditor && ./WaydroidEditor
+          curl -fLO https://github.com/The1Studio/WaydroidEditor/releases/latest/download/WaydroidEditor.tgz
+          tar xzf WaydroidEditor.tgz
+          ./WaydroidEditor
           ```
           EOF
           )
           if gh release view "$tag" >/dev/null 2>&1; then
-            gh release upload "$tag" publish/WaydroidEditor --clobber
+            gh release upload "$tag" WaydroidEditor.tgz --clobber
           else
-            gh release create "$tag" --title "$tag" --generate-notes --notes "$notes" publish/WaydroidEditor
+            gh release create "$tag" --title "$tag" --generate-notes --notes "$notes" WaydroidEditor.tgz
           fi
