@@ -29,8 +29,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           tag="v1.0.${GITHUB_RUN_NUMBER}"
+          # GitHub rejects release assets whose extension is .app, so the executable
+          # is published without the extension ("WaydroidPrefsEditor").
+          mv publish/WaydroidPrefsEditor.App publish/WaydroidPrefsEditor
           if gh release view "$tag" >/dev/null 2>&1; then
-            gh release upload "$tag" publish/WaydroidPrefsEditor.App --clobber
+            gh release upload "$tag" publish/WaydroidPrefsEditor --clobber
           else
-            gh release create "$tag" --title "$tag" --generate-notes publish/WaydroidPrefsEditor.App
+            gh release create "$tag" --title "$tag" --generate-notes publish/WaydroidPrefsEditor
           fi
