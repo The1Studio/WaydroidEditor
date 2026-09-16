@@ -33,8 +33,20 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           tag="v1.0.${GITHUB_RUN_NUMBER}"
+          # GitHub does not store a Unix mode on release assets, so the notes carry the step
+          # that makes the download runnable.
+          notes=$(cat <<'EOF'
+          Self-contained linux-x64 binary; no .NET runtime needed.
+
+          ```bash
+          curl -fLo WaydroidEditor \
+              https://github.com/The1Studio/WaydroidEditor/releases/latest/download/WaydroidEditor
+          chmod +x WaydroidEditor && ./WaydroidEditor
+          ```
+          EOF
+          )
           if gh release view "$tag" >/dev/null 2>&1; then
             gh release upload "$tag" publish/WaydroidEditor --clobber
           else
-            gh release create "$tag" --title "$tag" --generate-notes publish/WaydroidEditor
+            gh release create "$tag" --title "$tag" --generate-notes --notes "$notes" publish/WaydroidEditor
           fi
