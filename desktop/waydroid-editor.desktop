@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Waydroid Editor
+Comment=Edit Unity PlayerPrefs for games running under Waydroid
+Exec=/opt/waydroid-editor/WaydroidEditor
+Icon=applications-games
+Terminal=false
+Categories=Utility;Development;

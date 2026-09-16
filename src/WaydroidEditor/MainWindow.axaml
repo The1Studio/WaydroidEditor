@@ -1,0 +1,133 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:WaydroidEditor"
+        x:Class="WaydroidEditor.MainWindow"
+        x:DataType="local:PrefsViewModel"
+        Title="Waydroid Editor"
+        Width="1280" Height="680">
+
+  <Window.Styles>
+    <Style Selector="TextBox.invalid">
+      <Setter Property="BorderBrush" Value="Firebrick" />
+      <Setter Property="BorderThickness" Value="2" />
+    </Style>
+  </Window.Styles>
+
+  <Window.DataTemplates>
+    <DataTemplate x:DataType="local:LeafNode" DataType="local:LeafNode">
+      <Grid ColumnDefinitions="Auto,Auto,*,Auto" Margin="0,1">
+        <TextBox Grid.Column="0" MinWidth="140" Margin="0,0,6,0" IsVisible="{Binding KeyEditable}"
+                 Text="{Binding KeyText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Grid.Column="0" MinWidth="140" Margin="0,0,6,0" VerticalAlignment="Center"
+                   IsVisible="{Binding ShowLabel}" Text="{Binding Label}" />
+        <TextBlock Grid.Column="1" Margin="0,0,6,0" VerticalAlignment="Center" Opacity="0.5"
+                   Text="{Binding TypeLabel}" />
+        <Grid Grid.Column="2">
+          <TextBox IsVisible="{Binding IsText}" IsEnabled="{Binding IsEditable}"
+                   Text="{Binding ValueText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                   FontFamily="DejaVu Sans Mono,monospace" />
+          <CheckBox IsVisible="{Binding IsBool}" IsEnabled="{Binding IsEditable}"
+                    IsChecked="{Binding IsChecked, Mode=TwoWay}" IsThreeState="{Binding IsThreeState}" />
+          <ComboBox IsVisible="{Binding IsEnum}" IsEnabled="{Binding IsEditable}" MinWidth="180"
+                    HorizontalAlignment="Left" ItemsSource="{Binding Choices}"
+                    SelectedItem="{Binding SelectedChoice, Mode=TwoWay}" />
+          <TextBlock IsVisible="{Binding IsNull}" VerticalAlignment="Center" Opacity="0.5" Text="(null)" />
+        </Grid>
+        <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="6" Margin="6,0,0,0">
+          <TextBlock Text="{Binding Error}" Foreground="Firebrick" VerticalAlignment="Center" />
+          <Button Content="Remove" Padding="6,0" IsVisible="{Binding CanRemove}" Command="{Binding RemoveCommand}" />
+        </StackPanel>
+      </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:DataType="local:ContainerNode" DataType="local:ContainerNode">
+      <Expander IsExpanded="{Binding IsExpanded, Mode=TwoWay}" Margin="0,1">
+        <Expander.Header>
+          <StackPanel Orientation="Horizontal" Spacing="6">
+            <TextBox MinWidth="140" IsVisible="{Binding KeyEditable}"
+                     Text="{Binding KeyText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock MinWidth="140" VerticalAlignment="Center" IsVisible="{Binding ShowLabel}"
+                       Text="{Binding Label}" />
+            <TextBlock VerticalAlignment="Center" Opacity="0.5" Text="{Binding TypeLabel}" />
+            <TextBlock VerticalAlignment="Center" Opacity="0.5" Text="{Binding Summary}" />
+            <Button Content="Add" Padding="6,0" IsVisible="{Binding CanAdd}" Command="{Binding AddCommand}" />
+            <Button Content="Remove" Padding="6,0" IsVisible="{Binding CanRemove}" Command="{Binding RemoveCommand}" />
+            <TextBlock Foreground="Firebrick" VerticalAlignment="Center" Text="{Binding Error}" />
+          </StackPanel>
+        </Expander.Header>
+        <ItemsControl ItemsSource="{Binding Children}" Margin="18,0,0,4" />
+      </Expander>
+    </DataTemplate>
+  </Window.DataTemplates>
+
+  <DockPanel>
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="6" Margin="8">
+      <TextBlock Text="Package" VerticalAlignment="Center" />
+      <ComboBox Width="280"
+                ItemsSource="{Binding Packages}"
+                SelectedItem="{Binding SelectedPackage, Mode=TwoWay}" />
+      <Button Content="Refresh" Command="{Binding RefreshCommand}" />
+      <Button Content="Export…" Command="{Binding ExportCommand}" />
+      <Button Content="Import…" Command="{Binding ImportCommand}" />
+      <Button Content="Remove Row" Command="{Binding RemoveRowCommand}"
+              IsEnabled="{Binding HasSelectedRow}" />
+      <Button Content="Remove All Rows" Command="{Binding RemoveAllRowsCommand}"
+              IsEnabled="{Binding HasRows}" />
+      <Button Content="Save" Command="{Binding SaveCommand}" />
+    </StackPanel>
+
+    <TextBlock DockPanel.Dock="Bottom" Margin="8,4" TextWrapping="Wrap"
+               Text="{Binding Status}" />
+
+    <TabControl>
+      <TabItem Header="Entries">
+        <Grid ColumnDefinitions="3*,4*">
+          <DataGrid Grid.Column="0" ItemsSource="{Binding Rows}"
+                    SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
+                    AutoGenerateColumns="False" CanUserResizeColumns="True"
+                    GridLinesVisibility="Horizontal">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="Key" Width="3*" IsReadOnly="True" x:DataType="local:EntryRow" Binding="{Binding Key}" />
+              <DataGridTextColumn Header="Type" Width="2*" IsReadOnly="True" x:DataType="local:EntryRow" Binding="{Binding TypeLabel}" />
+              <DataGridTextColumn Header="Value" Width="4*" x:DataType="local:EntryRow" Binding="{Binding RawValue}" />
+            </DataGrid.Columns>
+          </DataGrid>
+
+          <DockPanel Grid.Column="1">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8" Margin="8,8,8,4">
+              <TextBlock Text="{Binding SelectedRow.ModeLabel}" VerticalAlignment="Center" />
+              <Button Content="Format JSON" Command="{Binding FormatJsonCommand}"
+                      IsVisible="{Binding SelectedRow.IsTextMode}" />
+              <TextBlock Text="{Binding SelectedRow.CommitError}" Foreground="Firebrick"
+                         VerticalAlignment="Center" TextWrapping="Wrap" />
+            </StackPanel>
+            <Grid Margin="8,0,8,8">
+              <TextBox Text="{Binding SelectedRow.DetailText, Mode=TwoWay}"
+                       IsVisible="{Binding SelectedRow.IsTextMode}"
+                       Classes.invalid="{Binding SelectedRow.HasError}"
+                       AcceptsReturn="True" TextWrapping="NoWrap"
+                       FontFamily="DejaVu Sans Mono,monospace"
+                       VerticalContentAlignment="Top" />
+              <ScrollViewer IsVisible="{Binding SelectedRow.IsStructuredMode}">
+                <ContentControl Content="{Binding SelectedRow.Editor}" />
+              </ScrollViewer>
+            </Grid>
+          </DockPanel>
+        </Grid>
+      </TabItem>
+      <TabItem Header="DLLs">
+        <DockPanel Margin="8">
+          <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="6" Margin="0,0,0,8">
+            <Button Content="Add folder…" Command="{Binding AddDllsCommand}" />
+            <Button Content="Remove" Command="{Binding RemoveDllCommand}"
+                    IsEnabled="{Binding HasSelectedDll}" />
+            <TextBlock VerticalAlignment="Center" Opacity="0.7" TextWrapping="Wrap"
+                       Text="Unity's engine assemblies ship with the app. Add the folder holding the game's compiled assemblies (e.g. .../assets/bin/Data/Managed); the folder is listed and its DLLs are loaded from there." />
+          </StackPanel>
+          <ListBox ItemsSource="{Binding GameDlls}"
+                   SelectedItem="{Binding SelectedDll, Mode=TwoWay}" />
+        </DockPanel>
+      </TabItem>
+    </TabControl>
+  </DockPanel>
+</Window>

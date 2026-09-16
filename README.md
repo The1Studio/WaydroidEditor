@@ -1,4 +1,4 @@
-# Waydroid PlayerPrefs Editor
+# Waydroid Editor
 
 A desktop editor for the Unity `PlayerPrefs` file of Android games running under
 [Waydroid](https://waydro.id/).
@@ -37,23 +37,23 @@ assemblies at runtime; there is no Unity project to open and no exporter to inst
 ## Build
 
 ```bash
-dotnet build WaydroidPrefsEditor.sln -c Release
-dotnet test  WaydroidPrefsEditor.sln -c Release
+dotnet build WaydroidEditor.slnx -c Release
+dotnet test  WaydroidEditor.slnx -c Release
 
-dotnet publish src/WaydroidPrefsEditor.App -c Release -r linux-x64 \
+dotnet publish src/WaydroidEditor -c Release -r linux-x64 \
     --self-contained true -p:PublishSingleFile=true \
     -p:IncludeNativeLibrariesForSelfExtract=true
 ```
 
 The result is a single executable at
-`src/WaydroidPrefsEditor.App/bin/Release/net8.0/linux-x64/publish/WaydroidPrefsEditor.App`.
+`src/WaydroidEditor/bin/Release/net8.0/linux-x64/publish/WaydroidEditor`.
 Double-click it, or install it and the launcher:
 
 ```bash
-sudo install -Dm755 src/WaydroidPrefsEditor.App/bin/Release/net8.0/linux-x64/publish/WaydroidPrefsEditor.App \
-    /opt/waydroid-playerprefs-editor/WaydroidPrefsEditor.App
-sudo install -Dm644 desktop/waydroid-playerprefs-editor.desktop \
-    /usr/share/applications/waydroid-playerprefs-editor.desktop
+sudo install -Dm755 src/WaydroidEditor/bin/Release/net8.0/linux-x64/publish/WaydroidEditor \
+    /opt/waydroid-editor/WaydroidEditor
+sudo install -Dm644 desktop/waydroid-editor.desktop \
+    /usr/share/applications/waydroid-editor.desktop
 ```
 
 ## Where the prefs files live
@@ -76,7 +76,7 @@ The GUI therefore runs **as you**, and delegates all privileged filesystem work 
 child of the same binary invoked once through `pkexec`:
 
 ```
-pkexec /path/to/WaydroidPrefsEditor.App --helper serve --data-root <root>
+pkexec /path/to/WaydroidEditor --helper serve --data-root <root>
 ```
 
 That child stays alive for the run and serves line-based requests over its pipes:
@@ -115,7 +115,7 @@ Either source works:
 
 Where the same assembly name appears more than once, the shallowest copy is used and the rest are
 counted in the status line. Select an assembly in the list and press **Remove** to drop it. The
-list is remembered in `~/.config/waydroid-playerprefs-editor/settings.json` as `gameDlls`.
+list is remembered in `~/.config/waydroid-editor/settings.json` as `gameDlls`.
 
 The folder also has to carry what the save types depend on beyond the engine — `Newtonsoft.Json`,
 `R3`, and every other third-party or game-internal assembly the save types serialise through. A
@@ -140,7 +140,7 @@ in raw editing mode — JSON where the game wrote JSON, Base64 otherwise.
 The editor must be built against **the MemoryPack the game was compiled against** — currently
 `MemoryPack.Core 1.21.4`, matching `com.cysharp.memorypack`. Unity compiles against that package's
 `netstandard2.1` asset, whose `IMemoryPackable<T>`/`MemoryPackFormatter<T>` shape differs from the
-`net8.0` asset's, so `src/WaydroidPrefsEditor.Core` and `tests/FakeGameData` both pin
+`net8.0` asset's, so `src/WaydroidEditor.Core` and `tests/FakeGameData` both pin
 `lib/netstandard2.1` by hand (`MemoryPack.Core` with `ExcludeAssets="all"`, plus
 `MemoryPack.Generator`). Publishing against the `MemoryPack` metapackage instead makes every save
 type fail to load with `TypeLoadException`.
@@ -251,7 +251,7 @@ compositor that means XWayland, which needs a valid `XAUTHORITY`. If your other 
 this should too; if they do not, point the app at the right file explicitly:
 
 ```bash
-XAUTHORITY=<the file xauth list read> ./WaydroidPrefsEditor.App
+XAUTHORITY=<the file xauth list read> ./WaydroidEditor
 ```
 
 **`pkexec could not start the helper` / `Authorization was dismissed or denied`** — `pkexec`

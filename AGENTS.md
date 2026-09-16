@@ -15,8 +15,8 @@ Three concerns the code guards carefully, and any change must preserve:
 
 ## Architecture & Data Flow
 
-Two projects, strictly layered: `WaydroidPrefsEditor.App` (Avalonia GUI + privilege transport) →
-`WaydroidPrefsEditor.Core` (pure domain) → MemoryPack 1.21.4 + the embedded Unity engine assemblies.
+Two projects, strictly layered: `WaydroidEditor` (Avalonia GUI + privilege transport) →
+`WaydroidEditor.Core` (pure domain) → MemoryPack 1.21.4 + the embedded Unity engine assemblies.
 
 ```
 WaydroidAccess.ResolveTarget            → PrefsTarget (host path under <dataRoot>/data/...)
@@ -52,33 +52,33 @@ per-operation `pkexec` would prompt per operation. The helper must **never open 
 
 | Path | Purpose |
 | --- | --- |
-| `src/WaydroidPrefsEditor.Core/` | Domain library: XML codec, escaping, MemoryPack bridge, filesystem access, settings. |
-| `src/WaydroidPrefsEditor.App/` | Avalonia GUI, MVVM layer, `pkexec` helper client + server, CLI modes. |
-| `tests/WaydroidPrefsEditor.Tests/` | xUnit tests for Core and the App view model. |
+| `src/WaydroidEditor.Core/` | Domain library: XML codec, escaping, MemoryPack bridge, filesystem access, settings. |
+| `src/WaydroidEditor/` | Avalonia GUI, MVVM layer, `pkexec` helper client + server, CLI modes. |
+| `tests/WaydroidEditor.Tests/` | xUnit tests for Core and the App view model. |
 | `tests/FakeGameData/` | Standalone `netstandard2.1` assembly of fake `[MemoryPackable]` types used as the "game". |
 | `tests/FakeAttributes/` | Attribute assembly FakeGameData compiles against but is loaded without. |
 | `desktop/` | Freedesktop `.desktop` launcher. |
 | `Managed/` | Source of the bundled Unity engine assemblies; Core embeds `Managed/UnityEngine/UnityEngine*.dll`. |
 
 The Unity engine assemblies under `Managed/UnityEngine/` are embedded as resources by Core
-(`LogicalName = WaydroidPrefsEditor.Unity.<name>.dll`), so Unity-native members — and the game's
+(`LogicalName = WaydroidEditor.Unity.<name>.dll`), so Unity-native members — and the game's
 `[RuntimeInitializeOnLoadMethod]` hooks — resolve without a Unity install and without the game
 folder shipping its own `UnityEngine` modules. A folder copy of an engine assembly still wins.
 
 ## Development Commands
 
 ```bash
-dotnet build  WaydroidPrefsEditor.sln -c Release
-dotnet test   WaydroidPrefsEditor.sln -c Release
+dotnet build  WaydroidEditor.slnx -c Release
+dotnet test   WaydroidEditor.slnx -c Release
 
-# Self-contained single-file publish → .../net8.0/linux-x64/publish/WaydroidPrefsEditor.App
-dotnet publish src/WaydroidPrefsEditor.App -c Release -r linux-x64 \
+# Self-contained single-file publish → .../net8.0/linux-x64/publish/WaydroidEditor
+dotnet publish src/WaydroidEditor -c Release -r linux-x64 \
     --self-contained true -p:PublishSingleFile=true \
     -p:IncludeNativeLibrariesForSelfExtract=true
 ```
 
-Install (per README): copy the published binary to `/opt/waydroid-playerprefs-editor/` and
-`desktop/waydroid-playerprefs-editor.desktop` to `/usr/share/applications/`.
+Install (per README): copy the published binary to `/opt/waydroid-editor/` and
+`desktop/waydroid-editor.desktop` to `/usr/share/applications/`.
 
 **No CI, no scripts, no Makefile, no `.editorconfig`, no `.gitignore`, no `global.json`.** The
 README is the sole source of build/run/install commands. Do not assume a CI gate exists — run
@@ -86,8 +86,8 @@ build + test locally before claiming done.
 
 Manual / headless verification (no display needed):
 ```bash
-./WaydroidPrefsEditor.App --screenshot out.png          # render and exit
-./WaydroidPrefsEditor.App --helper --data-root <root>   # serve the protocol on stdio
+./WaydroidEditor --screenshot out.png          # render and exit
+./WaydroidEditor --helper --data-root <root>   # serve the protocol on stdio
 ```
 If `pkexec` is unavailable, run as root with `--no-elevate`.
 
@@ -119,23 +119,23 @@ If `pkexec` is unavailable, run as root with `--no-elevate`.
 
 ## Important Files
 
-- `src/WaydroidPrefsEditor.App/Program.cs` — 4-mode entry point (GUI / `--helper` / `--screenshot`
+- `src/WaydroidEditor/Program.cs` — 4-mode entry point (GUI / `--helper` / `--screenshot`
   / no-display error) and `BuildAvaloniaApp`.
-- `src/WaydroidPrefsEditor.App/PrefsViewModel.cs` — all UI state and command logic, package load,
+- `src/WaydroidEditor/PrefsViewModel.cs` — all UI state and command logic, package load,
   row classification, save, snapshot import/export.
-- `src/WaydroidPrefsEditor.App/PrefsStore.cs` — `IPrefsStore`, `DirectPrefsStore`,
+- `src/WaydroidEditor/PrefsStore.cs` — `IPrefsStore`, `DirectPrefsStore`,
   `ElevatedPrefsStore` (persistent `pkexec` child).
-- `src/WaydroidPrefsEditor.App/HelperProtocol.cs` — `OK|ERR <len>\n` framing shared by both ends.
-- `src/WaydroidPrefsEditor.App/EntryRow.cs` — the `EditMode` state machine (Raw/Json/MemoryPack/
+- `src/WaydroidEditor/HelperProtocol.cs` — `OK|ERR <len>\n` framing shared by both ends.
+- `src/WaydroidEditor/EntryRow.cs` — the `EditMode` state machine (Raw/Json/MemoryPack/
   MemoryPackUnsupported) and value mirroring.
-- `src/WaydroidPrefsEditor.Core/PrefsFile.cs` — `PrefsEntry`, `PrefsType`, `PrefsFile.ParseXml/WriteXml`.
-- `src/WaydroidPrefsEditor.Core/MpRuntime.cs` — private `AssemblyLoadContext`, type indexing,
+- `src/WaydroidEditor.Core/PrefsFile.cs` — `PrefsEntry`, `PrefsType`, `PrefsFile.ParseXml/WriteXml`.
+- `src/WaydroidEditor.Core/MpRuntime.cs` — private `AssemblyLoadContext`, type indexing,
   MemoryPack decode/encode, bundled UnityEngine formatters, and replay of the game's
   `[RuntimeInitializeOnLoadMethod]` hooks so its custom formatters (R3 `ReactiveProperty<T>`, …)
   register outside the Unity player.
-- `src/WaydroidPrefsEditor.Core/ObjectJson.cs` — reflection CLR↔`JsonNode` bridge.
-- `src/WaydroidPrefsEditor.Core/UnityPrefsEscaping.cs` — round-trip-verified percent codec.
-- `src/WaydroidPrefsEditor.Core/WaydroidAccess.cs` — data-root/package discovery, in-place write.
+- `src/WaydroidEditor.Core/ObjectJson.cs` — reflection CLR↔`JsonNode` bridge.
+- `src/WaydroidEditor.Core/UnityPrefsEscaping.cs` — round-trip-verified percent codec.
+- `src/WaydroidEditor.Core/WaydroidAccess.cs` — data-root/package discovery, in-place write.
 - `Directory.Build.props` — shared build settings (see above).
 
 ## Runtime/Tooling Preferences
@@ -149,23 +149,23 @@ If `pkexec` is unavailable, run as root with `--no-elevate`.
   Unity compiles against `MemoryPack.Core`'s **`netstandard2.1` asset**, whose
   `IMemoryPackable<T>`/`MemoryPackFormatter<T>` shape differs from the `net8.0` asset's — a save type
   built against one fails to load against the other (`TypeLoadException`). Both
-  `src/WaydroidPrefsEditor.Core` and `tests/FakeGameData` therefore pin
+  `src/WaydroidEditor.Core` and `tests/FakeGameData` therefore pin
   `lib/netstandard2.1` by hand (`MemoryPack.Core` with `ExcludeAssets="all"` + `MemoryPack.Generator`);
   keep the two in step, and change the version in both together. The editor's private ALC deliberately
   defers `MemoryPack`/`MemoryPack.Core` to its own copy so both sides share one formatter registry.
 - Linux x64 target; `RID=linux-x64`. Avalonia 12 has no Wayland backend — it always connects via
   X11/XWayland, hence the `XAUTHORITY` troubleshooting in the README.
-- Settings live at `~/.config/waydroid-playerprefs-editor/settings.json`
+- Settings live at `~/.config/waydroid-editor/settings.json`
   (`AppSettings.FilePath`, camelCase JSON).
 
 ## Testing & QA
 
 - **Framework**: xUnit 2.9.2 via `Microsoft.NET.Test.Sdk` 17.11.1 (VSTest). No fixtures/collections,
   no `.runsettings`, no coverage tooling, **no headless UI tests**. Run everything with
-  `dotnet test WaydroidPrefsEditor.sln -c Release`.
-- **Placement**: Core logic → `tests/WaydroidPrefsEditor.Tests` against Core's public API. App
+  `dotnet test WaydroidEditor.slnx -c Release`.
+- **Placement**: Core logic → `tests/WaydroidEditor.Tests` against Core's public API. App
   internals (e.g. `internal PrefsViewModel.ApplyImported`) are reachable via
-  `<InternalsVisibleTo>WaydroidPrefsEditor.Tests</InternalsVisibleTo>` in the App `.csproj`.
+  `<InternalsVisibleTo>WaydroidEditor.Tests</InternalsVisibleTo>` in the App `.csproj`.
 - **Naming**: `SomethingTests` class, `[Fact]`/`[Theory]` + `[InlineData]`, method names are
   behavioral sentences (`SaveLeavesUntouchedKeysOnDiskUnchanged`). Tests own a temp dir and
   implement `IDisposable` for cleanup.

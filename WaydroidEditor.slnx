@@ -1,0 +1,16 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/src/">
+    <Project Path="src/WaydroidEditor/WaydroidEditor.csproj" />
+    <Project Path="src/WaydroidEditor.Core/WaydroidEditor.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FakeAttributes/FakeAttributes.csproj" />
+    <Project Path="tests/FakeGameData/FakeGameData.csproj" />
+    <Project Path="tests/WaydroidEditor.Tests/WaydroidEditor.Tests.csproj" />
+  </Folder>
+</Solution>
