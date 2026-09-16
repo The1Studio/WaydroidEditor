@@ -80,9 +80,10 @@ dotnet publish src/WaydroidEditor -c Release -r linux-x64 \
 Install (per README): copy the published binary to `/opt/waydroid-editor/` and
 `desktop/waydroid-editor.desktop` to `/usr/share/applications/`.
 
-**No CI, no scripts, no Makefile, no `.editorconfig`, no `.gitignore`, no `global.json`.** The
-README is the sole source of build/run/install commands. Do not assume a CI gate exists — run
-build + test locally before claiming done.
+**No scripts, no Makefile, no `.editorconfig`, no `global.json`.** The only CI is
+`.github/workflows/release.yml` (test → publish → GitHub Release on every push to `master`); a
+`.gitignore` covers `bin/`, `obj/`, `*.user`. The README is the sole source of build/run/install
+commands — run build + test locally before claiming done.
 
 Manual / headless verification (no display needed):
 ```bash
@@ -140,7 +141,8 @@ If `pkexec` is unavailable, run as root with `--no-elevate`.
 
 ## Runtime/Tooling Preferences
 
-- **.NET 8 SDK or newer** only; the published binary is self-contained (nothing needed at runtime).
+- **.NET SDK 9.0.200 or newer** (the solution is `.slnx`; the projects still target `net8.0`); the
+  published binary is self-contained (nothing needed at runtime).
 - **No package manager beyond `dotnet`/NuGet.** Versions are pinned inline per `.csproj`, not
   centrally — update them where they are declared.
 - Avalonia `12.1.2` (Desktop, Themes.Fluent, Fonts.Inter, Controls.DataGrid, Headless), MemoryPack

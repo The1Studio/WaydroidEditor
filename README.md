@@ -31,7 +31,8 @@ assemblies at runtime; there is no Unity project to open and no exporter to inst
 - Linux x64, Waydroid installed and initialised.
 - `pkexec` and a polkit authentication agent to write prefs files; or run the binary as root
   with `--no-elevate`.
-- .NET 8 SDK or newer to build. Nothing is needed at runtime — the published binary is
+- .NET SDK 9.0.200 or newer to build (`WaydroidEditor.slnx` needs `.slnx` support; the projects
+  themselves still target `net8.0`). Nothing is needed at runtime — the published binary is
   self-contained.
 
 ## Build
