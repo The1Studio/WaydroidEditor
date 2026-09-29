@@ -33,13 +33,13 @@ public sealed class EditorTree
         Action<JsonNode> apply, Action<string?> report) =>
         new EditorTree(root, clrBacked, apply, report).BuildNode(null, root, rootType, rootLabel, readOnly: false);
 
-    // <summary>The root node's JSON, never replaced: every edit re-applies this whole document.</summary>
+    // The root node's JSON, never replaced: every edit re-applies this whole document.
     internal JsonNode ApplyTarget { get; }
 
-    // <summary>True for MemoryPack rows, where members the CLR object cannot write render disabled.</summary>
+    // True for MemoryPack rows, where members the CLR object cannot write render disabled.
     internal bool ClrBacked { get; }
 
-    // <summary>Every built node in document order, so the first error is the one the user sees first.</summary>
+    // Every built node in document order, so the first error is the one the user sees first.
     internal List<EditorNode> Nodes { get; } = [];
 
     internal void Apply() => _apply(ApplyTarget);

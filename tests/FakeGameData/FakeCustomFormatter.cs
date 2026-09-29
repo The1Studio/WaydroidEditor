@@ -53,10 +53,8 @@ public partial class FakeWrappedData
     [MemoryPackOrder(0)] [MemoryPackAllowSerialize] public FakeWrapped Wrapped { get; set; } = new();
 }
 
-// <summary>
-// Registers the formatter from a Unity runtime-init hook, exactly as a game registers a formatter for
-// a type it does not own.
-// </summary>
+// Registers the formatter from a Unity runtime-init hook, exactly as a game registers a formatter
+// for a type it does not own.
 internal static class FakeWrappedFormatterRegistration
 {
     [UnityEngine.RuntimeInitializeOnLoadMethod]

@@ -185,7 +185,7 @@ public sealed class EntryRow : Observable
         }
     }
 
-    // <summary>Re-reads a stored on-disk value, as when a key is reintroduced by Import.</summary>
+    // Re-reads a stored on-disk value, as when a key is reintroduced by Import.
     internal void ApplyStored(string stored)
     {
         var decoded = stored;
@@ -329,7 +329,7 @@ public sealed class EntryRow : Observable
         SetDetailText(root.ToJsonString(Indented) + Environment.NewLine);
     }
 
-    // <summary>Parks the tree's first field error on the row, which is what gates Save.</summary>
+    // Parks the tree's first field error on the row, which is what gates Save.
     internal void ReportEditorError(string? message) => CommitError = message;
 
     void SetEditor(EditorNode? editor)

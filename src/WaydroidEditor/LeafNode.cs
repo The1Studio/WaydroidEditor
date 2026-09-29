@@ -130,9 +130,9 @@ public sealed class LeafNode : EditorNode
         }
     }
 
-    // <summary>Declared type with <see cref="Nullable{T}"/> unwrapped; null when only the JSON node is known.</summary>
+    // Declared type with Nullable<T> unwrapped; null when only the JSON node is known.
     internal Type? ScalarType { get; }
 
-    // <summary>The node's own JSON kind when there is no declared type to parse against.</summary>
+    // The node's own JSON kind when there is no declared type to parse against.
     internal JsonValueKind? Inferred { get; }
 }

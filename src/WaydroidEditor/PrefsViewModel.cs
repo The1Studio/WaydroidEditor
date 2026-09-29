@@ -585,10 +585,8 @@ public sealed class PrefsViewModel : Observable
         }
     }
 
-    // <summary>
     // Overwrites keys that still exist and recreates the ones removed, so an exported snapshot
     // restores a wiped package. A key already present is never duplicated.
-    // </summary>
     internal int ApplyImported(List<PrefsEntry> imported)
     {
         var byKey = new Dictionary<string, PrefsEntry>(StringComparer.Ordinal);

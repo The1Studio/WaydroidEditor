@@ -70,7 +70,7 @@ public sealed class ContainerNode : EditorNode
 
     internal void AddChild(EditorNode child) => Children.Add(child);
 
-    // <summary>Appends an array element or dictionary entry and wires its remove/key editors.</summary>
+    // Appends an array element or dictionary entry and wires its remove/key editors.
     internal void AttachChild(EditorNode child, string? key)
     {
         if (Kind == ValueKind.Dictionary && key is not null

@@ -103,10 +103,8 @@ public abstract class EditorNode : Observable
 
     internal Action<EditorNode, string>? KeyEdited;
 
-    // <summary>
     // Silent key update after normalization. The label follows, so a renamed dictionary entry
     // keeps a name to be found by on the next edit.
-    // </summary>
     internal void SetKeyText(string text)
     {
         if (_keyText != text)
@@ -156,7 +154,7 @@ public abstract class EditorNode : Observable
         Json = value;
     }
 
-    // <summary>Container nodes override this to write into their JSON; leaves have no slot to fill.</summary>
+    // Container nodes override this to write into their JSON; leaves have no slot to fill.
     internal virtual void WriteChild(EditorNode child, JsonNode? value) =>
         throw new InvalidOperationException($"{Path}: cannot replace a value here.");
 }
