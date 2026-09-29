@@ -26,11 +26,14 @@ public sealed class MpRuntime : IDisposable
 
     MpRuntime(GameLoadContext context) => _context = context;
 
+    /// <summary>Non-fatal problems from the last load: skipped assemblies, duplicate names, failed hooks.</summary>
     public IReadOnlyList<string> LoadWarnings => _warnings;
 
     /// <summary>Assemblies the game folder yielded — a folder entry stands for many files.</summary>
     public int LoadedAssemblies { get; private set; }
 
+    /// <summary>Loads the game's assemblies, then replays its runtime-init formatter hooks.</summary>
+    /// <param name="gameDlls">DLL files or folders the user added; folders are expanded recursively.</param>
     public static MpRuntime Load(IReadOnlyList<string> gameDlls)
     {
         var runtime = new MpRuntime(new GameLoadContext(gameDlls));
@@ -44,6 +47,7 @@ public sealed class MpRuntime : IDisposable
     /// <paramref name="key"/>. Frameworks that key their saves by the data type's own name (TheOne's
     /// UITemplate stores, for one) carry no <c>[Key]</c> attribute at all.
     /// </summary>
+    /// <param name="key">The PlayerPrefs key to resolve to a save type.</param>
     public Type? ResolveTypeForKey(string key)
     {
         EnsureIndex();
@@ -77,6 +81,7 @@ public sealed class MpRuntime : IDisposable
     /// throws there and would be written off even though it loads and round-trips fine. The marker
     /// MemoryPack itself dispatches on — every generated save type implements it — never does.
     /// </summary>
+    /// <param name="type">The candidate save type.</param>
     public static bool IsMemoryPackable(Type type)
     {
         try
@@ -106,9 +111,15 @@ public sealed class MpRuntime : IDisposable
         }
     }
 
+    /// <summary>Deserializes a stored blob with the game's own generated formatter.</summary>
+    /// <param name="type">The save type resolved for the key.</param>
+    /// <param name="bytes">The raw MemoryPack payload, already Base64-decoded.</param>
     public object? Decode(Type type, byte[] bytes) =>
         MemoryPackSerializer.Deserialize(type, bytes, MemoryPackSerializerOptions.Default);
 
+    /// <summary>Serializes an edited instance back to the blob the game expects.</summary>
+    /// <param name="type">The save type resolved for the key.</param>
+    /// <param name="value">The live instance to encode.</param>
     public byte[] Encode(Type type, object value) =>
         MemoryPackSerializer.Serialize(type, value, MemoryPackSerializerOptions.Default);
 

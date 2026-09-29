@@ -6,6 +6,7 @@ using System.Text.Json.Nodes;
 
 namespace WaydroidEditor.Core;
 
+/// <summary>Thrown when a JSON document cannot be mapped to or from the CLR save types.</summary>
 public sealed class JsonBridgeException(string path, string message) : Exception($"{path}: {message}");
 
 /// <summary>
@@ -16,9 +17,22 @@ public sealed class JsonBridgeException(string path, string message) : Exception
 /// </summary>
 public static class ObjectJson
 {
+    /// <summary>Projects an instance into editable JSON, following its declared member types.</summary>
+    /// <param name="value">The live object graph, usually freshly decoded.</param>
+    /// <param name="declaredType">The type resolving the members; nullable wrappers are unwrapped.</param>
+    /// <returns>The JSON document, or null for a null input.</returns>
     public static JsonNode? ToJson(object? value, Type declaredType) =>
         Write(value, declaredType, new HashSet<object>(ReferenceEqualityComparer.Instance));
 
+    /// <summary>
+    /// Applies an edited JSON document onto the existing instance, in place. Members the document
+    /// omits or the CLR cannot write are left as decoded, which is what keeps an unedited value
+    /// byte-identical on re-encode.
+    /// </summary>
+    /// <param name="existing">The live instance to mutate.</param>
+    /// <param name="declaredType">The type resolving the members.</param>
+    /// <param name="edited">The edited JSON document.</param>
+    /// <returns>Warnings for members skipped (unknown name, read-only), empty when fully applied.</returns>
     public static IReadOnlyList<string> ApplyJson(object existing, Type declaredType, JsonNode edited)
     {
         var warnings = new List<string>();
@@ -278,6 +292,8 @@ public static class ObjectJson
     /// a type with no parameterless constructor at all still gets a zeroed instance, so an entry can
     /// be added for it and edited field by field.
     /// </summary>
+    /// <param name="type">The type to materialize.</param>
+    /// <param name="path">The document path used in the failure message.</param>
     public static object CreateInstance(Type type, string path)
     {
         if (type.IsValueType)
@@ -294,6 +310,7 @@ public static class ObjectJson
     }
 
     /// <summary>Whether <see cref="CreateInstance"/> can materialize the type at all.</summary>
+    /// <param name="type">The candidate member or element type.</param>
     public static bool CanCreate(Type type) =>
         type.IsValueType || (type.IsClass && !type.IsAbstract && type != typeof(string));
 
@@ -301,6 +318,7 @@ public static class ObjectJson
     /// Whether an empty collection instance can be built for <see cref="ConvertCollection"/> to fill:
     /// an uninitialized collection is not usable, so this needs a real constructor.
     /// </summary>
+    /// <param name="type">The candidate collection type.</param>
     public static bool CanCreateCollection(Type type) =>
         !type.IsAbstract && !type.IsInterface && ParameterlessConstructor(type) is not null;
 
@@ -400,6 +418,11 @@ public static class ObjectJson
     static string RawText(JsonNode node) =>
         node is JsonValue value && value.TryGetValue<string>(out var text) ? text : node.ToJsonString();
 
+    /// <summary>
+    /// Whether <paramref name="type"/> is one the bridge reads and writes as a single JSON token
+    /// rather than as a graph of members.
+    /// </summary>
+    /// <param name="type">The candidate member or element type.</param>
     public static bool IsScalar(Type type) =>
         type.IsPrimitive || type == typeof(string) || type == typeof(decimal)
         || type == typeof(DateTime) || type == typeof(DateTimeOffset) || type == typeof(TimeSpan)
@@ -441,6 +464,12 @@ public static class ObjectJson
         }
     }
 
+    /// <summary>
+    /// The instance member a JSON name refers to, honouring <c>[MemoryPackInclude]</c>/<c>[Ignore]</c>
+    /// and excluding non-readable or indexed members; null when the type has no such member.
+    /// </summary>
+    /// <param name="type">The CLR type whose members are searched.</param>
+    /// <param name="name">The JSON member name to resolve.</param>
     public static MemberInfo? FindMember(Type type, string name)
     {
         var property = type.GetProperty(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
@@ -468,6 +497,8 @@ public static class ObjectJson
         _ => true,
     };
 
+    /// <summary>Whether the bridge can assign the member: a property with a setter, or a non-readonly field.</summary>
+    /// <param name="member">The property or field to test.</param>
     public static bool CanWrite(MemberInfo member) => member switch
     {
         PropertyInfo p => p.SetMethod is not null,
@@ -479,6 +510,8 @@ public static class ObjectJson
 
     static bool HasInclude(MemberInfo member) => MpMemberAttributes.IsIncluded(member);
 
+    /// <summary>The declared type of a property or field; <c>object</c> for anything else.</summary>
+    /// <param name="member">The property or field to inspect.</param>
     public static Type MemberType(MemberInfo member) => member switch
     {
         PropertyInfo p => p.PropertyType,
@@ -506,6 +539,8 @@ public static class ObjectJson
         }
     }
 
+    /// <summary>The element type of an array or generic enumerable; <c>object</c> for anything else.</summary>
+    /// <param name="type">The array or enumerable type to inspect.</param>
     public static Type ElementTypeOf(Type type)
     {
         if (type.IsArray)

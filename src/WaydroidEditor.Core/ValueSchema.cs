@@ -5,6 +5,7 @@ using System.Text.Json.Nodes;
 
 namespace WaydroidEditor.Core;
 
+/// <summary>The kind of widget a leaf or container renders for a JSON value.</summary>
 public enum ValueKind
 {
     Text,
@@ -29,6 +30,8 @@ public static class ValueSchema
     /// The node wins over the type: a JSON document that does not match its schema still renders
     /// (as inferred nodes), because the tree is built from the document and only annotated by types.
     /// </summary>
+    /// <param name="node">The JSON node to classify; null yields <see cref="ValueKind.Null"/>.</param>
+    /// <param name="declaredType">The CLR type the schema knows it by, or null when unknown.</param>
     public static NodeShape Describe(JsonNode? node, Type? declaredType)
     {
         var type = declaredType is null ? null : Nullable.GetUnderlyingType(declaredType) ?? declaredType;
@@ -63,6 +66,7 @@ public static class ValueSchema
     }
 
     /// <summary>Short type name for the UI: <c>int</c>, <c>FakeNested</c>, <c>List&lt;string&gt;</c>.</summary>
+    /// <param name="type">The declared CLR type; null renders as an empty label.</param>
     public static string DisplayName(Type? type)
     {
         if (type is null)
@@ -102,12 +106,17 @@ public static class ValueSchema
     };
 
     /// <summary>The node as editable text: strings unquoted, everything else as its JSON token.</summary>
+    /// <param name="node">The scalar node to render; null renders as an empty string.</param>
     public static string ScalarText(JsonNode? node) =>
         node is null ? ""
         : node is JsonValue value && value.TryGetValue<string>(out var text) ? text
         : node.ToJsonString();
 
     /// <summary>Text typed into a field back to the JSON node <see cref="ObjectJson.ApplyJson"/> expects.</summary>
+    /// <param name="text">The text the user typed into the field.</param>
+    /// <param name="type">The declared CLR type the text must parse as.</param>
+    /// <param name="path">The document path used in the failure message.</param>
+    /// <exception cref="JsonBridgeException">The text is not valid for <paramref name="type"/>.</exception>
     public static JsonNode ParseScalarText(string text, Type type, string path)
     {
         if (type == typeof(bool))
@@ -159,6 +168,9 @@ public static class ValueSchema
     }
 
     /// <summary>Text typed into a field whose declared type the schema does not know, keyed by the node's own kind.</summary>
+    /// <param name="text">The text the user typed into the field.</param>
+    /// <param name="kind">The node's own JSON kind, which decides how the text is parsed.</param>
+    /// <param name="path">The document path used in the failure message.</param>
     public static JsonNode ParseInferredScalar(string text, JsonValueKind kind, string path) => kind switch
     {
         JsonValueKind.String => JsonValue.Create(text),
@@ -174,6 +186,9 @@ public static class ValueSchema
     };
 
     /// <summary>Dictionary key text as it will appear in the JSON object, so a rename is addressable.</summary>
+    /// <param name="text">The key text the user typed.</param>
+    /// <param name="keyType">The dictionary's declared key type.</param>
+    /// <param name="path">The document path used in the failure message.</param>
     public static string NormalizeKey(string text, Type keyType, string path)
     {
         if (keyType == typeof(string))
@@ -195,6 +210,7 @@ public static class ValueSchema
     }
 
     /// <summary>Whether the key is an editable text box rather than a label — the types <see cref="NormalizeKey"/> accepts.</summary>
+    /// <param name="keyType">The dictionary's declared key type.</param>
     public static bool CanEditKey(Type keyType) =>
         keyType == typeof(string) || keyType == typeof(Guid) || keyType.IsEnum || IsNumber(keyType);
 
@@ -202,6 +218,8 @@ public static class ValueSchema
     /// The JSON for a newly added array item or dictionary value, or false when the apply path
     /// could not create one anyway (an abstract type, a collection without an element factory).
     /// </summary>
+    /// <param name="type">The element or value type the new entry must hold.</param>
+    /// <param name="value">The default JSON, or null when no default is possible.</param>
     public static bool TryDefaultJson(Type? type, out JsonNode? value)
     {
         value = null;
@@ -326,6 +344,9 @@ public static class ValueSchema
     }
 
     /// <summary>A free key for an added dictionary entry, or false when the type offers none.</summary>
+    /// <param name="keyType">The dictionary's declared key type.</param>
+    /// <param name="existing">Keys already in the object, so the new one does not collide.</param>
+    /// <param name="key">The free key, or an empty string when none could be found.</param>
     public static bool TryNextKey(Type keyType, IReadOnlyCollection<string> existing, out string key)
     {
         if (keyType == typeof(string))

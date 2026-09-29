@@ -3,6 +3,7 @@ using System.Xml;
 
 namespace WaydroidEditor.Core;
 
+/// <summary>The PlayerPrefs value types Unity's Android XML format supports.</summary>
 public enum PrefsType
 {
     Int,
@@ -16,13 +17,19 @@ public enum PrefsType
 /// <summary>A single entry of a Unity Android PlayerPrefs file.</summary>
 public sealed class PrefsEntry
 {
+    /// <summary>The preferences key, the XML element's <c>name</c> attribute.</summary>
     public string Key = "";
+
+    /// <summary>The element kind, which decides how <see cref="Value"/> or <see cref="SetItems"/> is read.</summary>
     public PrefsType Type;
+
     /// <summary>Raw text payload. For scalars this is the <c>value</c> attribute verbatim.</summary>
     public string Value = "";
+
     /// <summary>Element contents for <see cref="PrefsType.StringSet"/>.</summary>
     public List<string> SetItems = new();
 
+    /// <summary>A deep copy that shares no list state with the original.</summary>
     public PrefsEntry Clone() => new()
     {
         Key = Key,
@@ -32,6 +39,7 @@ public sealed class PrefsEntry
     };
 }
 
+/// <summary>Thrown when the prefs XML does not match the shape Unity writes.</summary>
 public sealed class PrefsFormatException(string message) : Exception(message);
 
 /// <summary>
@@ -40,8 +48,11 @@ public sealed class PrefsFormatException(string message) : Exception(message);
 /// </summary>
 public sealed class PrefsFile
 {
+    /// <summary>Parsed entries in document order.</summary>
     public List<PrefsEntry> Entries = new();
 
+    /// <summary>Reads a prefs stream, throwing <see cref="PrefsFormatException"/> on anything unrecognized.</summary>
+    /// <param name="stream">The prefs XML; not closed by this call.</param>
     public static PrefsFile ParseXml(Stream stream)
     {
         var file = new PrefsFile();
@@ -140,6 +151,9 @@ public sealed class PrefsFile
         }
     }
 
+    /// <summary>Writes the entries plus the XML declaration, matching Unity's on-disk formatting.</summary>
+    /// <param name="file">The entries to serialize.</param>
+    /// <param name="stream">The destination; flushed but not closed.</param>
     public static void WriteXml(PrefsFile file, Stream stream)
     {
         var declaration = Encoding.UTF8.GetBytes("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>");

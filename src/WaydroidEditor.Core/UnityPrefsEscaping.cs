@@ -14,6 +14,9 @@ public static class UnityPrefsEscaping
     /// alone therefore stays untouched, and an entry the user opens without editing is written
     /// back byte-identically — the same guarantee the MemoryPack path relies on.
     /// </summary>
+    /// <param name="stored">The on-disk text of a string prefs entry.</param>
+    /// <param name="decoded">The unescaped text, or <paramref name="stored"/> unchanged when it is not escaped.</param>
+    /// <returns>True when the text is percent-escaped and decoded cleanly.</returns>
     public static bool TryDecode(string stored, out string decoded)
     {
         try
@@ -30,6 +33,8 @@ public static class UnityPrefsEscaping
         }
     }
 
+    /// <summary>Percent-escapes editable text the way Unity's Android writer does.</summary>
+    /// <param name="decoded">The unescaped text to store.</param>
     public static string Encode(string decoded) => Uri.EscapeDataString(decoded);
 
     /// <summary>
@@ -37,9 +42,13 @@ public static class UnityPrefsEscaping
     /// the flag through keeps the decision in one place, so a value Unity did not escape is
     /// written back verbatim instead of being escaped after the fact.
     /// </summary>
+    /// <param name="decoded">The editable text, already unescaped.</param>
+    /// <param name="wasEscaped">The flag <see cref="TryDecode"/> produced for the same value.</param>
+    /// <returns>The text to store: escaped when it was escaped on disk, unchanged otherwise.</returns>
     public static string Encode(string decoded, bool wasEscaped) =>
         wasEscaped ? Encode(decoded) : decoded;
 
     /// <summary>The decoded form, or the stored text unchanged when it is not escaped.</summary>
+    /// <param name="stored">The on-disk text of a string prefs entry.</param>
     public static string Decode(string stored) => TryDecode(stored, out var decoded) ? decoded : stored;
 }

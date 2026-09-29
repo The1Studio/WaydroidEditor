@@ -2,14 +2,21 @@ using System.Diagnostics;
 
 namespace WaydroidEditor.Core;
 
+/// <summary>A package's resolved PlayerPrefs file on the host, whether or not it exists yet.</summary>
+/// <param name="Package">The Android package name.</param>
+/// <param name="DataRoot">The Waydroid data root the path was derived from.</param>
+/// <param name="FilePath">Absolute host path of the prefs file (canonical when the file is missing).</param>
+/// <param name="Exists">Whether the file is present on disk.</param>
 public sealed record PrefsTarget(string Package, string DataRoot, string FilePath, bool Exists);
 
 /// <summary>Locates and rewrites Waydroid's host-side view of <c>/data</c>.</summary>
 public static class WaydroidAccess
 {
+    /// <summary>Filename suffix shared by every Unity PlayerPrefs file.</summary>
     public const string PrefsSuffix = "playerprefs.xml";
 
     /// <summary>First match wins: <c>--data-root</c>, <c>WAYDROID_DATA_ROOT</c>, XDG, /var/lib.</summary>
+    /// <param name="cliArgs">The process arguments, scanned for a <c>--data-root</c> pair.</param>
     public static string ResolveDataRoot(IReadOnlyList<string> cliArgs)
     {
         for (var i = 0; i + 1 < cliArgs.Count; i++)
@@ -37,6 +44,7 @@ public static class WaydroidAccess
     }
 
     /// <summary>Packages under <c>&lt;dataRoot&gt;/data/*/shared_prefs/</c> that hold a playerprefs file.</summary>
+    /// <param name="dataRoot">The Waydroid data root.</param>
     public static IReadOnlyList<string> ListPackages(string dataRoot)
     {
         var dataDir = Path.Combine(dataRoot, "data");
@@ -54,6 +62,13 @@ public static class WaydroidAccess
         return packages;
     }
 
+    /// <summary>
+    /// The package's canonical <c>&lt;pkg&gt;.v2.playerprefs.xml</c>, or the first
+    /// <c>*playerprefs.xml</c> in the directory when that is absent. A missing file resolves to the
+    /// canonical path with <see cref="PrefsTarget.Exists"/> false, so a later write can create it.
+    /// </summary>
+    /// <param name="dataRoot">The Waydroid data root.</param>
+    /// <param name="package">The Android package name.</param>
     public static PrefsTarget ResolveTarget(string dataRoot, string package)
     {
         var sharedPrefs = Path.Combine(dataRoot, "data", package, "shared_prefs");
@@ -73,12 +88,16 @@ public static class WaydroidAccess
         return new PrefsTarget(package, dataRoot, canonical, false);
     }
 
+    /// <summary>Reads the prefs file's bytes as they sit on disk.</summary>
+    /// <param name="target">The resolved target to read.</param>
     public static byte[] ReadTarget(PrefsTarget target) => File.ReadAllBytes(target.FilePath);
 
     /// <summary>
     /// Truncates in place when the file exists so the app's uid keeps ownership of its own
     /// prefs file, and drops a <c>.wpe.bak</c> first. New files are chowned to the directory owner.
     /// </summary>
+    /// <param name="target">The resolved target to overwrite or create.</param>
+    /// <param name="data">The complete prefs XML to write.</param>
     public static void WriteTarget(PrefsTarget target, byte[] data)
     {
         if (File.Exists(target.FilePath))
@@ -103,6 +122,9 @@ public static class WaydroidAccess
     }
 
     /// <summary>Best effort: a still-running app would flush its in-memory prefs over our edit.</summary>
+    /// <param name="package">The Android package to force-stop.</param>
+    /// <param name="message">A human-readable outcome, whether or not the stop succeeded.</param>
+    /// <returns>True when <c>waydroid shell -- am force-stop</c> ran and exited zero.</returns>
     public static bool ForceStopApp(string package, out string message)
     {
         var waydroid = FindOnPath("waydroid");

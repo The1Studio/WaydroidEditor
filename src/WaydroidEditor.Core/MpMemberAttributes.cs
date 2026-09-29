@@ -4,14 +4,12 @@ using System.Reflection.PortableExecutable;
 
 namespace WaydroidEditor.Core;
 
-/// <summary>
-/// Answers "does this member carry [MemoryPackInclude]/[MemoryPackIgnore]?" out of the declaring
-/// assembly's own metadata. Instantiating the attributes instead loads their assemblies —
-/// Newtonsoft.Json, Odin, the UnityEngine modules a game references but whose DLLs may not be in the
-/// folder the user imported — and for those games reflection reports no attributes at all, hiding
-/// every private member that <c>[MemoryPackInclude]</c> is what makes part of the save. Metadata has
-/// no such dependency, and it is the same answer, because the attribute is read, not run.
-/// </summary>
+// Answers "does this member carry [MemoryPackInclude]/[MemoryPackIgnore]?" out of the declaring
+// assembly's own metadata. Instantiating the attributes instead loads their assemblies —
+// Newtonsoft.Json, Odin, the UnityEngine modules a game references but whose DLLs may not be in the
+// folder the user imported — and for those games reflection reports no attributes at all, hiding
+// every private member that [MemoryPackInclude] is what makes part of the save. Metadata has
+// no such dependency, and it is the same answer, because the attribute is read, not run.
 static class MpMemberAttributes
 {
     const string IncludeName = "MemoryPack.MemoryPackIncludeAttribute";
