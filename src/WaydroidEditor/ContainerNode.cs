@@ -33,10 +33,13 @@ public sealed class ContainerNode : EditorNode
             AddCommand = new RelayCommand(Add);
     }
 
+    /// <summary>The JSON shape this node wraps: object, array or dictionary.</summary>
     public ValueKind Kind { get; }
 
+    /// <summary>The member, element or entry nodes, kept in document order.</summary>
     public ObservableCollection<EditorNode> Children { get; } = [];
 
+    /// <summary>Whether the node's children are shown in the tree.</summary>
     public bool IsExpanded
     {
         get => _isExpanded;
@@ -49,6 +52,7 @@ public sealed class ContainerNode : EditorNode
         }
     }
 
+    /// <summary>A one-line child count for the collapsed row.</summary>
     public string Summary => Children.Count == 0
         ? "empty"
         : Kind switch
@@ -58,13 +62,15 @@ public sealed class ContainerNode : EditorNode
             _ => $"{Children.Count} entries",
         };
 
+    /// <summary>True when the shape can grow: an array with a default element, or a dictionary with a free key.</summary>
     public bool CanAdd { get; }
 
+    /// <summary>Appends a new element or entry; null when the shape cannot grow.</summary>
     public RelayCommand? AddCommand { get; }
 
     internal void AddChild(EditorNode child) => Children.Add(child);
 
-    /// <summary>Appends an array element or dictionary entry and wires its remove/key editors.</summary>
+    // <summary>Appends an array element or dictionary entry and wires its remove/key editors.</summary>
     internal void AttachChild(EditorNode child, string? key)
     {
         if (Kind == ValueKind.Dictionary && key is not null

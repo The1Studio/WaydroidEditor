@@ -3,13 +3,24 @@ namespace WaydroidEditor;
 /// <summary>Parsed command line.</summary>
 public sealed class StartupOptions
 {
+    /// <summary>Overrides the Waydroid data root resolved from the environment.</summary>
     public string? DataRoot { get; init; }
+
+    /// <summary>The package to select on startup, ahead of the remembered one.</summary>
     public string? Package { get; init; }
+
+    /// <summary>Renders the window headlessly to this PNG path instead of showing it.</summary>
     public string? ScreenshotPath { get; init; }
+
     /// <summary>Set on the pkexec child: serve privileged file requests instead of showing a GUI.</summary>
     public bool Helper { get; init; }
+
+    /// <summary>Skips pkexec and touches the prefs file with this process's own privileges.</summary>
     public bool NoElevate { get; init; }
 
+    /// <summary>Parses the recognised switches from the command line, ignoring anything else.</summary>
+    /// <param name="args">The raw command-line arguments.</param>
+    /// <returns>The options the rest of the app reads.</returns>
     public static StartupOptions Parse(string[] args)
     {
         string? dataRoot = null, package = null, screenshot = null;

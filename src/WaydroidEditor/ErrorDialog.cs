@@ -5,7 +5,7 @@ using Avalonia.Media;
 
 namespace WaydroidEditor;
 
-/// <summary>Small modal message box — the Avalonia 12 core ships no ContentDialog.</summary>
+// Small modal message box — the Avalonia 12 core ships no ContentDialog.
 internal static class ErrorDialog
 {
     public static void Show(Window? owner, string title, string message)

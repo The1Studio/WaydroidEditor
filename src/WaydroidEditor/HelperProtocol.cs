@@ -2,11 +2,9 @@ using System.Text;
 
 namespace WaydroidEditor;
 
-/// <summary>
-/// Wire format between the GUI and the privileged helper: one line-based request, one framed reply.
-/// <c>OK &lt;length&gt;\n</c> or <c>ERR &lt;length&gt;\n</c> followed by exactly that many payload bytes.
-/// Framing by length keeps binary payloads (prefs XML) from colliding with the text headers.
-/// </summary>
+// Wire format between the GUI and the privileged helper: one line-based request, one framed reply.
+// <c>OK &lt;length&gt;\n</c> or <c>ERR &lt;length&gt;\n</c> followed by exactly that many payload bytes.
+// Framing by length keeps binary payloads (prefs XML) from colliding with the text headers.
 internal static class HelperProtocol
 {
     public const string Ok = "OK";
@@ -23,7 +21,7 @@ internal static class HelperProtocol
     public static void WriteError(Stream stream, string message) =>
         WriteResponse(stream, Error, Encoding.UTF8.GetBytes(message));
 
-    /// <summary>Reads up to (not including) the next LF. Null only at end of stream.</summary>
+    // Reads up to (not including) the next LF. Null only at end of stream.
     public static string? ReadLine(Stream stream)
     {
         var bytes = new List<byte>(32);

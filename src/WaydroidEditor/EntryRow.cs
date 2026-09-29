@@ -4,6 +4,10 @@ using WaydroidEditor.Core;
 
 namespace WaydroidEditor;
 
+/// <summary>
+/// Which editor a row offers for its value: plain text, pretty-printed JSON, the decoded game
+/// object behind a MemoryPack blob, or the raw Base64 when that object cannot be round-tripped.
+/// </summary>
 public enum EditMode
 {
     Raw,
@@ -32,6 +36,12 @@ public sealed class EntryRow : Observable
     string? _commitError;
     string? _warning;
 
+    /// <summary>
+    /// Holds the value decoded — the form the grid, the JSON pane and the field editors all share —
+    /// re-escapes it on the way back out to disk.
+    /// </summary>
+    /// <param name="entry">The stored key, type and value the row edits.</param>
+    /// <param name="runtime">The loaded game runtime used to decode a MemoryPack value, or null when no DLLs are loaded.</param>
     public EntryRow(PrefsEntry entry, MpRuntime? runtime)
     {
         _entry = entry;
@@ -45,23 +55,34 @@ public sealed class EntryRow : Observable
         _detail = decoded;
     }
 
+    /// <summary>The PlayerPrefs key the entry is stored under.</summary>
     public string Key => _entry.Key;
+
+    /// <summary>The Unity PlayerPrefs type the key was saved as.</summary>
     public PrefsType PrefsType => _entry.Type;
+
+    /// <summary>True when the value is a string set, edited as a JSON array of strings.</summary>
     public bool IsSet => PrefsType == PrefsType.StringSet;
 
+    /// <summary>How the value is currently presented and edited.</summary>
     public EditMode Mode { get; private set; } = EditMode.Raw;
 
     /// <summary>The CLR type the key resolves to, for MemoryPack and JSON rows alike.</summary>
     public Type? SchemaType { get; private set; }
 
+    /// <summary>The decoded CLR object behind a MemoryPack row; null for text and JSON rows.</summary>
     public object? Decoded { get; private set; }
 
     /// <summary>The structured editor, when the value has a schema to render fields from.</summary>
     public EditorNode? Editor { get; private set; }
 
+    /// <summary>True when the value renders as labelled fields from a resolved type.</summary>
     public bool IsStructuredMode => Editor is not null;
+
+    /// <summary>True when the value has no schema and stays in the plain text pane.</summary>
     public bool IsTextMode => Editor is null;
 
+    /// <summary>Short type-column label: the edit mode, or the prefs type for a raw row.</summary>
     public string TypeLabel => Mode switch
     {
         EditMode.MemoryPack => "MemoryPack",
@@ -71,6 +92,10 @@ public sealed class EntryRow : Observable
         _ => PrefsType.ToString(),
     };
 
+    /// <summary>
+    /// Full description of the active edit mode, suffixed with a note when Unity percent-escaped the
+    /// value on disk.
+    /// </summary>
     public string ModeLabel
     {
         get
@@ -113,6 +138,10 @@ public sealed class EntryRow : Observable
         }
     }
 
+    /// <summary>
+    /// The value as shown in the detail pane; assigning it re-derives the raw cell, and for a structured
+    /// row the decoded object too.
+    /// </summary>
     public string DetailText
     {
         get => _detail;
@@ -126,6 +155,7 @@ public sealed class EntryRow : Observable
         }
     }
 
+    /// <summary>The first edit or validation failure, which gates Save; null when the row is valid.</summary>
     public string? CommitError
     {
         get => _commitError;
@@ -139,8 +169,10 @@ public sealed class EntryRow : Observable
         }
     }
 
+    /// <summary>True when an edit left the row in a state that must not be written.</summary>
     public bool HasError => _commitError is not null;
 
+    /// <summary>Non-fatal notes from the last apply, such as members the CLR object could not take.</summary>
     public string? Warning
     {
         get => _warning;
@@ -153,7 +185,7 @@ public sealed class EntryRow : Observable
         }
     }
 
-    /// <summary>Re-reads a stored on-disk value, as when a key is reintroduced by Import.</summary>
+    // <summary>Re-reads a stored on-disk value, as when a key is reintroduced by Import.</summary>
     internal void ApplyStored(string stored)
     {
         var decoded = stored;
@@ -163,6 +195,11 @@ public sealed class EntryRow : Observable
         RefreshDetailFromRaw();
     }
 
+    /// <summary>
+    /// Switches the row to a different edit mode and re-derives the detail pane from the current raw value.
+    /// </summary>
+    /// <param name="mode">The editor to switch to.</param>
+    /// <param name="schemaType">The CLR type to render fields from, or null for a schema-less mode.</param>
     public void SetMode(EditMode mode, Type? schemaType = null)
     {
         Mode = mode;
@@ -172,12 +209,15 @@ public sealed class EntryRow : Observable
         RefreshDetailFromRaw();
     }
 
+    /// <summary>Replaces the entries of a string-set row and recomputes the JSON pane.</summary>
+    /// <param name="items">The member strings the set should contain.</param>
     public void SetSetItems(IReadOnlyList<string> items)
     {
         _entry.SetItems = new List<string>(items);
         RefreshDetailFromRaw();
     }
 
+    /// <summary>Reformats the detail pane's JSON with indentation, parking a parse error on the row on failure.</summary>
     public void FormatDetail()
     {
         Run(() =>
@@ -188,6 +228,7 @@ public sealed class EntryRow : Observable
         });
     }
 
+    /// <summary>Produces the storable entry, re-encoding a string value the way Unity wrote it.</summary>
     public PrefsEntry ToEntry()
     {
         if (!IsSet)
@@ -288,7 +329,7 @@ public sealed class EntryRow : Observable
         SetDetailText(root.ToJsonString(Indented) + Environment.NewLine);
     }
 
-    /// <summary>Parks the tree's first field error on the row, which is what gates Save.</summary>
+    // <summary>Parks the tree's first field error on the row, which is what gates Save.</summary>
     internal void ReportEditorError(string? message) => CommitError = message;
 
     void SetEditor(EditorNode? editor)

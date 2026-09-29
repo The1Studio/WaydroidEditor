@@ -20,18 +20,26 @@ public sealed class EditorTree
         _report = report;
     }
 
+    /// <summary>Builds the node tree for a decoded document and returns its root.</summary>
+    /// <param name="root">The document to build from, edited in place by the returned tree.</param>
+    /// <param name="rootType">The CLR type the schema knows the document by, or null when unknown.</param>
+    /// <param name="clrBacked">True for a MemoryPack row, where members the CLR object cannot write render disabled.</param>
+    /// <param name="rootLabel">Label for the root node, normally the prefs key.</param>
+    /// <param name="apply">Callback that re-applies an edited document back through the row.</param>
+    /// <param name="report">Callback that surfaces the tree’s first field error on the row.</param>
+    /// <returns>The root node of the built tree.</returns>
     public static EditorNode Build(
         JsonNode root, Type? rootType, bool clrBacked, string rootLabel,
         Action<JsonNode> apply, Action<string?> report) =>
         new EditorTree(root, clrBacked, apply, report).BuildNode(null, root, rootType, rootLabel, readOnly: false);
 
-    /// <summary>The root node's JSON, never replaced: every edit re-applies this whole document.</summary>
+    // <summary>The root node's JSON, never replaced: every edit re-applies this whole document.</summary>
     internal JsonNode ApplyTarget { get; }
 
-    /// <summary>True for MemoryPack rows, where members the CLR object cannot write render disabled.</summary>
+    // <summary>True for MemoryPack rows, where members the CLR object cannot write render disabled.</summary>
     internal bool ClrBacked { get; }
 
-    /// <summary>Every built node in document order, so the first error is the one the user sees first.</summary>
+    // <summary>Every built node in document order, so the first error is the one the user sees first.</summary>
     internal List<EditorNode> Nodes { get; } = [];
 
     internal void Apply() => _apply(ApplyTarget);

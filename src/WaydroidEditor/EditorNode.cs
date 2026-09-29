@@ -27,7 +27,10 @@ public abstract class EditorNode : Observable
         tree.Register(this);
     }
 
+    /// <summary>The tree this node belongs to; every edit re-applies that tree's whole document.</summary>
     public EditorTree Tree { get; }
+
+    /// <summary>The containing node, or null for the root.</summary>
     public EditorNode? Parent { get; }
 
     /// <summary>This node's value in the edited document — the instance its container locates it by.</summary>
@@ -46,6 +49,7 @@ public abstract class EditorNode : Observable
         }
     }
 
+    /// <summary>Display name of the declared type, or empty when only the JSON node is known.</summary>
     public string TypeLabel { get; }
 
     /// <summary>The document path used in errors: <c>Key.Items[0].Label</c>.</summary>
@@ -67,11 +71,13 @@ public abstract class EditorNode : Observable
     /// <summary>A CLR-backed read-only member, or inherited from the parent.</summary>
     public bool IsReadOnly { get; }
 
+    /// <summary>True when the field accepts edits.</summary>
     public bool IsEditable => !IsReadOnly;
 
     /// <summary>Dictionary entries whose key can be typed; everything else shows its label instead.</summary>
     public bool KeyEditable { get; internal set; }
 
+    /// <summary>True when the label is shown instead of an editable key box.</summary>
     public bool ShowLabel => !KeyEditable;
 
     /// <summary>Editable dictionary key text; an edit invokes <see cref="KeyEdited"/>.</summary>
@@ -89,16 +95,18 @@ public abstract class EditorNode : Observable
         }
     }
 
+    /// <summary>True when the node can be removed from its parent container.</summary>
     public bool CanRemove { get; private set; }
 
+    /// <summary>Removes the node from its parent; set together with <see cref="CanRemove"/>.</summary>
     public RelayCommand? RemoveCommand { get; private set; }
 
     internal Action<EditorNode, string>? KeyEdited;
 
-    /// <summary>
-    /// Silent key update after normalization. The label follows, so a renamed dictionary entry
-    /// keeps a name to be found by on the next edit.
-    /// </summary>
+    // <summary>
+    // Silent key update after normalization. The label follows, so a renamed dictionary entry
+    // keeps a name to be found by on the next edit.
+    // </summary>
     internal void SetKeyText(string text)
     {
         if (_keyText != text)
@@ -121,6 +129,7 @@ public abstract class EditorNode : Observable
     /// Applies a user edit: mutate the JSON, then re-apply the whole document, parking any failure
     /// on this node and reporting the tree's first error on the row.
     /// </summary>
+    /// <param name="mutate">The mutation to run against this node's JSON before the document is re-applied.</param>
     // ponytail: re-encodes the whole object per keystroke; fine for save-sized values.
     protected void Change(Action mutate)
     {
@@ -138,6 +147,7 @@ public abstract class EditorNode : Observable
     }
 
     /// <summary>Writes this node's value into its slot in the parent container.</summary>
+    /// <param name="value">The replacement value, or null to write a JSON null.</param>
     protected void Replace(JsonNode? value)
     {
         if (Parent is null)
@@ -146,7 +156,7 @@ public abstract class EditorNode : Observable
         Json = value;
     }
 
-    /// <summary>Container nodes override this to write into their JSON; leaves have no slot to fill.</summary>
+    // <summary>Container nodes override this to write into their JSON; leaves have no slot to fill.</summary>
     internal virtual void WriteChild(EditorNode child, JsonNode? value) =>
         throw new InvalidOperationException($"{Path}: cannot replace a value here.");
 }

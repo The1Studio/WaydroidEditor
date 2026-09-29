@@ -61,14 +61,19 @@ public sealed class LeafNode : EditorNode
         return type == typeof(bool) ? ValueKind.Boolean : ValueKind.Text;
     }
 
+    /// <summary>The widget this leaf renders: text box, checkbox, enum combo or read-only null.</summary>
     public ValueKind Kind { get; }
 
+    /// <summary>True for a scalar edited as text.</summary>
     public bool IsText => Kind == ValueKind.Text;
 
+    /// <summary>True for a checkbox.</summary>
     public bool IsBool => Kind == ValueKind.Boolean;
 
+    /// <summary>True for an enum combo box.</summary>
     public bool IsEnum => Kind == ValueKind.Enum;
 
+    /// <summary>True when there is nothing to edit.</summary>
     public bool IsNull => Kind == ValueKind.Null;
 
     /// <summary>A boolean node whose declared type is nullable can also be cleared.</summary>
@@ -95,6 +100,7 @@ public sealed class LeafNode : EditorNode
         }
     }
 
+    /// <summary>Two-way state of a boolean field; null clears a nullable member.</summary>
     public bool? IsChecked
     {
         get => _isChecked;
@@ -108,6 +114,7 @@ public sealed class LeafNode : EditorNode
         }
     }
 
+    /// <summary>The chosen enum name, or null to leave the stored value untouched.</summary>
     public string? SelectedChoice
     {
         get => _selectedChoice;
@@ -123,9 +130,9 @@ public sealed class LeafNode : EditorNode
         }
     }
 
-    /// <summary>Declared type with <see cref="Nullable{T}"/> unwrapped; null when only the JSON node is known.</summary>
+    // <summary>Declared type with <see cref="Nullable{T}"/> unwrapped; null when only the JSON node is known.</summary>
     internal Type? ScalarType { get; }
 
-    /// <summary>The node's own JSON kind when there is no declared type to parse against.</summary>
+    // <summary>The node's own JSON kind when there is no declared type to parse against.</summary>
     internal JsonValueKind? Inferred { get; }
 }

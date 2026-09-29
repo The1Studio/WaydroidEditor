@@ -6,6 +6,7 @@ using WaydroidEditor.Core;
 
 namespace WaydroidEditor;
 
+/// <summary>The bytes of a package's PlayerPrefs file together with its absolute path.</summary>
 public sealed record PrefsReadResult(string FilePath, byte[] Bytes);
 
 /// <summary>
@@ -21,8 +22,19 @@ public interface IPrefsStore
     string Write(string package, byte[] data);
 }
 
+/// <summary>
+/// Chooses how the prefs file is reached: directly when this process already has permission, else
+/// through a long-lived privileged helper.
+/// </summary>
 public static class PrefsStore
 {
+    /// <summary>
+    /// Returns the store suited to this process: direct when already root, when <c>--no-elevate</c> was
+    /// passed, or when <c>pkexec</c> is unavailable; otherwise the elevated store.
+    /// </summary>
+    /// <param name="options">The parsed command line, whose <c>--no-elevate</c> flag forces the direct store.</param>
+    /// <param name="dataRoot">The Waydroid data root both stores resolve package paths under.</param>
+    /// <returns>The store to use for this run.</returns>
     public static IPrefsStore Create(StartupOptions options, string dataRoot)
     {
         if (options.NoElevate || IsRoot() || FindOnPath("pkexec") is null)

@@ -8,6 +8,10 @@ using WaydroidEditor.Core;
 
 namespace WaydroidEditor;
 
+/// <summary>
+/// Drives the window: lists the packages that have a PlayerPrefs file, loads the selected one into
+/// editable rows, and saves, exports or imports them.
+/// </summary>
 public sealed class PrefsViewModel : Observable
 {
     const string SnapshotKind = "waydroid-playerprefs";
@@ -24,6 +28,8 @@ public sealed class PrefsViewModel : Observable
     string? _package;
     string _status = "";
 
+    /// <summary>Loads persisted settings, resolves the data root, builds the package store and wires every command.</summary>
+    /// <param name="options">The parsed command line supplying the data root and initial package.</param>
     public PrefsViewModel(StartupOptions options)
     {
         _options = options;
@@ -48,23 +54,49 @@ public sealed class PrefsViewModel : Observable
     /// <summary>Set by the window so pickers and dialogs have a parent.</summary>
     public Window? Host { get; set; }
 
+    /// <summary>The app packages found under the data root, offered in the picker.</summary>
     public ObservableCollection<string> Packages { get; } = new();
+
+    /// <summary>The editable entries of the loaded package, one row per key.</summary>
     public ObservableCollection<EntryRow> Rows { get; } = new();
+
+    /// <summary>The folders or assembly files whose types resolve a key to a schema.</summary>
     public ObservableCollection<string> GameDlls { get; } = new();
 
+    /// <summary>Re-lists the packages, keeping the current selection when it still exists.</summary>
     public RelayCommand RefreshCommand { get; }
+
+    /// <summary>Writes the edited rows back to the prefs file, refusing when a row is invalid.</summary>
     public RelayCommand SaveCommand { get; }
+
+    /// <summary>Reformats the selected row's JSON detail pane.</summary>
     public RelayCommand FormatJsonCommand { get; }
+
+    /// <summary>Writes the loaded entries to a JSON snapshot file chosen by the user.</summary>
     public AsyncRelayCommand ExportCommand { get; }
+
+    /// <summary>Loads a snapshot or prefs XML file and folds its entries into the grid.</summary>
     public AsyncRelayCommand ImportCommand { get; }
+
+    /// <summary>Adds folders of compiled game DLLs and reloads the runtime.</summary>
     public AsyncRelayCommand AddDllsCommand { get; }
+
+    /// <summary>Drops the selected DLL source and reloads the runtime.</summary>
     public RelayCommand RemoveDllCommand { get; }
+
+    /// <summary>Removes the selected row, selecting a neighbour afterwards.</summary>
     public RelayCommand RemoveRowCommand { get; }
+
+    /// <summary>Empties the grid, leaving a Save or Refresh to decide what reaches disk.</summary>
     public RelayCommand RemoveAllRowsCommand { get; }
 
+    /// <summary>True when the grid holds at least one entry.</summary>
     public bool HasRows => Rows.Count > 0;
+
+    /// <summary>True when a row is selected.</summary>
     public bool HasSelectedRow => _selectedRow is not null;
 
+    /// <summary>The status-bar line describing the last operation or failure.</summary>
     public string Status
     {
         get => _status;
@@ -78,6 +110,8 @@ public sealed class PrefsViewModel : Observable
     }
 
     string? _selectedPackage;
+
+    /// <summary>The package being edited; assigning it loads that package's entries.</summary>
     public string? SelectedPackage
     {
         get => _selectedPackage;
@@ -92,6 +126,8 @@ public sealed class PrefsViewModel : Observable
     }
 
     EntryRow? _selectedRow;
+
+    /// <summary>The row whose detail pane is shown; behind the structured editor and the Format command.</summary>
     public EntryRow? SelectedRow
     {
         get => _selectedRow;
@@ -106,6 +142,8 @@ public sealed class PrefsViewModel : Observable
     }
 
     string? _selectedDll;
+
+    /// <summary>The DLL source highlighted in the list, or null when none is.</summary>
     public string? SelectedDll
     {
         get => _selectedDll;
@@ -119,8 +157,10 @@ public sealed class PrefsViewModel : Observable
         }
     }
 
+    /// <summary>True when a DLL source is selected.</summary>
     public bool HasSelectedDll => _selectedDll is not null;
 
+    /// <summary>Restores the saved DLLs, lists packages and opens the last-used or first one, once per run.</summary>
     public void Start()
     {
         if (_started)
@@ -545,10 +585,10 @@ public sealed class PrefsViewModel : Observable
         }
     }
 
-    /// <summary>
-    /// Overwrites keys that still exist and recreates the ones removed, so an exported snapshot
-    /// restores a wiped package. A key already present is never duplicated.
-    /// </summary>
+    // <summary>
+    // Overwrites keys that still exist and recreates the ones removed, so an exported snapshot
+    // restores a wiped package. A key already present is never duplicated.
+    // </summary>
     internal int ApplyImported(List<PrefsEntry> imported)
     {
         var byKey = new Dictionary<string, PrefsEntry>(StringComparer.Ordinal);

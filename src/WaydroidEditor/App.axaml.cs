@@ -4,6 +4,10 @@ using Avalonia.Markup.Xaml;
 
 namespace WaydroidEditor;
 
+/// <summary>
+/// Avalonia application entry type: loads the XAML and opens the main window bound to a
+/// <see cref="PrefsViewModel"/> built from the parsed command line.
+/// </summary>
 public partial class App : Application
 {
     /// <summary>Set by <see cref="Program"/> before the Avalonia app is built.</summary>

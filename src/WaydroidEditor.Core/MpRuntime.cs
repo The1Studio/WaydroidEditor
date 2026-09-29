@@ -252,9 +252,8 @@ public sealed class MpRuntime : IDisposable
     IEnumerable<Type> EnumerateTypes() => _context.Assemblies.SelectMany(TypesOf);
 
     /// <summary>
-    /// Reading attributes touches the attribute's own assembly, so an assembly with incomplete
-    /// dependencies (a Unity member without the Unity DLLs folder) throws here. A type that cannot
-    /// be inspected is skipped — one unreadable assembly must never sink the whole package load.
+    /// Every type the assembly exposes. A partial load — a type whose dependencies are missing —
+    /// yields a null slot rather than an exception, so the readable types are still returned.
     /// </summary>
     static IEnumerable<Type> TypesOf(Assembly assembly)
     {
