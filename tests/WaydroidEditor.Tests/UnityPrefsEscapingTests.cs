@@ -11,6 +11,9 @@ namespace WaydroidEditor.Tests;
 /// </summary>
 public class UnityPrefsEscapingTests
 {
+    /// <summary>Escaped text decodes to the original and re-encodes byte-identically.</summary>
+    /// <param name="stored">The percent-escaped text as Unity wrote it.</param>
+    /// <param name="expected">The decoded text the editor must show.</param>
     [Theory]
     [InlineData("%7B%22quality%22%3A3%7D", """{"quality":3}""")]
     [InlineData("Player%20One%2FTwo", "Player One/Two")]
@@ -25,6 +28,8 @@ public class UnityPrefsEscapingTests
         Assert.Equal(stored, UnityPrefsEscaping.Encode(decoded));
     }
 
+    /// <summary>Text that is not escaped is left exactly as stored.</summary>
+    /// <param name="stored">A value whose escaping is absent or ambiguous.</param>
     [Theory]
     [InlineData("plain")]
     [InlineData("")]
@@ -71,6 +76,7 @@ public class UnityPrefsEscapingTests
         }
     }
 
+    /// <summary>Decoding reveals JSON and Base64 that escaping would otherwise hide from the classifier.</summary>
     [Fact]
     public void EscapingHidesNeitherJsonNorBase64FromTheClassifier()
     {

@@ -5,10 +5,12 @@ using Xunit;
 
 namespace WaydroidEditor.Tests;
 
+/// <summary>Exercises package listing, path resolution and inode-preserving writes against a temp data root.</summary>
 public class WaydroidAccessTests : IDisposable
 {
     readonly string _root = Path.Combine(Path.GetTempPath(), "wpe-tests-" + Guid.NewGuid().ToString("N"));
 
+    /// <summary>Creates the throwaway data root the tests resolve package paths under.</summary>
     public WaydroidAccessTests() => Directory.CreateDirectory(_root);
 
     public void Dispose()
@@ -34,6 +36,7 @@ public class WaydroidAccessTests : IDisposable
         return path;
     }
 
+    /// <summary>Only packages holding a PlayerPrefs file are listed, sorted.</summary>
     [Fact]
     public void ListsOnlyPackagesWithAPlayerPrefsFile()
     {
@@ -44,6 +47,7 @@ public class WaydroidAccessTests : IDisposable
         Assert.Equal(new[] { "com.alpha", "com.beta" }, WaydroidAccess.ListPackages(_root));
     }
 
+    /// <summary>The canonical filename wins, an alternate is found, and a missing package reports not-found.</summary>
     [Fact]
     public void ResolvesTheCanonicalFileThenFallsBackToTheDirectory()
     {
@@ -61,6 +65,7 @@ public class WaydroidAccessTests : IDisposable
         Assert.False(missing.Exists);
     }
 
+    /// <summary>The <c>--data-root</c> argument overrides the resolved default.</summary>
     [Fact]
     public void ResolveDataRootPrefersTheCommandLineArgument()
     {
@@ -69,6 +74,7 @@ public class WaydroidAccessTests : IDisposable
             WaydroidAccess.ResolveDataRoot(new[] { "--package", "com.x", "--data-root", "/custom/root" }));
     }
 
+    /// <summary>A write keeps the file's inode, owner and mode, and backs up the old content.</summary>
     [Fact]
     public void WriteTargetPreservesInodeOwnerAndMode()
     {
@@ -88,6 +94,7 @@ public class WaydroidAccessTests : IDisposable
         Assert.Contains("value=\"42\"", File.ReadAllText(path), StringComparison.Ordinal);
     }
 
+    /// <summary>A new file inherits the directory's owner and is created mode 600.</summary>
     [Fact]
     public void WriteTargetCreatesAMissingFileWithTheDirectoryOwner()
     {
@@ -104,6 +111,7 @@ public class WaydroidAccessTests : IDisposable
         Assert.Equal("600", Stat(target.FilePath).Mode);
     }
 
+    /// <summary>A missing waydroid binary is reported, not thrown.</summary>
     [Fact]
     public void ForceStopReportsMissingWaydroidWithoutThrowing()
     {

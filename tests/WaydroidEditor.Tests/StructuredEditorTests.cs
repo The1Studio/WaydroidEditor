@@ -30,6 +30,7 @@ public sealed class StructuredEditorTests : IDisposable
     readonly MpRuntime _runtime;
     readonly Type _playerType;
 
+    /// <summary>Loads the fake game runtime once for the whole fixture.</summary>
     public StructuredEditorTests()
     {
         _runtime = MpRuntime.Load([Path.Combine(AppContext.BaseDirectory, "FakeGameData.dll")]);
@@ -42,6 +43,7 @@ public sealed class StructuredEditorTests : IDisposable
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>A MemoryPack row builds a typed tree with a node per member of the resolved type.</summary>
     [Fact]
     public void MemoryPackRowBuildsATypedEditorTree()
     {
@@ -88,6 +90,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.False(Container(root.Children[7]).CanAdd);
     }
 
+    /// <summary>Editing one field re-encodes the value without disturbing its siblings.</summary>
     [Fact]
     public void EditingOneFieldLeavesTheOtherFieldsAlone()
     {
@@ -110,6 +113,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.Equal("Rare", Decoded(row, _playerType)["Rarity"]!.GetValue<string>());
     }
 
+    /// <summary>Bad input shows an inline error and the row keeps the value it had.</summary>
     [Fact]
     public void InvalidFieldInputKeepsTheStoredValueAndBlocksSaving()
     {
@@ -131,6 +135,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.Equal(7, Decoded(row, _playerType)["Gold"]!.GetValue<int>());
     }
 
+    /// <summary>An added list element then removed returns the row to its original bytes.</summary>
     [Fact]
     public void AddingThenRemovingAListItemRestoresTheOriginalBytes()
     {
@@ -153,6 +158,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.Equal(stored, row.RawValue);
     }
 
+    /// <summary>Dictionary entries can be appended, renamed and removed, each landing in the value.</summary>
     [Fact]
     public void DictionaryEntriesCanBeAddedRenamedAndRemoved()
     {
@@ -178,6 +184,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.False(row.HasError);
     }
 
+    /// <summary>A new element of a constructor-less type is applied as a zeroed instance and stays editable.</summary>
     [Fact]
     public void ElementsWithoutAParameterlessConstructorAreAddedAsZeroedInstances()
     {
@@ -221,6 +228,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.Equal("kept", view["Items"]!["a"]!["Label"]!.GetValue<string>());
     }
 
+    /// <summary>An added array element takes the declared element type, so applying it does not fail.</summary>
     [Fact]
     public void AddedElementsCarryTheDeclaredElementType()
     {
@@ -243,6 +251,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.Equal(2, samples.Children.Count);
     }
 
+    /// <summary>A JSON row is edited through the same schema-backed field editor.</summary>
     [Fact]
     public void JsonRowValuesAreEditedThroughTheSchema()
     {
@@ -258,6 +267,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.Contains("\"Samples\":[0.25,0.5]", row.RawValue, StringComparison.Ordinal);
     }
 
+    /// <summary>Members the type does not declare still get editors inferred from the JSON.</summary>
     [Fact]
     public void FieldsAbsentFromTheTypeFallBackToInferredEditors()
     {
@@ -282,6 +292,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.Contains("\"Gold\":3", row.RawValue, StringComparison.Ordinal);
     }
 
+    /// <summary>A null clears a nullable member but is rejected for a plain value.</summary>
     [Fact]
     public void NullForANullableMemberAppliesButStillThrowsForPlainInts()
     {
@@ -298,6 +309,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.Contains("$.Gold", error.Message, StringComparison.Ordinal);
     }
 
+    /// <summary>A nullable boolean can be cleared to null and then set again through the same slot.</summary>
     [Fact]
     public void ClearingANullableBooleanWritesNullAndCanBeSetAgain()
     {
@@ -321,6 +333,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.False(Decoded(row, type)["Enabled"]!.GetValue<bool>());
     }
 
+    /// <summary>Renaming a null-valued dictionary entry moves only that entry.</summary>
     [Fact]
     public void RenamingANullValuedEntryMovesOnlyThatEntry()
     {
@@ -344,6 +357,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.Equal(new[] { "first" }, Decoded(row, type)["Values"]!.AsObject().Select(entry => entry.Key));
     }
 
+    /// <summary>A dictionary whose values are collections can grow, and the new collection can grow too.</summary>
     [Fact]
     public void DictionaryEntriesWithCollectionValuesCanBeAdded()
     {
@@ -377,6 +391,7 @@ public sealed class StructuredEditorTests : IDisposable
             Decoded(row, type)["Groups"]!["NewKey"]!.AsArray().Select(item => item!.GetValue<string>()));
     }
 
+    /// <summary>A boolean-keyed dictionary adds its entry under the one remaining key value.</summary>
     [Fact]
     public void BooleanKeyedEntriesUseTheRemainingValue()
     {
@@ -395,6 +410,7 @@ public sealed class StructuredEditorTests : IDisposable
         Assert.Equal("", view["False"]!.GetValue<string>());
     }
 
+    /// <summary>An entry whose value has only a non-public constructor is still added and serialized.</summary>
     [Fact]
     public void DictionaryEntriesBuiltByANonPublicConstructorCanBeAdded()
     {

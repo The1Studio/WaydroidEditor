@@ -8,5 +8,6 @@ namespace TheOne.Extensions;
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class KeyAttribute(string key) : Attribute
 {
+    /// <summary>The key the decorated type is registered under, matched against the PlayerPrefs key.</summary>
     public string Key { get; } = key;
 }

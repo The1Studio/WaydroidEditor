@@ -13,6 +13,7 @@ public class MpRuntimeTests : IDisposable
 {
     readonly string _gameDir = Path.Combine(Path.GetTempPath(), "wpe-game-" + Guid.NewGuid().ToString("N"));
 
+    /// <summary>Copies the fake game assembly into a throwaway folder so each test loads its own load context.</summary>
     public MpRuntimeTests()
     {
         Directory.CreateDirectory(_gameDir);
@@ -49,6 +50,7 @@ public class MpRuntimeTests : IDisposable
         }
         """;
 
+    /// <summary>A loaded assembly resolves a keyed type and reports it MemoryPackable.</summary>
     [Fact]
     public void LoadsTheGameAssemblyAndResolvesTheKeyedType()
     {
@@ -61,6 +63,7 @@ public class MpRuntimeTests : IDisposable
         Assert.Null(runtime.ResolveTypeForKey("NoSuchKey"));
     }
 
+    /// <summary>A type without <c>[Key]</c> resolves through the simple-name fallback.</summary>
     [Fact]
     public void ResolvesSaveTypesThatCarryNoKeyAttribute()
     {
@@ -74,6 +77,7 @@ public class MpRuntimeTests : IDisposable
         Assert.True(MpRuntime.IsMemoryPackable(type!));
     }
 
+    /// <summary>A private member survives the round trip because <c>[MemoryPackInclude]</c> is read from metadata.</summary>
     [Fact]
     public void PrivateIncludedMembersStayEditableWhenAttributesCannotBeInstantiated()
     {
@@ -92,6 +96,7 @@ public class MpRuntimeTests : IDisposable
         Assert.Equal("boss", json["Tag"]!.GetValue<string>());
     }
 
+    /// <summary>Elements without a parameterless constructor keep their instance and untouched fields across an edit.</summary>
     [Fact]
     public void EditsInsideCollectionsKeepTheirElementInstances()
     {
@@ -116,6 +121,7 @@ public class MpRuntimeTests : IDisposable
         Assert.Equal("kept", json["Ordered"]![0]!["Label"]!.GetValue<string>());
     }
 
+    /// <summary>A folder entry stands for every assembly inside it.</summary>
     [Fact]
     public void LoadsFromAFolderInsteadOfIndividualFiles()
     {
@@ -128,6 +134,7 @@ public class MpRuntimeTests : IDisposable
         Assert.NotNull(runtime.ResolveTypeForKey("FakePlayerData"));
     }
 
+    /// <summary>A formatter registered from a runtime-init hook is replayed so encoding succeeds.</summary>
     [Fact]
     public void RegistersGameFormattersFromRuntimeInitializeHooks()
     {
@@ -143,6 +150,7 @@ public class MpRuntimeTests : IDisposable
         Assert.Equal(bytes, runtime.Encode(type, runtime.Decode(type, bytes)!));
     }
 
+    /// <summary>Assemblies under nested subfolders are still loaded.</summary>
     [Fact]
     public void LoadsAssembliesFromNestedSubfolders()
     {
@@ -159,6 +167,7 @@ public class MpRuntimeTests : IDisposable
         Assert.NotNull(runtime.ResolveTypeForKey("FakePlayerData"));
     }
 
+    /// <summary>A duplicate assembly name loads the shallowest copy and warns.</summary>
     [Fact]
     public void DuplicateAssemblyNamesKeepTheShallowestCopy()
     {
@@ -174,6 +183,7 @@ public class MpRuntimeTests : IDisposable
         Assert.Single(runtime.LoadWarnings, w => w.Contains("duplicate", StringComparison.Ordinal));
     }
 
+    /// <summary>The editor ships its own UnityEngine assemblies as manifest resources.</summary>
     [Fact]
     public void ShipsBundledUnityEngine()
     {
@@ -182,6 +192,7 @@ public class MpRuntimeTests : IDisposable
         Assert.Contains("WaydroidEditor.Unity.UnityEngine.CoreModule.dll", resources);
     }
 
+    /// <summary>An unedited graph re-encodes byte-identically; an edit lands in the re-decoded view.</summary>
     [Fact]
     public void EditsSurviveAToJsonApplyJsonEncodeRoundTrip()
     {
@@ -212,6 +223,7 @@ public class MpRuntimeTests : IDisposable
         Assert.Equal(7, view["Counts"]!["gems"]!.GetValue<int>());
     }
 
+    /// <summary>An unknown member is warned about and leaves the valid members intact.</summary>
     [Fact]
     public void RejectsUnknownMembersWithoutClearingTheRest()
     {
@@ -228,6 +240,7 @@ public class MpRuntimeTests : IDisposable
         Assert.Equal(42, ObjectJson.ToJson(instance, type)!["Gold"]!.GetValue<int>());
     }
 
+    /// <summary>A wrong-shape value throws with the failing member's path.</summary>
     [Fact]
     public void MismatchedJsonShapeThrowsWithTheMemberPath()
     {

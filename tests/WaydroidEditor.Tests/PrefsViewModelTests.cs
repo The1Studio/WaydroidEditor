@@ -4,6 +4,7 @@ using Xunit;
 
 namespace WaydroidEditor.Tests;
 
+/// <summary>Exercises the window's view model against a temp package and an isolated settings file.</summary>
 public sealed class PrefsViewModelTests : IDisposable
 {
     const string FixtureXml =
@@ -32,6 +33,7 @@ public sealed class PrefsViewModelTests : IDisposable
     readonly string? _realSettingsPath;
     readonly byte[]? _realSettings;
 
+    /// <summary>Writes a fixture package and selects it under an isolated config home.</summary>
     public PrefsViewModelTests()
     {
         _prefsPath = Path.Combine(_root, "data", "com.test", "shared_prefs", "com.test.v2.playerprefs.xml");
@@ -62,6 +64,7 @@ public sealed class PrefsViewModelTests : IDisposable
             File.WriteAllBytes(_realSettingsPath, _realSettings);
     }
 
+    /// <summary>Removing a middle row leaves the next one selected.</summary>
     [Fact]
     public void RemoveRowDropsOneRowAndSelectsTheNeighbour()
     {
@@ -73,6 +76,7 @@ public sealed class PrefsViewModelTests : IDisposable
         Assert.Same(_vm.Rows[1], _vm.SelectedRow);
     }
 
+    /// <summary>Removing the last row falls back to the new last row.</summary>
     [Fact]
     public void RemovingTheLastRowSelectsTheNewLastRow()
     {
@@ -84,6 +88,7 @@ public sealed class PrefsViewModelTests : IDisposable
         Assert.Same(_vm.Rows[1], _vm.SelectedRow);
     }
 
+    /// <summary>Removing everything clears the rows and the selection.</summary>
     [Fact]
     public void RemoveAllRowsEmptiesTheGrid()
     {
@@ -95,6 +100,7 @@ public sealed class PrefsViewModelTests : IDisposable
         Assert.False(_vm.HasSelectedRow);
     }
 
+    /// <summary>The selection flag tracks the selected row.</summary>
     [Fact]
     public void HasSelectedRowFollowsTheSelection()
     {
@@ -105,6 +111,7 @@ public sealed class PrefsViewModelTests : IDisposable
         Assert.False(_vm.HasSelectedRow);
     }
 
+    /// <summary>Saving after a removal omits that key and backs up the file.</summary>
     [Fact]
     public void SaveDropsTheRemovedKey()
     {
@@ -118,6 +125,7 @@ public sealed class PrefsViewModelTests : IDisposable
         Assert.True(File.Exists(_prefsPath + ".wpe.bak"));
     }
 
+    /// <summary>Saving an emptied grid writes an empty map.</summary>
     [Fact]
     public void SaveAfterRemoveAllWritesAnEmptyMap()
     {
@@ -130,6 +138,7 @@ public sealed class PrefsViewModelTests : IDisposable
             File.ReadAllText(_prefsPath));
     }
 
+    /// <summary>Saving without edits reproduces the stored values exactly.</summary>
     [Fact]
     public void SaveLeavesUntouchedKeysOnDiskUnchanged()
     {
@@ -140,6 +149,7 @@ public sealed class PrefsViewModelTests : IDisposable
         Assert.Equal("5", saved.Entries.Single(e => e.Key == "Gems").Value);
     }
 
+    /// <summary>An import restores a key that had been removed, as a new row.</summary>
     [Fact]
     public void ApplyImportedRecreatesARemovedKey()
     {
@@ -156,6 +166,7 @@ public sealed class PrefsViewModelTests : IDisposable
         Assert.Equal("Hero", row.RawValue);
     }
 
+    /// <summary>An import into an empty grid leaves a row selected.</summary>
     [Fact]
     public void ApplyImportedSelectsARowOnAWipedGrid()
     {
@@ -166,6 +177,7 @@ public sealed class PrefsViewModelTests : IDisposable
         Assert.Same(_vm.Rows[0], _vm.SelectedRow);
     }
 
+    /// <summary>An escaped value round-trips through import and save without being decoded twice.</summary>
     [Fact]
     public void ApplyImportedRestoresAnEscapedValueWithoutDoubleDecoding()
     {
@@ -182,6 +194,7 @@ public sealed class PrefsViewModelTests : IDisposable
         Assert.Equal("100%2525", saved.Entries.Single(e => e.Key == "Escaped").Value);
     }
 
+    /// <summary>Importing keys that are still present updates them in place.</summary>
     [Fact]
     public void ApplyImportedDoesNotDuplicateAKeyThatStillExists()
     {
@@ -196,6 +209,7 @@ public sealed class PrefsViewModelTests : IDisposable
         Assert.Equal(new[] { "Gems", "Name", "Escaped" }, _vm.Rows.Select(r => r.Key));
     }
 
+    /// <summary>A JSON row whose key resolves to a type gets the field editor.</summary>
     [Fact]
     public void JsonRowWithAResolvedTypeGetsTheStructuredEditor()
     {
@@ -214,6 +228,7 @@ public sealed class PrefsViewModelTests : IDisposable
         Assert.True(row.IsStructuredMode);
     }
 
+    /// <summary>A JSON row whose key resolves to nothing keeps the text pane.</summary>
     [Fact]
     public void JsonRowWithoutAResolvedTypeKeepsTheTextEditor()
     {

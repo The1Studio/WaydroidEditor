@@ -8,5 +8,6 @@ namespace FakeAttributes;
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 public sealed class GhostAttribute(string name) : Attribute
 {
+    /// <summary>The fake attribute's name payload, read back to prove metadata-only attribute access.</summary>
     public string Name { get; } = name;
 }

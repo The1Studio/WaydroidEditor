@@ -4,6 +4,7 @@ using Xunit;
 
 namespace WaydroidEditor.Tests;
 
+/// <summary>Round-trips the PlayerPrefs XML: every type parses, writes back byte-exactly, and bad input is rejected.</summary>
 public class PrefsFileTests
 {
     const string Fixture = """
@@ -30,6 +31,7 @@ public class PrefsFileTests
         return Encoding.UTF8.GetString(stream.ToArray());
     }
 
+    /// <summary>Every supported element type parses into the expected key, type and value.</summary>
     [Fact]
     public void ParsesEverySupportedType()
     {
@@ -49,6 +51,7 @@ public class PrefsFileTests
             });
     }
 
+    /// <summary>A parsed file written and re-parsed yields the same entries.</summary>
     [Fact]
     public void RoundTripsThroughWriteAndParse()
     {
@@ -65,6 +68,7 @@ public class PrefsFileTests
         }
     }
 
+    /// <summary>Each element's written text matches the format Unity reads.</summary>
     [Fact]
     public void WritesTheExactElementText()
     {
@@ -85,6 +89,7 @@ public class PrefsFileTests
             Write(file));
     }
 
+    /// <summary>Both empty-map spellings parse to no entries.</summary>
     [Fact]
     public void EmptyMapYieldsNoEntries()
     {
@@ -92,6 +97,7 @@ public class PrefsFileTests
         Assert.Empty(Parse("""<map></map>""").Entries);
     }
 
+    /// <summary>A non-map root is rejected with a message naming it.</summary>
     [Fact]
     public void NonMapRootThrows()
     {
@@ -99,6 +105,7 @@ public class PrefsFileTests
         Assert.Contains("preferences", error.Message, StringComparison.Ordinal);
     }
 
+    /// <summary>An unrecognised element type is rejected with a message naming it.</summary>
     [Fact]
     public void UnknownElementThrows()
     {
@@ -107,6 +114,7 @@ public class PrefsFileTests
         Assert.Contains("double", error.Message, StringComparison.Ordinal);
     }
 
+    /// <summary>A scalar element missing its value attribute is rejected.</summary>
     [Fact]
     public void ScalarElementWithoutValueAttributeThrows()
     {
